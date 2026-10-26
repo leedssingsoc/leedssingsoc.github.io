@@ -19,6 +19,11 @@ Everything is in `index.html`; images, videos and logos sit next to it.
   (`.ctas-left`) become "Ticket sales have closed." when the event starts. When Jarryl says sales
   closed early, add `data-closed` to that card (or `"closed": true` in the JSON event).
 
+## Homepage photos
+- The two taped photos at the top change every day (UK date). They're picked from the `WIDE`
+  (landscape, big print) and `TALL` (portrait, small print) lists in the script. When new gallery
+  photos are added, add them to the matching list with a short handwritten-style caption.
+
 ## House style
 - Colours come from the logo: teal ink #0E2A2F, Singapore red #D9343E. Keep it human, not "AI-looking".
 - Sponsor cards: logo tile, name, "Type · Street", deal in red, conditions in one standard set of words

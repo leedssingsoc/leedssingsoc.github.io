@@ -102,6 +102,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .print figcaption{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-family:var(--hand);font-weight:600;font-size:22px;color:#0E2A2F}
 .print::before{content:"";position:absolute;top:-12px;left:50%;width:90px;height:26px;transform:translateX(-50%) rotate(-3deg);background:var(--tape);backdrop-filter:blur(1px)}
 .p1{width:78%;left:0;top:20px;transform:rotate(-2.5deg)}
+.p1 figcaption{text-align:left;padding-left:18px}
 .p2{width:46%;right:0;top:170px;transform:rotate(3deg)}
 
 /* Slang band */
@@ -328,8 +329,8 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
       </div>
     </div>
     <div class="prints">
-      <figure class="print p1"><img src="gallery-snacks.jpg" alt="Members taking a selfie on campus holding Singaporean snacks"><figcaption>Give It A Go, 4 Oct</figcaption></figure>
-      <figure class="print p2"><img src="gallery-six-lift.jpg" alt="Members holding a friend up horizontally outside a campus building"><figcaption>lift him up!</figcaption></figure>
+      <figure class="print p1" id="print-a"><img src="gallery-snacks.jpg" alt="Members taking a selfie on campus holding Singaporean snacks"><figcaption>Give It A Go, 4 Oct</figcaption></figure>
+      <figure class="print p2" id="print-b"><img src="gallery-six-lift.jpg" alt="Members holding a friend up horizontally outside a campus building"><figcaption>lift him up!</figcaption></figure>
     </div>
   </div>
 </header>
@@ -654,6 +655,33 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     document.getElementById('q-' + k + '-say').textContent = langs[i][1];
   });
 
+
+  // Homepage photos change daily (UK date): a wide photo for the big print, a tall one for the small print.
+  const WIDE = [
+    ['gallery-snacks.jpg', 'Give It A Go, 4 Oct', 'Members taking a selfie on campus holding Singaporean snacks'],
+    ['gallery-otley-ratatouille-2.jpg', 'Otley Run, 23 Oct', 'Members in costume posing with a friend in an inflatable Remy rat costume'],
+    ['gallery-blindfold-line.jpg', 'no peeking!', 'A line of blindfolded members outside the Refectory'],
+    ['gallery-otley-group.jpg', 'the Otley Run crew', 'Five members in Disney costumes with animal ears posing in a pub'],
+    ['gallery-lift-laugh.jpg', 'Give It A Go, 4 Oct', 'Members laughing while holding a friend up in a campus courtyard'],
+    ['gallery-otley-cards.jpg', 'Otley Run, 23 Oct', 'Two members in a pub booth, one wearing a crown and one in bunny ears holding a playing-card fan'],
+    ['gallery-lift.jpg', 'up he goes', 'Members lifting a friend horizontally in a campus courtyard'],
+    ['gallery-otley-four.jpg', 'Otley Run, 23 Oct', 'Four members in costume, one dressed as Russell from Up, standing in a pub'],
+    ['gallery-otley-ratatouille.jpg', 'Remy came too', 'A mouse-eared member and an inflatable Remy rat with Mrs Potato Head behind'],
+    ['gallery-otley-thumbs.jpg', 'thumbs up!', 'Members in animal ears posing in a pub while someone gives a thumbs up to the camera']
+  ];
+  const TALL = [
+    ['gallery-six-lift.jpg', 'lift him up!', 'Members holding a friend up horizontally outside a campus building'],
+    ['gallery-blindfold-taste.jpg', 'guess the snack', 'Blindfolded members taste-testing snacks on campus'],
+    ['gallery-courtyard.jpg', 'teamwork', 'Four members on campus, three of them holding the fourth up sideways'],
+    ['gallery-church.jpg', 'snacks from home', 'A group of members in the sunshine on campus holding snacks']
+  ];
+  const setPrint = (id, [src, cap, alt]) => {
+    const f = document.getElementById(id); if (!f) return;
+    const img = f.querySelector('img'); img.src = src; img.alt = alt;
+    f.querySelector('figcaption').textContent = cap;
+  };
+  const pick = list => list[((dayNo % list.length) + list.length) % list.length];
+  setPrint('print-a', pick(WIDE)); setPrint('print-b', pick(TALL));
 
   // Extra events can be added as JSON in #extra-events (see README) without touching the markup.
   const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
