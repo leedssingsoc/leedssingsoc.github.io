@@ -650,13 +650,16 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     ['Onward, Singapore', ['Onward, Singapore!', ''], ['前进吧，新加坡！', 'Qiánjìn ba, Xīnjiāpō!'], ['Majulah Singapura!', ''], ['முன்னேறட்டும் சிங்கப்பூர்!', 'Munnerattum Singapore!']],
     ['See you again', ['See you!', ''], ['再见！', 'Zàijiàn!'], ['Jumpa lagi!', ''], ['மீண்டும் சந்திப்போம்!', 'Meendum sandhippom!']]
   ];
-  const dayNo = Math.floor(Date.parse(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London'}).format(new Date())) / 864e5);
-  const [mean, ...langs] = PHRASES[((dayNo % PHRASES.length) + PHRASES.length) % PHRASES.length];
-  document.getElementById('q-mean').textContent = mean;
-  ['en','zh','ms','ta'].forEach((k, i) => {
-    document.getElementById('q-' + k).textContent = langs[i][0];
-    document.getElementById('q-' + k + '-say').textContent = langs[i][1];
-  });
+  const ukDayNo = () => Math.floor(Date.parse(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London'}).format(new Date())) / 864e5);
+  const pick = (list, n) => list[((n % list.length) + list.length) % list.length];
+  function showPhrase(n){
+    const [mean, ...langs] = pick(PHRASES, n);
+    document.getElementById('q-mean').textContent = mean;
+    ['en','zh','ms','ta'].forEach((k, i) => {
+      document.getElementById('q-' + k).textContent = langs[i][0];
+      document.getElementById('q-' + k + '-say').textContent = langs[i][1];
+    });
+  }
 
 
   // Homepage photos change daily (UK date): a wide photo for the big print, a tall one for the small print.
@@ -683,8 +686,17 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     const img = f.querySelector('img'); img.src = src; img.alt = alt;
     f.querySelector('figcaption').textContent = cap;
   };
-  const pick = list => list[((dayNo % list.length) + list.length) % list.length];
-  setPrint('print-a', pick(WIDE)); setPrint('print-b', pick(TALL));
+
+  // Show today's phrase and photos, and swap them at UK midnight on a page left open.
+  let shownDay = null;
+  function daily(){
+    const n = ukDayNo();
+    if (n === shownDay) return;
+    shownDay = n;
+    showPhrase(n);
+    setPrint('print-a', pick(WIDE, n)); setPrint('print-b', pick(TALL, n));
+  }
+  daily(); setInterval(daily, 30000);
 
   // Extra events can be added as JSON in #extra-events (see README) without touching the markup.
   const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
