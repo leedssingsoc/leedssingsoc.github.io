@@ -15,6 +15,9 @@ Everything is in `index.html`; images, videos and logos sit next to it.
 - Or hand-write a `<article class="card feature" data-until="YYYY-MM-DD">` card (soonest first) plus a
   hidden `<div class="row" data-after="YYYY-MM-DD" hidden>` row for the past list, like the existing ones.
 - Save posters as JPG (max ~900px wide) next to index.html.
+- Ticket links close by themselves (Jarryl, 26 Oct 2026): each card's ticket/sign-up buttons
+  (`.ctas-left`) become "Ticket sales have closed." when the event starts. When Jarryl says sales
+  closed early, add `data-closed` to that card (or `"closed": true` in the JSON event).
 
 ## House style
 - Colours come from the logo: teal ink #0E2A2F, Singapore red #D9343E. Keep it human, not "AI-looking".

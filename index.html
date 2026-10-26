@@ -670,6 +670,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     const card = document.createElement('article');
     card.className = 'card feature' + (poster ? '' : ' noposter');
     card.dataset.until = ev.date;
+    if (ev.closed) card.dataset.closed = '';
     card.innerHTML = (poster ? `<img src="${esc(poster)}" alt="${esc(ev.title)} poster">` : '') +
       `<div class="fbody"><div class="chips"><span class="chip hot">${esc(dayLabel(ev.date))}</span><span class="chip" data-cd="${esc(ev.date)}" data-time="${esc(ev.time || '')}"></span></div>` +
       `<h3 class="ftitle">${esc(ev.title)}</h3>` + (ev.desc ? `<p>${esc(ev.desc)}</p>` : '') +
@@ -720,6 +721,20 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     });
   }
   countdown(); setInterval(countdown, 1000);
+
+  // Ticket links close once the event starts, or earlier if its card has data-closed (or "closed": true in #extra-events).
+  const closeTickets = card => card.querySelectorAll('.ctas-left').forEach(c => {
+    const n = document.createElement('p'); n.className = 'notice'; n.textContent = 'Ticket sales have closed.';
+    c.replaceWith(n);
+  });
+  document.querySelectorAll('[data-until][data-closed]').forEach(closeTickets);
+  function checkSales(){
+    timers.forEach(t => {
+      const card = t.el.closest('[data-until]');
+      if (card && !t.closed && Date.now() >= t.start) { t.closed = true; closeTickets(card); }
+    });
+  }
+  checkSales(); setInterval(checkSales, 30000);
 
   // Once an event's date has passed, move it from "Coming up" to "Already happened".
   document.querySelectorAll('[data-until]').forEach(el => { if (daysUntil(el.dataset.until) < 0) el.hidden = true; });
