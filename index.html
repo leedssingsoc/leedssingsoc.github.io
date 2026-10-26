@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Leeds Singaporean Society</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="The Leeds Singaporean Society: a home away from home for Singaporeans and friends at the University of Leeds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&family=Caveat:wght@600&display=swap">
+<style>
+/* Layout: built from the society logo (skyline teal + Singapore red on white). Paper page, real photos as taped prints, plain cards, one teal band and one red band. */
+:root{
+  --paper:#F6F6F3; --surface:#FFFFFF; --ink:#0E2A2F; --muted:#5A6B6E; --line:#DCE2E1;
+  --red:#D9343E; --red-ink:#B4232D; --on-red:#FFFFFF; --band:#0E2A2F; --on-band:#EEF3F2; --tape:rgba(217,52,62,.18);
+  --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --hand:"Caveat", "Comic Sans MS", cursive;
+  --sky-filter:none;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0B1C1F; --surface:#12272B; --ink:#EEF3F2; --muted:#9EB0B2; --line:#24393D;
+  --red:#EC4650; --red-ink:#F36A72; --band:#071417; --on-band:#EEF3F2; --tape:rgba(236,70,80,.25); --sky-filter:invert(1) brightness(1.6); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0B1C1F; --surface:#12272B; --ink:#EEF3F2; --muted:#9EB0B2; --line:#24393D;
+  --red:#EC4650; --red-ink:#F36A72; --band:#071417; --on-band:#EEF3F2; --tape:rgba(236,70,80,.25); --sky-filter:invert(1) brightness(1.6); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:60;background:var(--paper)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(20px, env(safe-area-inset-left, 0px));padding-right:max(20px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--display);line-height:1.02;text-wrap:balance;margin:0;letter-spacing:-.02em}
+p{margin:0}
+a{color:inherit}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:6px}
+.hand{font-family:var(--hand);font-weight:600}
+.label{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.ph{border:1.5px dashed var(--red);color:var(--red);border-radius:6px;padding:0 6px;font-size:.85em;white-space:nowrap}
+.tiny{font-size:14px;color:var(--muted)}
+
+/* Nav */
+.nav{position:sticky;top:env(safe-area-inset-top, 0px);z-index:50;background:var(--paper);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px;position:relative}
+.mark{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:17px;line-height:1.1}
+.sky{width:72px;height:auto;display:block;flex:none;filter:var(--sky-filter)}
+.mark small{display:block;font-family:var(--body);font-weight:500;font-size:12px;color:var(--muted)}
+.mark .r{color:var(--red)}
+.nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.nav ul a{display:block;text-decoration:none;font-weight:600;font-size:15px;padding:8px 10px;border-radius:8px}
+.nav ul a:hover{background:var(--surface)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:700;text-decoration:none;font-size:16px;border:2px solid var(--ink);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.red{background:var(--red);border-color:var(--red);color:var(--on-red)}
+.btn.line{background:transparent}
+.btn.sm{padding:8px 14px;font-size:14px}
+.menu-btn{display:none;font:700 14px var(--body);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer}
+
+/* Hero */
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;padding-block:64px 80px}
+.hero h1{font-size:clamp(46px, 7vw, 86px);font-weight:800}
+.hero h1 .u{position:relative;white-space:nowrap}
+.hero h1 .u svg{position:absolute;left:-2%;bottom:-.12em;width:104%;height:.3em;overflow:visible}
+.hero .sub{font-size:19px;color:var(--muted);max-width:38ch;margin-top:22px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.clockline{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);display:flex;gap:28px;flex-wrap:wrap;align-items:baseline}
+.clockline b{font-family:var(--display);font-size:30px;font-variant-numeric:tabular-nums}
+.clockline span{display:block;font-size:13px;color:var(--muted)}
+.clockline p{flex-basis:100%;font-size:15px;color:var(--muted)}
+.quote{flex-basis:100%;margin:6px 0 0;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:0 12px 12px 0}
+.quote .q-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;margin-top:10px}
+.q-grid div{display:grid;gap:1px;min-width:0}
+.q-lang{font-size:12px;font-weight:600;color:var(--muted)}
+.q-grid b{font-size:21px;line-height:1.3;color:var(--ink);overflow-wrap:anywhere}
+.q-grid div[lang="en"] b{font-family:var(--hand);font-weight:600;font-size:27px;line-height:1.1}
+.q-grid i{font-style:normal;font-size:14px;color:var(--muted)}
+.q-grid i:empty{display:none}
+
+.prints{position:relative;min-height:440px}
+.print{position:absolute;background:#fff;padding:10px 10px 44px;box-shadow:0 1px 2px rgba(0,0,0,.08), 0 12px 30px rgba(14,42,47,.16);margin:0}
+.print img{display:block;width:100%;height:auto}
+.print figcaption{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-family:var(--hand);font-weight:600;font-size:22px;color:#0E2A2F}
+.print::before{content:"";position:absolute;top:-12px;left:50%;width:90px;height:26px;transform:translateX(-50%) rotate(-3deg);background:var(--tape);backdrop-filter:blur(1px)}
+.p1{width:78%;left:0;top:20px;transform:rotate(-2.5deg)}
+.p2{width:46%;right:0;top:170px;transform:rotate(3deg)}
+
+/* Slang band */
+.band{background:var(--band);color:var(--on-band);overflow:hidden;white-space:nowrap}
+.band .track{display:inline-flex;gap:44px;padding-block:14px;animation:slide 50s linear infinite;font-family:var(--display);font-weight:600;font-size:20px}
+.band .track span::after{content:"·";margin-left:44px;color:var(--red)}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* Sections */
+section.block{padding-block:96px 0}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:end;margin-bottom:40px}
+.head h2{font-size:clamp(36px, 5vw, 58px);font-weight:800;margin-top:8px}
+.head p{color:var(--muted);max-width:44ch;justify-self:end}
+
+.aboutline{border-left:4px solid var(--red);padding-left:24px;max-width:760px}
+.aboutline h2{font-size:clamp(30px, 4.4vw, 48px);font-weight:800;margin-top:8px}
+.aboutline p:last-child{color:var(--muted);font-size:19px;margin-top:12px;max-width:52ch}
+
+/* Events */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;min-width:0}
+.events{display:grid;gap:18px}
+.feature{display:grid;grid-template-columns:minmax(0, 320px) 1fr;gap:28px;padding:16px}
+.feature.noposter{grid-template-columns:1fr}
+.feature > img{width:100%;border-radius:8px;display:block;align-self:start}
+.fbody{display:grid;gap:14px;align-content:start;padding:6px 6px 6px 0;min-width:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:13px;font-weight:700;padding:4px 10px;border-radius:6px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.hot{background:var(--red);border-color:var(--red);color:var(--on-red)}
+.ftitle{font-size:clamp(28px, 3.6vw, 40px);font-weight:800}
+.facts{display:grid;gap:8px;margin:0}
+.facts div{display:grid;grid-template-columns:72px 1fr;gap:12px}
+.facts dt{font-size:13px;font-weight:700;color:var(--muted);padding-top:2px}
+.facts dd{margin:0}
+.notice{border-left:3px solid var(--red);padding:10px 14px;background:var(--paper);border-radius:0 8px 8px 0;font-size:15px}
+.more{border-top:1px solid var(--line);padding-top:12px}
+.more summary{cursor:pointer;font-weight:700;color:var(--red-ink)}
+.more[open] summary{margin-bottom:12px}
+.more p{margin-top:10px}
+.prog{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.prog b{display:inline-block;width:76px;font-variant-numeric:tabular-nums}
+.promo{display:block;width:100%;max-width:220px;aspect-ratio:464/848;height:auto;border-radius:10px;background:#000;margin-top:12px}
+.ctas-left{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+
+.past{margin-top:44px}
+.past h3{font-size:22px;margin-bottom:6px}
+.row{display:grid;grid-template-columns:120px 1fr auto;gap:20px;align-items:start;padding-block:18px;border-bottom:1px solid var(--line)}
+.row .thumb{width:72px;height:90px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+.row .when{font-weight:700;font-size:14px;color:var(--muted);padding-top:3px}
+.row h4{font-family:var(--display);font-size:22px;margin:0}
+.row p{color:var(--muted)}
+
+/* Gallery */
+.album{margin-bottom:56px}
+.album-title{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.album-title h3{font-size:28px}
+.album-title .hand{font-size:24px;color:var(--red-ink)}
+.vid{margin:0 0 22px;background:#000;border-radius:10px;overflow:hidden;max-width:820px}
+.vid video{display:block;width:100%;height:auto}
+.wall{columns:3;column-gap:22px}
+.wall .print{position:relative;width:auto;margin:0 0 26px;break-inside:avoid;padding:8px 8px 8px}
+.wall .print::before{display:none}
+.wall .print:nth-child(3n+1){transform:rotate(-1.2deg)}
+.wall .print:nth-child(3n+2){transform:rotate(.8deg)}
+.wall .print:nth-child(3n){transform:rotate(-.4deg)}
+
+/* Committee */
+.team{display:grid;grid-template-columns:repeat(5, 1fr);gap:20px}
+.member{margin:0}
+.member .frame{background:#fff;padding:8px;box-shadow:0 1px 2px rgba(0,0,0,.08), 0 10px 24px rgba(14,42,47,.12)}
+.member:nth-child(odd) .frame{transform:rotate(-1.5deg)}
+.member:nth-child(even) .frame{transform:rotate(1.2deg)}
+.member img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+.member h3{font-size:24px;margin-top:16px}
+.member .role{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.member p.tiny{margin-top:4px}
+
+/* Sponsors */
+.igcta{justify-self:end;display:grid;gap:12px;justify-items:start;max-width:44ch}
+.igcta p{color:var(--muted)}
+@media (max-width: 820px){.igcta{justify-self:start}}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap}
+.btn.wa{background:#1F8F4E;border-color:#1F8F4E;color:#fff}
+.perkbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:16px 20px;margin-bottom:16px;border-radius:12px;border:1.5px solid var(--red);background:var(--surface)}
+.perkbar p{min-width:0;flex:1 1 280px}
+.sponsors{list-style:none;margin:0 0 28px;padding:0;display:grid;grid-template-columns:repeat(4, 1fr);gap:12px}
+.sponsors li{min-width:0}
+.sponsors a{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 18px 16px;display:grid;gap:4px;align-content:start;height:100%;text-decoration:none;transition:border-color .15s, transform .15s}
+.sponsors a:hover{border-color:var(--red);transform:translateY(-2px)}
+.sponsors em{font-style:normal;font-size:14px;font-weight:700;color:var(--red-ink);margin-top:8px}
+.sponsors b{font-family:var(--display);font-size:21px;font-weight:800;letter-spacing:-.01em}
+.sponsors .type{font-size:14px;color:var(--muted)}
+.lg{display:grid;place-items:center;height:76px;border-radius:8px;margin-bottom:10px;overflow:hidden}
+.lg img{max-height:60px;max-width:80%;width:auto;height:auto;display:block}
+.lg.dark{background:#0E2A2F}
+.lg.light{background:#FFFFFF;border:1px solid var(--line)}
+.lg.orange{background:#E8692C}
+.lg.black{background:#111}
+.lg img.round{max-height:66px}
+.lg.orange img{max-height:76px;max-width:100%}
+.lg.mono{background:var(--paper);border:1px solid var(--line);font-family:var(--display);font-weight:800;font-size:30px;color:var(--red);letter-spacing:.02em}
+.sponsors .deal{display:grid;gap:1px;margin-top:8px;padding:9px 12px;border-radius:8px;background:var(--paper);line-height:1.4}
+.sponsors .deal strong{color:var(--red-ink);font-size:16px}
+.sponsors .deal small{font-size:13px;color:var(--muted)}
+.partner{display:grid;grid-template-columns:1.25fr 1fr;gap:18px}
+.partner .card{padding:28px}
+.offer{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px}
+.offer li{padding-left:22px;position:relative;color:var(--muted)}
+.offer li::before{content:"";position:absolute;left:0;top:.6em;width:10px;height:10px;border-radius:50%;background:var(--red)}
+.offer b{color:var(--ink)}
+.contact{background:var(--band);color:var(--on-band);border-color:var(--band)}
+.contact .label{color:#FF8F95}
+.contact h3{font-size:30px;margin:8px 0 10px}
+.contact p{opacity:.85}
+.copybox{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px;padding:10px 10px 10px 14px;border-radius:10px;background:rgba(255,255,255,.08);font-size:15px}
+.copybox span{overflow-wrap:anywhere;min-width:0}
+.copybox button{font:700 14px var(--body);background:#fff;color:#0E2A2F;border:0;border-radius:8px;padding:7px 14px;cursor:pointer}
+
+/* FAQ */
+.faq{display:grid;gap:0;border-top:1px solid var(--line);max-width:820px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding-block:20px;font-family:var(--display);font-weight:600;font-size:21px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:28px;line-height:1;color:var(--red);transition:transform .2s;flex:none}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{color:var(--muted);padding-bottom:22px;max-width:65ch}
+
+/* Join */
+.join{margin-top:96px;background:var(--red);color:var(--on-red)}
+.join .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center;padding-block:72px}
+.join h2{font-size:clamp(44px, 7vw, 84px);font-weight:800}
+.join ol{margin:0;padding-left:22px;display:grid;gap:8px;font-size:18px}
+.join .btn{border-color:#fff}
+.join .btn.white{background:#fff;color:var(--red-ink)}
+.join .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding-block:44px;color:var(--muted);font-size:14px}
+.footlogo{background:#fff;border-radius:12px;padding:12px 16px;display:inline-block}
+.footlogo img{display:block;width:200px;height:auto}
+
+@media (max-width: 960px){
+  .hero .wrap{grid-template-columns:1fr;gap:40px;padding-block:40px 64px}
+  .prints{min-height:0;height:min(92vw, 520px)}
+  .team{grid-template-columns:repeat(3, 1fr)}
+  .wall{columns:2}
+  .partner,.join .wrap{grid-template-columns:1fr}
+}
+@media (max-width: 820px){
+  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--line);padding:8px max(20px, env(safe-area-inset-right, 0px)) 14px max(20px, env(safe-area-inset-left, 0px))}
+  .nav ul.open{display:flex}
+  .nav ul a{font-size:17px;padding:12px 4px}
+  .menu-btn{display:inline-block}
+  .nav .join-top{display:none}
+  .head{grid-template-columns:1fr}
+  .head p{justify-self:start}
+  .feature{grid-template-columns:1fr}
+  .feature > img{max-width:420px}
+  .sponsors{grid-template-columns:repeat(2, 1fr)}
+}
+@media (max-width: 520px){
+  .team{grid-template-columns:1fr 1fr;gap:16px}
+  .member h3{font-size:20px}
+  .wall{columns:1}
+  .row{grid-template-columns:1fr auto;gap:4px 14px}
+  .row .when{grid-column:1 / -1}
+  .mark small{display:none}
+  section.block{padding-block:72px 0}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="mark" href="#top"><img class="sky" src="skyline.png" alt="" width="72" height="20"><span>Leeds <span class="r">Singaporean</span> Society<small>University of Leeds · LUU</small></span></a>
+    <ul id="menu">
+      <li><a href="#events">Events</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#committee">Committee</a></li>
+      <li><a href="#sponsors">Sponsors</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div style="display:flex;gap:8px">
+      <a class="btn red sm join-top" href="#join">Join us</a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="label">Leeds Singaporean Society</p>
+      <h1 style="margin-top:14px">Your <span class="u">home<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 40 4, 80 18, 120 9 S 180 6, 197 11" fill="none" stroke="var(--red)" stroke-width="6" stroke-linecap="round"/></svg></span> away from home in Leeds.</h1>
+      <p class="sub">Singaporeans, and anyone who loves the food, the slang and the people, at the University of Leeds. Come for the makan, stay for the friends.</p>
+      <div class="ctas">
+        <a class="btn red" href="#join">Become a member</a>
+        <a class="btn line" href="#events">See what's on</a>
+      </div>
+      <div class="clockline" aria-live="off">
+        <div><b id="t-leeds">--:--</b><span id="lds-zone">Leeds</span></div>
+        <div><b id="t-sg">--:--</b><span>Singapore</span></div>
+        <p id="clock-note">8 hours apart.</p>
+        <figure class="quote">
+          <p class="q-label">Phrase of the day · <span id="q-mean">Have you eaten?</span></p>
+          <div class="q-grid">
+            <div lang="en"><span class="q-lang">English</span><b id="q-en">Eat already?</b><i id="q-en-say"></i></div>
+            <div lang="zh"><span class="q-lang">中文 Chinese</span><b id="q-zh">你吃饱了吗？</b><i id="q-zh-say">Nǐ chī bǎo le ma?</i></div>
+            <div lang="ms"><span class="q-lang">Bahasa Melayu</span><b id="q-ms">Dah makan?</b><i id="q-ms-say"></i></div>
+            <div lang="ta"><span class="q-lang">தமிழ் Tamil</span><b id="q-ta">சாப்பிட்டீங்களா?</b><i id="q-ta-say">Saappiteengala?</i></div>
+          </div>
+        </figure>
+      </div>
+    </div>
+    <div class="prints">
+      <figure class="print p1"><img src="gallery-snacks.jpg" alt="Members taking a selfie on campus holding Singaporean snacks"><figcaption>Give It A Go, 4 Oct</figcaption></figure>
+      <figure class="print p2"><img src="gallery-six-lift.jpg" alt="Members holding a friend up horizontally outside a campus building"><figcaption>lift him up!</figcaption></figure>
+    </div>
+  </div>
+</header>
+
+<div class="band" aria-hidden="true">
+  <div class="track">
+    <span>Kopi-O kosong</span><span>Chope your seat</span><span>Makan first</span><span>Shiok</span><span>Can or not? Can.</span><span>Milo dinosaur</span><span>Steady lah</span><span>Teh peng</span>
+    <span>Kopi-O kosong</span><span>Chope your seat</span><span>Makan first</span><span>Shiok</span><span>Can or not? Can.</span><span>Milo dinosaur</span><span>Steady lah</span><span>Teh peng</span>
+  </div>
+</div>
+
+<main>
+  <section class="block" id="about">
+    <div class="wrap">
+      <div class="aboutline">
+        <p class="label">About us</p>
+        <h2>Your second home, away from home.</h2>
+        <p>Whether you've just landed or you're in final year, Singaporean or not, you're welcome to join us at any time.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="events">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="label">What's on · soonest first</p><h2>Coming up.</h2></div>
+        <div class="igcta">
+          <p>Join our WhatsApp group and follow us on Instagram so you never miss an event or sign-up.</p>
+          <div class="btnrow">
+          <a class="btn red sm" href="https://www.instagram.com/leedssingsoc/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Follow @leedssingsoc</a>
+          <a class="btn wa sm" href="https://chat.whatsapp.com/Kyb6JJ6rGopJ3k4ZOUDnuB" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9 9.5c.5 2 2.5 4 4.5 4.5l1-1.2 2 .8-.5 1.6c-3 .4-7-3.6-6.6-6.6L11 8l.8 2z" stroke-width="1.4"/></svg>Join our WhatsApp</a>
+          </div>
+        </div>
+      </div>
+      <div class="events">
+        <article class="card feature" id="movie" data-until="2026-10-26">
+          <img src="movienight-poster.jpg" alt="Halloween Movie Night poster: 26 October, Michael Sadler Theatre, 18:30 to 21:00, members £1, non-members £2.">
+          <div class="fbody">
+            <div class="chips"><span class="chip hot">Mon 26 Oct</span><span class="chip" id="cd-movie">Leeds</span></div>
+            <h3 class="ftitle">Halloween Movie Night</h3>
+            <p>Join us for a Halloween movie night, hosted by the British Chinese Society (BCSoc) with Leeds Japan Society, LUU FilSoc and us. Grab some popcorn and come along.</p>
+            <dl class="facts">
+              <div><dt>When</dt><dd>Monday 26 October 2026, 6.30pm – 9pm</dd></div>
+              <div><dt>Where</dt><dd>Michael Sadler Theatre, University of Leeds</dd></div>
+              <div><dt>Film</dt><dd>To be announced</dd></div>
+              <div><dt>Price</dt><dd>£2 for SingSoc members (£1 for BCSoc members)</dd></div>
+            </dl>
+            <p class="notice">Tickets are sold by the British Chinese Society so they can keep track of numbers. As this is their event, SingSoc members buy the £2 non-member ticket.</p>
+            <div class="ctas-left">
+              <a class="btn red" href="https://engage.luu.org.uk/events/PT447/bcsoc-halloween-movie-night" target="_blank" rel="noopener">Get your ticket on LUU</a>
+              <span class="tiny">Hosted by BCSoc.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card feature" id="monsta" data-until="2026-10-27">
+          <img src="monsta-obsession-poster.jpg" alt="Monsta Leeds presents Obsession, Halloween 2026: Tuesday 27 October, Home Night Club, DJ Lollibus x DJ Jiannu.">
+          <div class="fbody">
+            <div class="chips"><span class="chip hot">Tue 27 Oct</span><span class="chip" id="cd-monsta">Leeds</span><span class="chip">18+</span></div>
+            <h3 class="ftitle">Monsta Leeds: Obsession</h3>
+            <p>The Halloween edition of Monsta, our regular club night. Freaky fits, two rooms of music and a best-dressed competition.</p>
+            <p class="notice">SingSoc ticket sales for this one have closed. Thanks to everyone who bought through us. See you on the dance floor.</p>
+            <dl class="facts">
+              <div><dt>When</dt><dd>Tuesday 27 October 2026, 11pm – 4am (last entry 1am)</dd></div>
+              <div><dt>Where</dt><dd>Home Nightclub, 117 Albion Street, Leeds</dd></div>
+              <div><dt>DJs</dt><dd>Lollibus × Jiannu</dd></div>
+              <div><dt>Music</dt><dd>Hip-hop throwbacks, K-pop, UK rap, techno and EDM</dd></div>
+              <div><dt>Prizes</dt><dd>£50 each for best-dressed girl, boy and group</dd></div>
+            </dl>
+            <details class="more">
+              <summary>Watch our promo video</summary>
+              <video class="promo" src="monsta-video.mp4" poster="monsta-video-poster.jpg" muted loop playsinline controls preload="none" aria-label="SingSoc promo video for Monsta"></video>
+            </details>
+          </div>
+        </article>
+
+        <article class="card feature" data-until="2026-11-14">
+          <img src="paintball-poster.jpg" alt="Paintball 2026 poster: 14 November 2026, 12.30pm to 4.30pm, Manchester Clay Shooting Club. Members £18, non-members £22.">
+          <div class="fbody">
+            <div class="chips"><span class="chip hot">Sat 14 Nov</span><span class="chip" id="countdown">Manchester</span></div>
+            <h3 class="ftitle">SSSMUK Paintball 2026</h3>
+            <p>Singapore Societies from across the UK are heading to Manchester for an afternoon of paintball, organised by Manchester Singapore Society.</p>
+            <dl class="facts">
+              <div><dt>When</dt><dd>Saturday 14 November 2026, 12.30pm – 4.30pm</dd></div>
+              <div><dt>Where</dt><dd>Manchester Clay Shooting Club, Bottany Bay Woods, Grange Rd, Eccles, M30 8JW</dd></div>
+              <div><dt>Price</dt><dd>£18 members · £22 non-members</dd></div>
+            </dl>
+            <details class="more">
+              <summary>Programme and what's included</summary>
+              <ol class="prog">
+                <li><b>11:30</b> Meet at Manchester Piccadilly station</li>
+                <li><b>12:30</b> Paintball</li>
+                <li><b>15:30</b> Wash up</li>
+                <li><b>16:00</b> Transport back to the city</li>
+                <li><b>17:00</b> Social and dinner (optional)</li>
+              </ol>
+              <p class="tiny">Timings may change.</p>
+              <p>Your ticket includes an Uber from Manchester Piccadilly, entry and a full session, a semi-automatic paintball gun, a combat suit with padded collar, goggles, body armour and 100 paintballs. Extra paintballs are £6 on site.</p>
+              <p>Travelling from Leeds? Our committee will share travel details with members.</p>
+            </details>
+            <div class="ctas-left">
+              <a class="btn red" href="https://www.instagram.com/manchestersingsoc/" target="_blank" rel="noopener">Sign up via @manchestersingsoc</a>
+              <span class="tiny">Link in their bio. Only 43 spots.</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="past">
+        <h3>Already happened <span class="tiny" style="font-family:var(--body);font-weight:500">· most recent first</span></h3>
+        <div class="row" data-after="2026-11-14" hidden><p class="when">14 Nov</p><div><h4>SSSMUK Paintball 2026</h4><p>Paintball in Manchester with Singapore Societies from across the UK.</p></div><img class="thumb" src="paintball-poster.jpg" alt="Paintball 2026 poster" loading="lazy"></div>
+        <div class="row" data-after="2026-10-27" hidden><p class="when">27 Oct</p><div><h4>Monsta Leeds: Obsession</h4><p>The Halloween edition of our regular Monsta club night at Home Nightclub.</p></div><img class="thumb" src="monsta-obsession-poster.jpg" alt="Monsta Obsession poster" loading="lazy"></div>
+        <div class="row" data-after="2026-10-26" hidden><p class="when">26 Oct</p><div><h4>Halloween Movie Night</h4><p>A film night with the British Chinese Society, Leeds Japan Society and LUU FilSoc.</p></div><img class="thumb" src="movienight-poster.jpg" alt="Halloween Movie Night poster" loading="lazy"></div>
+        <div class="row" data-date="2026-10-23"><p class="when">23 Oct</p><div><h4>A Very Magical Otley Run</h4><p>A Disney, Pixar and DreamWorks themed Otley Run from Headingley Taps, with Leeds’ other Asian societies.</p></div><img class="thumb" src="otley-poster.jpg" alt="A Very Magical Otley Run poster" loading="lazy"></div>
+        <div class="row" data-date="2026-10-18"><p class="when">18 Oct</p><div><h4>Halloween Pumpkin Carving</h4><p>A night of carving jack-o'-lanterns together. <a href="#gallery">Watch the video</a></p></div></div>
+        <div class="row" data-date="2026-10-04"><p class="when">4 Oct</p><div><h4>Give It A Go</h4><p>Blindfold snack taste tests, games and a lot of lifting people up around campus. <a href="#gallery">See the photos</a></p></div></div>
+        <div class="row" data-date="2026-09-15"><p class="when">Sep</p><div><h4>Freshers' Orientation</h4><p>Welcoming this year's new Singaporean students to Leeds.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="gallery">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="label">Gallery</p><h2>Caught on camera.</h2></div>
+        <p>A few moments from this term.</p>
+      </div>
+
+      <div class="album">
+        <div class="album-title"><h3>Halloween Pumpkin Carving</h3><span class="hand">18 Oct</span></div>
+        <figure class="vid"><video src="halloween-video.mp4" poster="halloween-video-poster.jpg" style="aspect-ratio:848/624" autoplay muted loop playsinline controls preload="metadata" aria-label="Halloween pumpkin carving video"></video></figure>
+      </div>
+
+      <div class="album">
+        <div class="album-title"><h3>Give It A Go</h3><span class="hand">4 Oct</span></div>
+        <figure class="vid"><video src="giag-video.mp4" poster="giag-video-poster.jpg" style="aspect-ratio:848/464" autoplay muted loop playsinline controls preload="metadata" aria-label="Give It A Go recap video"></video></figure>
+        <div class="wall">
+          <figure class="print"><img src="gallery-blindfold-taste.jpg" alt="Blindfolded members taste-testing snacks on campus" loading="lazy"></figure>
+          <figure class="print"><img src="gallery-lift.jpg" alt="Members lifting a friend horizontally in a campus courtyard" loading="lazy"></figure>
+          <figure class="print"><img src="gallery-courtyard.jpg" alt="Four members on campus, three of them holding the fourth up sideways" loading="lazy"></figure>
+          <figure class="print"><img src="gallery-church.jpg" alt="A group of members in the sunshine on campus holding snacks" loading="lazy"></figure>
+          <figure class="print"><img src="gallery-blindfold-line.jpg" alt="A line of blindfolded members outside the Refectory" loading="lazy"></figure>
+          <figure class="print"><img src="gallery-lift-laugh.jpg" alt="Members laughing while holding a friend up in a campus courtyard" loading="lazy"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="committee">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="label">Committee 26/27</p><h2>Say hi to the team.</h2></div>
+        <p>Questions about the society? Any of us can help.</p>
+      </div>
+      <div class="team">
+        <figure class="member"><div class="frame"><img src="committee-keona.jpg" alt="Keona, President"></div><p class="role" style="margin-top:16px">President</p><h3 style="margin-top:2px">Keona</h3><p class="tiny">Dental Surgery, Y2. Loves mala and scrapbooking.</p></figure>
+        <figure class="member"><div class="frame"><img src="committee-jarryl.jpg" alt="Jarryl, Vice-President"></div><p class="role" style="margin-top:16px">Vice-President</p><h3 style="margin-top:2px">Jarryl</h3><p class="tiny">Business, Y3. Laksa and softball.</p></figure>
+        <figure class="member"><div class="frame"><img src="committee-william.jpg" alt="William, Secretary"></div><p class="role" style="margin-top:16px">Secretary</p><h3 style="margin-top:2px">William</h3><p class="tiny">Biomedical Sciences, Y3. Nasi kandar, card games and walks.</p></figure>
+        <figure class="member"><div class="frame"><img src="committee-yadira.jpg" alt="Yadira, Treasurer"></div><p class="role" style="margin-top:16px">Treasurer</p><h3 style="margin-top:2px">Yadira</h3><p class="tiny">Business with Marketing, Y3. Tsukemen and bouldering.</p></figure>
+        <figure class="member"><div class="frame"><img src="committee-noah.jpg" alt="Noah, Publicity and Welfare Officer"></div><p class="role" style="margin-top:16px">Publicity &amp; Welfare</p><h3 style="margin-top:2px">Noah</h3><p class="tiny">Dental Surgery, Y2. Co-op meal deals and eating out.</p></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="sponsors">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="label">Sponsors</p><h2>Our partners.</h2></div>
+        <p>Twelve Leeds businesses back us this year. Tap any of them for directions.</p>
+      </div>
+      <div class="perkbar">
+        <p><b>Show your SingSoc membership card to get these deals.</b> Deals can't be combined with other offers. Not a member yet? It takes a minute on the LUU website.</p>
+        <a class="btn red sm" href="https://engage.luu.org.uk/groups/DXB/leeds-singaporean-society/memberships" target="_blank" rel="noopener">Get membership</a>
+      </div>
+      <ul class="sponsors">
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Blue%20Sakura%2C%202-3%20Merrion%20Way%2C%20Leeds" target="_blank" rel="noopener"><span class="lg dark"><img src="logo-bluesakura.png" alt="Blue Sakura logo" loading="lazy"></span><b>Blue Sakura</b><span class="type">Japanese all-you-can-eat · Merrion Way</span><span class="deal"><strong>10% off</strong><small>Mon–Thu · Up to 4 people</small></span><span class="deal"><strong>K-Cube: 20% off</strong><small>Sun–Thu · Cash only</small></span><em>Directions →</em></a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Half%20Sugar%2C%20Central%20Arcade%2C%20Leeds%20LS1%206DX" target="_blank" rel="noopener"><span class="lg light"><img src="logo-halfsugar.png" alt="Half Sugar logo" loading="lazy"></span><b>Half Sugar</b><span class="type">Bubble tea and cakes · Central Arcade</span><span class="deal"><strong>Free upsize or topping</strong><small>Up to 2 drinks · Physical card only</small></span><span class="deal"><strong>10% off celebration cakes</strong><small>Cash only</small></span><em>Directions →</em></a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=La%20Fiesta%2C%204b%20Merrion%20Centre%2C%20Leeds%20LS2%208BT" target="_blank" rel="noopener"><span class="lg light"><img src="logo-lafiesta.png" alt="La Fiesta logo" loading="lazy"></span><b>La Fiesta</b><span class="type">Mediterranean tapas · Merrion Centre</span><span class="deal"><strong>20% off food</strong><small>Every day · Up to 4 people · Student ID needed</small></span><em>Directions →</em></a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Maki%20%26%20Ramen%2C%20Bond%20Street%2C%20Leeds" target="_blank" rel="noopener"><span class="lg orange"><img src="logo-makiramen.png" alt="Maki &amp; Ramen logo" loading="lazy"></span><b>Maki &amp; Ramen</b><span class="type">Ramen and sushi · Bond Street</span><span class="deal"><strong>20% off</strong><small>Members&#x27; e-voucher · Until Dec 2027</small></span><em>Directions →</em></a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Memento%20Tea%20%26%20Noodle%2C%2021%20Thorntons%20Arcade%2C%20Leeds" target="_blank" rel="noopener"><span class="lg light"><img class="round" src="logo-memento.png" alt="Memento logo" loading="lazy"></span><b>Memento</b><span class="type">Tea and noodles · Thorntons Arcade</span><span class="deal"><strong>10% off</strong><small>Cash only</small></span><em>Directions →</em></a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Mr%20Tea%2C%2021%20Albion%20Place%2C%20Leeds" target="_blank" rel="noopener"><span class="lg light"><img class="round" src="logo-mrtea.png" alt="Mr Tea logo" loading="lazy"></span><b>Mr Tea</b><span class="type">Bubble tea · Albion Place</span><span class="deal"><strong>10% off drinks</strong><small>Any drink</small></span><em>Directions →</em></a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Regency%20Palace%2C%20101-105%20Vicar%20Lane%2C%20Leeds%20LS1%206PJ" target="_blank" rel="noopener"><span class="lg light"><img src="logo-regency.png" alt="Regency Palace logo" loading="lazy"></span><b>Regency Palace</b><span class="type">Cantonese restaurant · Vicar Lane</span><span class="deal"><strong>10% off dine-in</strong><small>Cash only · Student ID needed · Until Oct 2027</small></span><em>Directions →</em></a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Viet%20Tasty%2C%2085%20Albion%20Street%2C%20Leeds%20LS1%205AP" target="_blank" rel="noopener"><span class="lg light"><img class="round" src="logo-viettasty.png" alt="Viet Tasty logo" loading="lazy"></span><b>Viet Tasty</b><span class="type">Vietnamese · Albion Street</span><span class="deal"><strong>15% off</strong><small>Cash only · Not for drinks-only orders</small></span><em>Directions →</em></a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Zaap%20Thai%2C%20Leeds" target="_blank" rel="noopener"><span class="lg light"><img src="logo-zaap.svg" alt="Zaap Thai logo" loading="lazy"></span><b>Zaap Thai</b><span class="type">Thai street food · Leeds</span><span class="deal"><strong>10% off food</strong><small>Any day</small></span><em>Directions →</em></a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Zan%20Asian%2C%2021-23%20The%20Headrow%2C%20Leeds" target="_blank" rel="noopener"><span class="lg light"><img class="round" src="logo-zanasian.png" alt="Zan Asian logo" loading="lazy"></span><b>Zan Asian</b><span class="type">Malaysian · The Headrow</span><span class="deal"><strong>10% off</strong><small>Cash only</small></span><em>Directions →</em></a></li>
+        <li><a href="https://www.instagram.com/monstaentleeds/" target="_blank" rel="noopener"><span class="lg black"><img src="logo-monsta.png" alt="Monsta Leeds logo" loading="lazy"></span><b>Monsta Leeds</b><span class="type">Club nights · Leeds</span><span class="deal"><strong>Ticket deals</strong><small>Announced on our Instagram</small></span><em>Instagram →</em></a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Be%20At%20One%2C%205-7%20Greek%20Street%2C%20Leeds%20LS1%205RW" target="_blank" rel="noopener"><span class="lg black"><img src="logo-beatone.svg" alt="Be At One logo" loading="lazy"></span><b>Be At One</b><span class="type">Cocktail bar · Greek Street</span><em>Directions →</em></a></li>
+      </ul>
+      <div class="partner">
+        <div class="card">
+          <h3 style="font-size:28px">Want to reach Singaporean students in the UK?</h3>
+          <ul class="offer">
+            <li><b>Your brand at our events.</b> Logo on posters and social media posts.</li>
+            <li><b>Member perks.</b> Offer discounts or deals directly to our members.</li>
+            <li><b>Recruiting reach.</b> Share graduate and internship roles with students heading home to Singapore.</li>
+            <li><b>A clear agreement.</b> We draw up a written sponsorship contract for every partner.</li>
+          </ul>
+        </div>
+        <div class="card contact">
+          <p class="label">Sponsorship enquiries</p>
+          <h3>Let's work together.</h3>
+          <p>Our Vice-President handles sponsorships. Email us and we'll send our sponsorship options.</p>
+          <div class="copybox"><span id="email">leedssingaporeansociety@gmail.com</span><button type="button" id="copy">Copy</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="faq">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="label">New to Leeds?</p><h2>Questions freshers ask us.</h2></div>
+        <p>Message us on Instagram for anything else.</p>
+      </div>
+      <div class="faq">
+        <details><summary>Do I have to be Singaporean to join?</summary><p>No. Anyone at the University of Leeds can join. Plenty of members just love Singaporean food and company.</p></details>
+        <details><summary>How do I become a member?</summary><p>Buy a membership on <a href="https://engage.luu.org.uk/groups/DXB/leeds-singaporean-society/memberships" target="_blank" rel="noopener">our Leeds University Union page</a>. Members get discounts and perks at our sponsors.</p></details>
+        <details><summary>What's the time difference with home?</summary><p>Singapore is 8 hours ahead of the UK in winter (GMT) and 7 hours ahead in summer (BST, late March to late October). The clock at the top of this page does the maths for you.</p></details>
+        <details><summary>Which phone plan and bank should I get?</summary><p>Most students pick up a SIM-only plan from a UK network in their first week, and many open an account with an app-based bank because it's quick to set up. Ask us at any event and we'll tell you what members use.</p></details>
+        <details><summary>Should I register with a doctor?</summary><p>Yes. Register with a GP near where you live as soon as you arrive, so you're covered before you need it. The university's student support pages explain how.</p></details>
+        <details><summary>Where do I find Singaporean food in Leeds?</summary><p>There's no Singaporean restaurant in Leeds yet, so Malaysian food is the closest taste of home. Try <a href="#sponsors">Zan Asian</a> on The Headrow. The city centre also has plenty of Asian food, and these sponsors give members a discount: Regency Palace (Cantonese), Viet Tasty (Vietnamese), Zaap Thai (Thai), Blue Sakura and Maki &amp; Ramen (Japanese), and Memento (tea and noodles). Asian supermarkets in the city centre stock most of the snacks and sauces you'll miss.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="join" id="join">
+    <div class="wrap">
+      <div><p class="label" style="color:#fff;opacity:.85">Join us</p><h2 style="margin-top:10px">Come makan with us.</h2></div>
+      <div>
+        <ol>
+          <li>Buy a membership on the LUU website. It unlocks our sponsor discounts and perks.</li>
+          <li>Join our WhatsApp group and follow @leedssingsoc for event updates.</li>
+          <li>Turn up and say hi. That's it.</li>
+        </ol>
+        <div class="ctas">
+          <a class="btn white" href="https://engage.luu.org.uk/groups/DXB/leeds-singaporean-society/memberships" target="_blank" rel="noopener">Buy membership on LUU</a>
+          <a class="btn line" href="https://chat.whatsapp.com/Kyb6JJ6rGopJ3k4ZOUDnuB" target="_blank" rel="noopener">Join our WhatsApp</a>
+          <a class="btn line" href="https://www.instagram.com/leedssingsoc/" target="_blank" rel="noopener">Follow on Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="footlogo"><img src="logo.png" alt="Leeds Singaporean Society"></span>
+    <span>Leeds University Union · <a href="https://www.instagram.com/leedssingsoc/" target="_blank" rel="noopener">@leedssingsoc</a> · <a href="https://chat.whatsapp.com/Kyb6JJ6rGopJ3k4ZOUDnuB" target="_blank" rel="noopener">WhatsApp group</a> · leedssingaporeansociety@gmail.com</span>
+  </div>
+</footer>
+
+<script type="application/json" id="extra-events">[]</script>
+
+<script>
+(function(){
+  const fmt = tz => new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:tz});
+  const fL = fmt('Europe/London'), fS = fmt('Asia/Singapore');
+  const zone = new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',timeZoneName:'short'});
+  function tick(){
+    const now = new Date();
+    document.getElementById('t-leeds').textContent = fL.format(now);
+    document.getElementById('t-sg').textContent = fS.format(now);
+    const z = (zone.formatToParts(now).find(p=>p.type==='timeZoneName')||{}).value || 'GMT';
+    const bst = z === 'BST' || z === 'GMT+1';
+    document.getElementById('lds-zone').textContent = bst ? 'Leeds (BST)' : 'Leeds (GMT)';
+    const h = +fS.format(now).slice(0,2);
+    const msg = (h >= 23 || h < 7) ? "Singapore's asleep." : h < 12 ? "Morning back home." : h < 18 ? "Afternoon back home." : "Dinner time back home.";
+    document.getElementById('clock-note').textContent = `${bst ? 7 : 8} hours apart. ${msg}`;
+  }
+  tick(); setInterval(tick, 15000);
+
+  // Phrase of the day, shown in all four of Singapore's languages. Same for everyone on a given UK date, changes at midnight.
+  // Each entry: meaning, then [phrase, how to say it] for English/Singlish, Chinese, Malay, Tamil.
+  const PHRASES = [
+    ['Have you eaten?', ['Eat already?', ''], ['你吃饱了吗？', 'Nǐ chī bǎo le ma?'], ['Dah makan?', ''], ['சாப்பிட்டீங்களா?', 'Saappiteengala?']],
+    ['Welcome', ['Welcome!', ''], ['欢迎！', 'Huānyíng!'], ['Selamat datang!', ''], ['நல்வரவு!', 'Nalvaravu!']],
+    ['Let’s go eat', ['Jom, makan!', ''], ['我们去吃吧！', 'Wǒmen qù chī ba!'], ['Jom makan!', ''], ['சாப்பிடலாம் வாங்க!', 'Saapidalaam vaanga!']],
+    ['How are you?', ['How are you?', ''], ['你好吗？', 'Nǐ hǎo ma?'], ['Apa khabar?', ''], ['எப்படி இருக்கீங்க?', 'Eppadi irukkeenga?']],
+    ['You can do it!', ['Can one!', ''], ['加油！', 'Jiāyóu!'], ['Kamu boleh!', ''], ['உன்னால் முடியும்!', 'Unnaal mudiyum!']],
+    ['Thank you', ['Thank you!', ''], ['谢谢！', 'Xièxie!'], ['Terima kasih!', ''], ['நன்றி!', 'Nandri!']],
+    ['So delicious', ['Shiok!', ''], ['好吃！', 'Hǎochī!'], ['Sedap!', ''], ['ருசியா இருக்கு!', 'Rusiyaa irukku!']],
+    ['Good morning', ['Good morning!', ''], ['早安！', 'Zǎo’ān!'], ['Selamat pagi!', ''], ['காலை வணக்கம்!', 'Kaalai vanakkam!']],
+    ['We are one family', ['We are one family.', ''], ['我们是一家人。', 'Wǒmen shì yì jiā rén.'], ['Kita satu keluarga.', ''], ['நாம் ஒரே குடும்பம்.', 'Naam ore kudumbam.']],
+    ['Take it slow', ['Slowly lah, no rush.', ''], ['慢慢来。', 'Màn man lái.'], ['Perlahan-lahan.', ''], ['பொறுமையா இருங்க.', 'Porumaiyaa irunga.']],
+    ['Congratulations', ['Congrats!', ''], ['恭喜！', 'Gōngxǐ!'], ['Tahniah!', ''], ['வாழ்த்துக்கள்!', 'Vaazhthukkal!']],
+    ['Onward, Singapore', ['Onward, Singapore!', ''], ['前进吧，新加坡！', 'Qiánjìn ba, Xīnjiāpō!'], ['Majulah Singapura!', ''], ['முன்னேறட்டும் சிங்கப்பூர்!', 'Munnerattum Singapore!']],
+    ['See you again', ['See you!', ''], ['再见！', 'Zàijiàn!'], ['Jumpa lagi!', ''], ['மீண்டும் சந்திப்போம்!', 'Meendum sandhippom!']]
+  ];
+  const dayNo = Math.floor(Date.parse(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London'}).format(new Date())) / 864e5);
+  const [mean, ...langs] = PHRASES[((dayNo % PHRASES.length) + PHRASES.length) % PHRASES.length];
+  document.getElementById('q-mean').textContent = mean;
+  ['en','zh','ms','ta'].forEach((k, i) => {
+    document.getElementById('q-' + k).textContent = langs[i][0];
+    document.getElementById('q-' + k + '-say').textContent = langs[i][1];
+  });
+
+  const today = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London'}).format(new Date());
+  const daysUntil = d => Math.round((Date.parse(d) - Date.parse(today)) / 864e5);
+  const label = (n, sameDay) => n > 1 ? `${n} days to go` : n === 1 ? 'Tomorrow' : n === 0 ? sameDay : 'Event over';
+  document.getElementById('countdown').textContent = label(daysUntil('2026-11-14'), 'Today');
+  document.getElementById('cd-monsta').textContent = label(daysUntil('2026-10-27'), 'Tonight');
+  document.getElementById('cd-movie').textContent = label(daysUntil('2026-10-26'), 'Tonight');
+
+  // Extra events can be added as JSON in #extra-events (see README) without touching the markup.
+  const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const safeUrl = u => /^https?:\/\//i.test(u || '') || /^\/_blob\//.test(u || '') ? u : '';
+  const dayLabel = d => new Intl.DateTimeFormat('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'}).format(new Date(d + 'T00:00:00Z'));
+  const shortLabel = d => new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',timeZone:'UTC'}).format(new Date(d + 'T00:00:00Z'));
+  const longLabel = d => new Intl.DateTimeFormat('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(d + 'T00:00:00Z'));
+  let extra = [];
+  try { extra = JSON.parse(document.getElementById('extra-events').textContent) || []; } catch (e) { extra = []; }
+  const upList = document.querySelector('.events'), pastList = document.querySelector('.past');
+  extra.filter(ev => ev && /^\d{4}-\d{2}-\d{2}$/.test(ev.date) && ev.title).forEach(ev => {
+    const poster = safeUrl(ev.poster), link = safeUrl(ev.link);
+    const card = document.createElement('article');
+    card.className = 'card feature' + (poster ? '' : ' noposter');
+    card.dataset.until = ev.date;
+    card.innerHTML = (poster ? `<img src="${esc(poster)}" alt="${esc(ev.title)} poster">` : '') +
+      `<div class="fbody"><div class="chips"><span class="chip hot">${esc(dayLabel(ev.date))}</span><span class="chip" data-cd="${esc(ev.date)}"></span></div>` +
+      `<h3 class="ftitle">${esc(ev.title)}</h3>` + (ev.desc ? `<p>${esc(ev.desc)}</p>` : '') +
+      `<dl class="facts"><div><dt>When</dt><dd>${esc(longLabel(ev.date))}${ev.time ? ', ' + esc(ev.time) : ''}</dd></div>` +
+      (ev.venue ? `<div><dt>Where</dt><dd>${esc(ev.venue)}</dd></div>` : '') +
+      (ev.price ? `<div><dt>Price</dt><dd>${esc(ev.price)}</dd></div>` : '') + `</dl>` +
+      (link ? `<div class="ctas-left"><a class="btn red" href="${esc(link)}" target="_blank" rel="noopener">${esc(ev.linkLabel || 'Sign up')}</a></div>` : '') + `</div>`;
+    const later = [...upList.querySelectorAll(':scope > [data-until]')].find(el => el.dataset.until > ev.date);
+    upList.insertBefore(card, later || null);
+    const row = document.createElement('div');
+    row.className = 'row'; row.dataset.after = ev.date; row.hidden = true;
+    row.innerHTML = `<p class="when">${esc(shortLabel(ev.date))}</p><div><h4>${esc(ev.title)}</h4>${ev.desc ? `<p>${esc(ev.desc)}</p>` : ''}</div>` +
+      (poster ? `<img class="thumb" src="${esc(poster)}" alt="${esc(ev.title)} poster" loading="lazy">` : '');
+    const older = [...pastList.querySelectorAll(':scope > .row')].find(el => (el.dataset.date || el.dataset.after) < ev.date);
+    pastList.insertBefore(row, older || null);
+  });
+
+  document.querySelectorAll('[data-cd]').forEach(el => { el.textContent = label(daysUntil(el.dataset.cd), 'Today'); });
+
+  // Once an event's date has passed, move it from "Coming up" to "Already happened".
+  document.querySelectorAll('[data-until]').forEach(el => { if (daysUntil(el.dataset.until) < 0) el.hidden = true; });
+  document.querySelectorAll('[data-after]').forEach(el => { if (daysUntil(el.dataset.after) < 0) el.hidden = false; });
+
+  const btn = document.getElementById('menu-btn'), menu = document.getElementById('menu');
+  const setMenu = open => { menu.classList.toggle('open', open); btn.setAttribute('aria-expanded', open); btn.textContent = open ? 'Close' : 'Menu'; };
+  btn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+  menu.addEventListener('click', e => { if (e.target.tagName === 'A') setMenu(false); });
+
+  document.getElementById('copy').addEventListener('click', e => {
+    const b = e.currentTarget, el = document.getElementById('email');
+    const done = t => { b.textContent = t; setTimeout(()=>b.textContent='Copy', 1800); };
+    (navigator.clipboard ? navigator.clipboard.writeText(el.textContent) : Promise.reject()).then(()=>done('Copied')).catch(()=>{
+      const r = document.createRange(); r.selectNodeContents(el);
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r); done('Selected');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
