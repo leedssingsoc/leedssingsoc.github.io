@@ -24,9 +24,10 @@ Everything is in `index.html`; images, videos and logos sit next to it.
 - Don't publish the Maki & Ramen members' e-voucher image (members only).
 
 ## Daily site check (since 26 Oct 2026)
-A claude.ai scheduled task, `leedssingsoc-site-check`, runs every day at 08:36 UK time. It checks the
-live site for new commits, broken images/links, page errors (desktop and phone) and out-of-date events
-or sponsor deals. Only when it finds an issue or a new change does it message Jarryl on a SEPARATE
-Telegram bot for the website (env vars SITE_BOT_TOKEN, plus SITE_CHAT_ID or TELEGRAM_CHAT_ID). It never
-uses TELEGRAM_BOT_TOKEN, the job-search bot, which is limited to one message a day. It is REPORT-ONLY: Jarryl is the only one who
-changes the website, so the check never edits, commits or pushes. It just tells him what to fix.
+A claude.ai scheduled task, `leedssingsoc-site-check`, runs every day at 08:36 UK time. It checks the live site
+(new commits, broken images/links, page errors on desktop and phone, out-of-date events or sponsor deals) and
+sends Jarryl ONE Telegram message a day, even when all is fine, from the website bot "SingSoc Website Check"
+(@LeedsSingSocSiteBot, env var SITE_BOT_TOKEN; chat id from SITE_CHAT_ID or TELEGRAM_CHAT_ID). The day's message
+is pinned; a re-run the same day edits it instead of sending another. It never uses TELEGRAM_BOT_TOKEN (the
+job-search bot). It is REPORT-ONLY: Jarryl is the only one who changes the website, so the check never edits,
+commits or pushes. It just tells him what to fix.
