@@ -27,6 +27,7 @@ Everything is in `index.html`; images, videos and logos sit next to it.
 ## House style
 - Colours come from the logo: teal ink #0E2A2F, Singapore red #D9343E. Keep it human, not "AI-looking".
 - Sponsor cards: logo tile, name, "Type · Street", deal in red, conditions in one standard set of words
-  (Cash only · Up to 4 people · Student ID needed · Mon–Thu · Until Mon YYYY), then "Directions →".
+  (Cash only · Up to 4 people · Student ID needed · Mon–Thu · Until Mon YYYY), then "Directions →"
+  and "Website →" (or "Instagram →" if there is no website; check the link is the Leeds branch).
 - Plain, friendly wording. Don't invent numbers, prices or names.
 - Don't publish the Maki & Ramen members' e-voucher image (members only).
