@@ -167,6 +167,7 @@ section.block{padding-block:96px 0}
 .wall{columns:3;column-gap:22px}
 .wall .print{position:relative;width:auto;margin:0 0 26px;break-inside:avoid;padding:8px 8px 8px}
 .wall .print::before{display:none}
+.wall .print figcaption{position:static;padding:10px 6px 4px;font-size:21px;line-height:1.2}
 .wall .print:nth-child(3n+1){transform:rotate(-1.2deg)}
 .wall .print:nth-child(3n+2){transform:rotate(.8deg)}
 .wall .print:nth-child(3n){transform:rotate(-.4deg)}
@@ -465,12 +466,12 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
       <div class="album">
         <div class="album-title"><h3>A Very Magical Otley Run</h3><span class="hand">23 Oct</span></div>
         <div class="wall rows">
-          <figure class="print"><img src="gallery-otley-ratatouille-2.jpg" alt="Members in costume posing with a friend in an inflatable Remy rat costume" loading="lazy"></figure>
-          <figure class="print"><img src="gallery-otley-group.jpg" alt="Five members in Disney costumes with animal ears posing in a pub" loading="lazy"></figure>
-          <figure class="print"><img src="gallery-otley-four.jpg" alt="Four members in costume, one dressed as Russell from Up, standing in a pub" loading="lazy"></figure>
-          <figure class="print"><img src="gallery-otley-cards.jpg" alt="Two members in a pub booth, one wearing a crown and one in bunny ears holding a playing-card fan" loading="lazy"></figure>
-          <figure class="print"><img src="gallery-otley-ratatouille.jpg" alt="A mouse-eared member and an inflatable Remy rat with Mrs Potato Head behind" loading="lazy"></figure>
-          <figure class="print"><img src="gallery-otley-thumbs.jpg" alt="Members in animal ears posing in a pub while someone gives a thumbs up to the camera" loading="lazy"></figure>
+          <figure class="print"><img src="gallery-otley-ratatouille-2.jpg" alt="Members in costume posing with a friend in an inflatable Remy rat costume" loading="lazy"><figcaption>anyone can cook!</figcaption></figure>
+          <figure class="print"><img src="gallery-otley-group.jpg" alt="Five members in Disney costumes with animal ears posing in a pub" loading="lazy"><figcaption>we're late, we're late!</figcaption></figure>
+          <figure class="print"><img src="gallery-otley-four.jpg" alt="Four members in costume, one dressed as Russell from Up, standing in a pub" loading="lazy"><figcaption>adventure is out there!</figcaption></figure>
+          <figure class="print"><img src="gallery-otley-cards.jpg" alt="Two members in a pub booth, one wearing a crown and one in bunny ears holding a playing-card fan" loading="lazy"><figcaption>off with their heads!</figcaption></figure>
+          <figure class="print"><img src="gallery-otley-ratatouille.jpg" alt="A mouse-eared member and an inflatable Remy rat with Mrs Potato Head behind" loading="lazy"><figcaption>you've got a friend in me</figcaption></figure>
+          <figure class="print"><img src="gallery-otley-thumbs.jpg" alt="Members in animal ears posing in a pub while someone gives a thumbs up to the camera" loading="lazy"><figcaption>just keep swimming (to the next pub)</figcaption></figure>
         </div>
       </div>
 
@@ -659,15 +660,15 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   // Homepage photos change daily (UK date): a wide photo for the big print, a tall one for the small print.
   const WIDE = [
     ['gallery-snacks.jpg', 'Give It A Go, 4 Oct', 'Members taking a selfie on campus holding Singaporean snacks'],
-    ['gallery-otley-ratatouille-2.jpg', 'Otley Run, 23 Oct', 'Members in costume posing with a friend in an inflatable Remy rat costume'],
+    ['gallery-otley-ratatouille-2.jpg', "anyone can cook!", 'Members in costume posing with a friend in an inflatable Remy rat costume'],
     ['gallery-blindfold-line.jpg', 'no peeking!', 'A line of blindfolded members outside the Refectory'],
-    ['gallery-otley-group.jpg', 'the Otley Run crew', 'Five members in Disney costumes with animal ears posing in a pub'],
+    ['gallery-otley-group.jpg', "we're late, we're late!", 'Five members in Disney costumes with animal ears posing in a pub'],
     ['gallery-lift-laugh.jpg', 'Give It A Go, 4 Oct', 'Members laughing while holding a friend up in a campus courtyard'],
-    ['gallery-otley-cards.jpg', 'Otley Run, 23 Oct', 'Two members in a pub booth, one wearing a crown and one in bunny ears holding a playing-card fan'],
+    ['gallery-otley-cards.jpg', "off with their heads!", 'Two members in a pub booth, one wearing a crown and one in bunny ears holding a playing-card fan'],
     ['gallery-lift.jpg', 'up he goes', 'Members lifting a friend horizontally in a campus courtyard'],
-    ['gallery-otley-four.jpg', 'Otley Run, 23 Oct', 'Four members in costume, one dressed as Russell from Up, standing in a pub'],
-    ['gallery-otley-ratatouille.jpg', 'Remy came too', 'A mouse-eared member and an inflatable Remy rat with Mrs Potato Head behind'],
-    ['gallery-otley-thumbs.jpg', 'thumbs up!', 'Members in animal ears posing in a pub while someone gives a thumbs up to the camera']
+    ['gallery-otley-four.jpg', "adventure is out there!", 'Four members in costume, one dressed as Russell from Up, standing in a pub'],
+    ['gallery-otley-ratatouille.jpg', "you've got a friend in me", 'A mouse-eared member and an inflatable Remy rat with Mrs Potato Head behind'],
+    ['gallery-otley-thumbs.jpg', "just keep swimming", 'Members in animal ears posing in a pub while someone gives a thumbs up to the camera']
   ];
   const TALL = [
     ['gallery-six-lift.jpg', 'lift him up!', 'Members holding a friend up horizontally outside a campus building'],
