@@ -3,6 +3,9 @@
 Live site: https://leedssingsoc.github.io/ (repo `leedssingsoc/leedssingsoc.github.io`, moved from waveriderjc-max/leeds-singsoc-site on 26 Oct 2026; GitHub Pages, branch `main`, root).
 Preview copy: https://claude.ai/artifact/TYZwBmyD5YBBXcyMdyZzgR (keep in sync when practical).
 
+**Always make Jarryl's requested changes live (his rule, 26 Oct 2026):** after testing, push to `main` so the
+public site updates; don't leave them only on a side branch.
+
 Everything is in `index.html`; images, videos and logos sit next to it.
 
 ## Adding an event
