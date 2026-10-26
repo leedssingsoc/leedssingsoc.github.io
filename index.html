@@ -113,6 +113,9 @@ section.block{padding-block:96px 0}
 .fbody{display:grid;gap:14px;align-content:start;padding:6px 6px 6px 0;min-width:0}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{font-size:13px;font-weight:700;padding:4px 10px;border-radius:6px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.live{color:var(--ink);font-variant-numeric:tabular-nums}
+.chip.live::before{content:"";display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--red);vertical-align:1px;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
 .chip.hot{background:var(--red);border-color:var(--red);color:var(--on-red)}
 .ftitle{font-size:clamp(28px, 3.6vw, 40px);font-weight:800}
 .facts{display:grid;gap:8px;margin:0}
@@ -287,8 +290,8 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
         <a class="btn line" href="#events">See what's on</a>
       </div>
       <div class="clockline" aria-live="off">
-        <div><b id="t-leeds">--:--</b><span id="lds-zone">Leeds</span></div>
-        <div><b id="t-sg">--:--</b><span>Singapore</span></div>
+        <div><b id="t-leeds">--:--:--</b><span id="lds-zone">Leeds</span></div>
+        <div><b id="t-sg">--:--:--</b><span>Singapore</span></div>
         <p id="clock-note">8 hours apart.</p>
         <figure class="quote">
           <p class="q-label">Phrase of the day · <span id="q-mean">Have you eaten?</span></p>
@@ -342,7 +345,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
         <article class="card feature" id="movie" data-until="2026-10-26">
           <img src="movienight-poster.jpg" alt="Halloween Movie Night poster: 26 October, Michael Sadler Theatre, 18:30 to 21:00, members £1, non-members £2.">
           <div class="fbody">
-            <div class="chips"><span class="chip hot">Mon 26 Oct</span><span class="chip" id="cd-movie">Leeds</span></div>
+            <div class="chips"><span class="chip hot">Mon 26 Oct</span><span class="chip" data-cd="2026-10-26" data-time="6.30pm – 9pm">Leeds</span></div>
             <h3 class="ftitle">Halloween Movie Night</h3>
             <p>Join us for a Halloween movie night, hosted by the British Chinese Society (BCSoc) with Leeds Japan Society, LUU FilSoc and us. Grab some popcorn and come along.</p>
             <dl class="facts">
@@ -362,7 +365,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
         <article class="card feature" id="monsta" data-until="2026-10-27">
           <img src="monsta-obsession-poster.jpg" alt="Monsta Leeds presents Obsession, Halloween 2026: Tuesday 27 October, Home Night Club, DJ Lollibus x DJ Jiannu.">
           <div class="fbody">
-            <div class="chips"><span class="chip hot">Tue 27 Oct</span><span class="chip" id="cd-monsta">Leeds</span><span class="chip">18+</span></div>
+            <div class="chips"><span class="chip hot">Tue 27 Oct</span><span class="chip" data-cd="2026-10-27" data-time="11pm – 4am">Leeds</span><span class="chip">18+</span></div>
             <h3 class="ftitle">Monsta Leeds: Obsession</h3>
             <p>The Halloween edition of Monsta, our regular club night. Freaky fits, two rooms of music and a best-dressed competition.</p>
             <p class="notice">SingSoc ticket sales for this one have closed. Thanks to everyone who bought through us. See you on the dance floor.</p>
@@ -383,7 +386,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
         <article class="card feature" data-until="2026-11-14">
           <img src="paintball-poster.jpg" alt="Paintball 2026 poster: 14 November 2026, 12.30pm to 4.30pm, Manchester Clay Shooting Club. Members £18, non-members £22.">
           <div class="fbody">
-            <div class="chips"><span class="chip hot">Sat 14 Nov</span><span class="chip" id="countdown">Manchester</span></div>
+            <div class="chips"><span class="chip hot">Sat 14 Nov</span><span class="chip" data-cd="2026-11-14" data-time="12.30pm – 4.30pm">Manchester</span></div>
             <h3 class="ftitle">SSSMUK Paintball 2026</h3>
             <p>Singapore Societies from across the UK are heading to Manchester for an afternoon of paintball, organised by Manchester Singapore Society.</p>
             <dl class="facts">
@@ -559,7 +562,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
 
 <script>
 (function(){
-  const fmt = tz => new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:tz});
+  const fmt = tz => new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23',timeZone:tz});
   const fL = fmt('Europe/London'), fS = fmt('Asia/Singapore');
   const zone = new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',timeZoneName:'short'});
   function tick(){
@@ -573,7 +576,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     const msg = (h >= 23 || h < 7) ? "Singapore's asleep." : h < 12 ? "Morning back home." : h < 18 ? "Afternoon back home." : "Dinner time back home.";
     document.getElementById('clock-note').textContent = `${bst ? 7 : 8} hours apart. ${msg}`;
   }
-  tick(); setInterval(tick, 15000);
+  tick(); setInterval(tick, 1000);
 
   // Phrase of the day, shown in all four of Singapore's languages. Same for everyone on a given UK date, changes at midnight.
   // Each entry: meaning, then [phrase, how to say it] for English/Singlish, Chinese, Malay, Tamil.
@@ -602,14 +605,10 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
 
   const today = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London'}).format(new Date());
   const daysUntil = d => Math.round((Date.parse(d) - Date.parse(today)) / 864e5);
-  const label = (n, sameDay) => n > 1 ? `${n} days to go` : n === 1 ? 'Tomorrow' : n === 0 ? sameDay : 'Event over';
-  document.getElementById('countdown').textContent = label(daysUntil('2026-11-14'), 'Today');
-  document.getElementById('cd-monsta').textContent = label(daysUntil('2026-10-27'), 'Tonight');
-  document.getElementById('cd-movie').textContent = label(daysUntil('2026-10-26'), 'Tonight');
 
   // Extra events can be added as JSON in #extra-events (see README) without touching the markup.
   const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const safeUrl = u => /^https?:\/\//i.test(u || '') || /^\/_blob\//.test(u || '') ? u : '';
+  const safeUrl = u => /^https?:\/\//i.test(u || '') || /^\/_blob\//.test(u || '') || /^[\w-][\w.\/-]*$/.test(u || '') ? u : '';
   const dayLabel = d => new Intl.DateTimeFormat('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'}).format(new Date(d + 'T00:00:00Z'));
   const shortLabel = d => new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',timeZone:'UTC'}).format(new Date(d + 'T00:00:00Z'));
   const longLabel = d => new Intl.DateTimeFormat('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(d + 'T00:00:00Z'));
@@ -622,7 +621,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     card.className = 'card feature' + (poster ? '' : ' noposter');
     card.dataset.until = ev.date;
     card.innerHTML = (poster ? `<img src="${esc(poster)}" alt="${esc(ev.title)} poster">` : '') +
-      `<div class="fbody"><div class="chips"><span class="chip hot">${esc(dayLabel(ev.date))}</span><span class="chip" data-cd="${esc(ev.date)}"></span></div>` +
+      `<div class="fbody"><div class="chips"><span class="chip hot">${esc(dayLabel(ev.date))}</span><span class="chip" data-cd="${esc(ev.date)}" data-time="${esc(ev.time || '')}"></span></div>` +
       `<h3 class="ftitle">${esc(ev.title)}</h3>` + (ev.desc ? `<p>${esc(ev.desc)}</p>` : '') +
       `<dl class="facts"><div><dt>When</dt><dd>${esc(longLabel(ev.date))}${ev.time ? ', ' + esc(ev.time) : ''}</dd></div>` +
       (ev.venue ? `<div><dt>Where</dt><dd>${esc(ev.venue)}</dd></div>` : '') +
@@ -638,7 +637,39 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     pastList.insertBefore(row, older || null);
   });
 
-  document.querySelectorAll('[data-cd]').forEach(el => { el.textContent = label(daysUntil(el.dataset.cd), 'Today'); });
+  // Live countdowns to each event's start time (Leeds time), read from data-cd (date) and data-time ("7pm – 10pm").
+  const toMins = t => {
+    const m = /(\d{1,2})(?:[.:](\d{2}))?\s*(am|pm)?/i.exec(t || '');
+    if (!m) return null;
+    const ap = (m[3] || '').toLowerCase();
+    return (ap ? (+m[1] % 12) + (ap === 'pm' ? 12 : 0) : +m[1]) * 60 + (+m[2] || 0);
+  };
+  const wall = new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+  const londonMs = (d, mins) => {
+    const guess = Date.parse(d + 'T00:00:00Z') + mins * 6e4;
+    const p = Object.fromEntries(wall.formatToParts(new Date(guess)).map(x => [x.type, x.value]));
+    return guess - (Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute) - guess);
+  };
+  const pad = n => String(n).padStart(2, '0');
+  const timers = [...document.querySelectorAll('[data-cd]')].map(el => {
+    const [a, b] = (el.dataset.time || '').split(/–|—|-|\bto\b/);
+    const sm = toMins(a), em = toMins(b);
+    const start = londonMs(el.dataset.cd, sm ?? 0);
+    let end = em == null ? londonMs(el.dataset.cd, sm == null ? 1440 : sm + 180) : londonMs(el.dataset.cd, em);
+    if (end <= start) end += 864e5;
+    return { el, start, end };
+  });
+  function countdown(){
+    const now = Date.now();
+    timers.forEach(({ el, start, end }) => {
+      const left = Math.floor((start - now) / 1000);
+      el.classList.toggle('live', left > 0);
+      if (left <= 0) { el.textContent = now < end ? 'Happening now' : 'Finished'; return; }
+      const d = Math.floor(left / 86400), h = Math.floor(left % 86400 / 3600), m = Math.floor(left % 3600 / 60), sec = left % 60;
+      el.textContent = d ? `${d}d ${pad(h)}h ${pad(m)}m ${pad(sec)}s` : `Starts in ${pad(h)}h ${pad(m)}m ${pad(sec)}s`;
+    });
+  }
+  countdown(); setInterval(countdown, 1000);
 
   // Once an event's date has passed, move it from "Coming up" to "Already happened".
   document.querySelectorAll('[data-until]').forEach(el => { if (daysUntil(el.dataset.until) < 0) el.hidden = true; });
