@@ -1,6 +1,6 @@
 # Leeds Singaporean Society website
 
-Live at: https://waveriderjc-max.github.io/leeds-singsoc-site/
+Live at: https://leedssingsoc.github.io/
 
 Everything is in `index.html`, with images and videos alongside it.
 
@@ -29,4 +29,4 @@ Separate several events with commas. The site puts each one in date order under
 "Coming up", adds a countdown, and moves it to "Already happened" after the date.
 Commit the change; the site updates in about a minute.
 
-Or ask Claude: send the poster and details and say "add this event to the leeds-singsoc-site repo and push".
+Or ask Claude: send the poster and details and say "add this event to the leedssingsoc.github.io repo and push".
