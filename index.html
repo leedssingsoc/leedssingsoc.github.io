@@ -438,6 +438,8 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
         </article>
       </div>
 
+      <p class="notice" id="no-events" hidden>More events coming soon. Follow <a href="https://www.instagram.com/leedssingsoc/" target="_blank" rel="noopener">@leedssingsoc</a> so you hear first.</p>
+
       <div class="past">
         <h3>Already happened <span class="tiny" style="font-family:var(--body);font-weight:500">· most recent first</span></h3>
         <div class="row" data-after="2026-11-14" hidden><p class="when">14 Nov</p><div><h4>SSSMUK Paintball 2026</h4><p>Paintball in Manchester with Singapore Societies from across the UK.</p></div><img class="thumb" src="paintball-poster.jpg" alt="Paintball 2026 poster" loading="lazy"></div>
@@ -652,8 +654,6 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     document.getElementById('q-' + k + '-say').textContent = langs[i][1];
   });
 
-  const today = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London'}).format(new Date());
-  const daysUntil = d => Math.round((Date.parse(d) - Date.parse(today)) / 864e5);
 
   // Extra events can be added as JSON in #extra-events (see README) without touching the markup.
   const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -735,9 +735,23 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   }
   checkSales(); setInterval(checkSales, 30000);
 
-  // Once an event's date has passed, move it from "Coming up" to "Already happened".
-  document.querySelectorAll('[data-until]').forEach(el => { if (daysUntil(el.dataset.until) < 0) el.hidden = true; });
-  document.querySelectorAll('[data-after]').forEach(el => { if (daysUntil(el.dataset.after) < 0) el.hidden = false; });
+  // From the day after an event (and only once it has ended, for nights that run past midnight),
+  // move it from "Coming up" to "Already happened". Re-checked every minute for pages left open.
+  const noEvents = document.getElementById('no-events');
+  function movePast(){
+    const now = Date.now(), d = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London'}).format(new Date(now));
+    const ended = date => Math.round((Date.parse(date) - Date.parse(d)) / 864e5) < 0;
+    const stillOn = new Set();
+    document.querySelectorAll('[data-until]').forEach(el => {
+      const t = timers.find(x => el.contains(x.el));
+      const done = ended(el.dataset.until) && (!t || now >= t.end);
+      el.hidden = done;
+      if (!done) stillOn.add(el.dataset.until);
+    });
+    document.querySelectorAll('[data-after]').forEach(el => { el.hidden = !(ended(el.dataset.after) && !stillOn.has(el.dataset.after)); });
+    if (noEvents) noEvents.hidden = !!upList.querySelector(':scope > [data-until]:not([hidden])');
+  }
+  movePast(); setInterval(movePast, 60000);
 
   const btn = document.getElementById('menu-btn'), menu = document.getElementById('menu');
   const setMenu = open => { menu.classList.toggle('open', open); btn.setAttribute('aria-expanded', open); btn.textContent = open ? 'Close' : 'Menu'; };
