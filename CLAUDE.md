@@ -22,3 +22,9 @@ Everything is in `index.html`; images, videos and logos sit next to it.
   (Cash only · Up to 4 people · Student ID needed · Mon–Thu · Until Mon YYYY), then "Directions →".
 - Plain, friendly wording. Don't invent numbers, prices or names.
 - Don't publish the Maki & Ramen members' e-voucher image (members only).
+
+## Daily site check (since 26 Oct 2026)
+A claude.ai scheduled task, `leedssingsoc-site-check`, runs every day at 08:36 UK time. It checks the
+live site for new commits, broken images/links, page errors (desktop and phone) and out-of-date events
+or sponsor deals, then sends Jarryl a phone notification. It is REPORT-ONLY: Jarryl is the only one who
+changes the website, so the check never edits, commits or pushes. It just tells him what to fix.
