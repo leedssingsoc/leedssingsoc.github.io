@@ -169,6 +169,10 @@ section.block{padding-block:96px 0}
 .wall .print:nth-child(3n+1){transform:rotate(-1.2deg)}
 .wall .print:nth-child(3n+2){transform:rotate(.8deg)}
 .wall .print:nth-child(3n){transform:rotate(-.4deg)}
+.wall.rows{columns:auto;display:flex;flex-wrap:wrap;justify-content:center;gap:0 22px}
+.wall.rows .print{flex:0 0 calc((100% - 44px)/3)}
+@media (max-width: 960px){.wall.rows .print{flex-basis:calc((100% - 22px)/2)}}
+@media (max-width: 820px){.wall.rows .print{flex-basis:100%}}
 
 /* Committee */
 .team{display:grid;grid-template-columns:repeat(5, 1fr);gap:20px}
@@ -456,11 +460,13 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
 
       <div class="album">
         <div class="album-title"><h3>A Very Magical Otley Run</h3><span class="hand">23 Oct</span></div>
-        <div class="wall">
+        <div class="wall rows">
           <figure class="print"><img src="gallery-otley-ratatouille-2.jpg" alt="Members in costume posing with a friend in an inflatable Remy rat costume" loading="lazy"></figure>
           <figure class="print"><img src="gallery-otley-group.jpg" alt="Five members in Disney costumes with animal ears posing in a pub" loading="lazy"></figure>
           <figure class="print"><img src="gallery-otley-four.jpg" alt="Four members in costume, one dressed as Russell from Up, standing in a pub" loading="lazy"></figure>
+          <figure class="print"><img src="gallery-otley-cards.jpg" alt="Two members in a pub booth, one wearing a crown and one in bunny ears holding a playing-card fan" loading="lazy"></figure>
           <figure class="print"><img src="gallery-otley-ratatouille.jpg" alt="A mouse-eared member and an inflatable Remy rat with Mrs Potato Head behind" loading="lazy"></figure>
+          <figure class="print"><img src="gallery-otley-thumbs.jpg" alt="Members in animal ears posing in a pub while someone gives a thumbs up to the camera" loading="lazy"></figure>
           <figure class="print"><img src="gallery-otley-group-2.jpg" alt="Members in bunny, leopard, fox and mouse ears pulling faces in a pub" loading="lazy"></figure>
         </div>
       </div>
