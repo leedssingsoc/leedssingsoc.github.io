@@ -31,3 +31,7 @@ sends Jarryl ONE Telegram message a day, even when all is fine, from the website
 is pinned; a re-run the same day edits it instead of sending another. It never uses TELEGRAM_BOT_TOKEN (the
 job-search bot). It is REPORT-ONLY: Jarryl is the only one who changes the website, so the check never edits,
 commits or pushes. It just tells him what to fix.
+If a run crashes, the check retries failed steps and still sends the message (marking "❓ couldn't check").
+A watchdog task, `leedssingsoc-site-watchdog` (09:21 daily), checks today's pinned message exists; if not, it
+posts a ⏳ placeholder and re-runs the check, and recreates the task if it was deleted. Backup of the prompt:
+`routines/site-check-cloud.md` in the private repo waveriderjc-max/jobsearch.
