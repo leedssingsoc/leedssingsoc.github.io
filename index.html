@@ -178,7 +178,8 @@ section.block{padding-block:96px 0}
 
 /* Committee */
 .team{display:grid;grid-template-columns:repeat(5, 1fr);gap:20px}
-.member{margin:0}
+.member{margin:0;display:flex;flex-direction:column}
+.member .about{margin-top:auto!important;padding-top:12px}
 .member .frame{background:#fff;padding:8px;box-shadow:0 1px 2px rgba(0,0,0,.08), 0 10px 24px rgba(14,42,47,.12)}
 .member:nth-child(odd) .frame{transform:rotate(-1.5deg)}
 .member:nth-child(even) .frame{transform:rotate(1.2deg)}
@@ -186,6 +187,7 @@ section.block{padding-block:96px 0}
 .member h3{font-size:24px;margin-top:16px}
 .member .role{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
 .member .course{margin-top:2px;font-size:15px;color:var(--muted)}
+.member .says{margin:10px 0 0;font-family:var(--hand);font-size:19px;line-height:1.3;color:var(--ink)}
 .member .about{margin:12px 0 0;display:grid;gap:6px;font-size:14px;line-height:1.35}
 .member .about div{display:grid;grid-template-columns:76px 1fr;gap:8px;padding-top:6px;border-top:1px solid var(--line)}
 .member .about dt{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding-top:2px}
@@ -508,11 +510,11 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
         <p>Questions about the society? Any of us can help.</p>
       </div>
       <div class="team">
-        <figure class="member"><div class="frame"><img src="committee-keona.jpg" alt="Keona, President"></div><p class="role" style="margin-top:16px">President</p><h3 style="margin-top:2px">Keona</h3><p class="course">Dental Surgery · Year 2</p><dl class="about"><div><dt>Fav food</dt><dd>Mala</dd></div><div><dt>Hobby</dt><dd>Scrapbooking</dd></div><div><dt>Fav artist</dt><dd>Gracie Abrams</dd></div><div><dt>MBTI</dt><dd>ISTJ</dd></div></dl></figure>
-        <figure class="member"><div class="frame"><img src="committee-jarryl.jpg" alt="Jarryl, Vice-President"></div><p class="role" style="margin-top:16px">Vice-President</p><h3 style="margin-top:2px">Jarryl</h3><p class="course">Business · Year 3</p><dl class="about"><div><dt>Fav food</dt><dd>Laksa</dd></div><div><dt>Hobby</dt><dd>Softball</dd></div><div><dt>Fav artist</dt><dd>CHVRCHES</dd></div><div><dt>MBTI</dt><dd>ESFJ</dd></div></dl></figure>
-        <figure class="member"><div class="frame"><img src="committee-william.jpg" alt="William, Secretary"></div><p class="role" style="margin-top:16px">Secretary</p><h3 style="margin-top:2px">William</h3><p class="course">Biomedical Sciences · Year 3</p><dl class="about"><div><dt>Fav food</dt><dd>Nasi kandar</dd></div><div><dt>Hobby</dt><dd>Card games and taking walks</dd></div><div><dt>Fav artist</dt><dd>Illenium</dd></div><div><dt>MBTI</dt><dd>INFP</dd></div></dl></figure>
-        <figure class="member"><div class="frame"><img src="committee-yadira.jpg" alt="Yadira, Treasurer"></div><p class="role" style="margin-top:16px">Treasurer</p><h3 style="margin-top:2px">Yadira</h3><p class="course">Business with Marketing · Year 3</p><dl class="about"><div><dt>Fav food</dt><dd>Tsukemen</dd></div><div><dt>Hobby</dt><dd>Bouldering</dd></div><div><dt>Fav artist</dt><dd>Silence Wang</dd></div><div><dt>MBTI</dt><dd>ENFP</dd></div></dl></figure>
-        <figure class="member"><div class="frame"><img src="committee-noah.jpg" alt="Noah, Publicity and Welfare Officer"></div><p class="role" style="margin-top:16px">Publicity &amp; Welfare</p><h3 style="margin-top:2px">Noah</h3><p class="course">Dental Surgery · Year 2</p><dl class="about"><div><dt>Fav food</dt><dd>Co-op meal deal</dd></div><div><dt>Hobby</dt><dd>Eating out</dd></div><div><dt>Fav artist</dt><dd>PND</dd></div><div><dt>MBTI</dt><dd>ENTJ</dd></div></dl></figure>
+        <figure class="member"><div class="frame"><img src="committee-keona.jpg" alt="Keona, President"></div><p class="role" style="margin-top:16px">President</p><h3 style="margin-top:2px">Keona</h3><p class="course">Dental Surgery · Year 2</p><blockquote class="says">“I enjoy watching Law and Order (SVU) and reruns of Modern Family. My favourite place in Leeds is Park Square in the summer for a good tanning session ☀️”</blockquote><dl class="about"><div><dt>Fav food</dt><dd>Mala</dd></div><div><dt>Hobby</dt><dd>Scrapbooking</dd></div><div><dt>Fav artist</dt><dd>Gracie Abrams</dd></div><div><dt>MBTI</dt><dd>ISTJ</dd></div></dl></figure>
+        <figure class="member"><div class="frame"><img src="committee-jarryl.jpg" alt="Jarryl, Vice-President"></div><p class="role" style="margin-top:16px">Vice-President</p><h3 style="margin-top:2px">Jarryl</h3><p class="course">Business · Year 3</p><blockquote class="says">“I’m really into softball and baseball, so if anyone’s up for a game, I’d be more than happy to join y’all on the field!”</blockquote><dl class="about"><div><dt>Fav food</dt><dd>Laksa</dd></div><div><dt>Hobby</dt><dd>Softball</dd></div><div><dt>Fav artist</dt><dd>CHVRCHES</dd></div><div><dt>MBTI</dt><dd>ESFJ</dd></div></dl></figure>
+        <figure class="member"><div class="frame"><img src="committee-william.jpg" alt="William, Secretary"></div><p class="role" style="margin-top:16px">Secretary</p><h3 style="margin-top:2px">William</h3><p class="course">Biomedical Sciences · Year 3</p><blockquote class="says">“I regularly attend Riftbound and other card game events around West Yorkshire, so hit me up if you’re a card game hobbyist and I’ll show you around!”</blockquote><dl class="about"><div><dt>Fav food</dt><dd>Nasi kandar</dd></div><div><dt>Hobby</dt><dd>Card games and taking walks</dd></div><div><dt>Fav artist</dt><dd>Illenium</dd></div><div><dt>MBTI</dt><dd>INFP</dd></div></dl></figure>
+        <figure class="member"><div class="frame"><img src="committee-yadira.jpg" alt="Yadira, Treasurer"></div><p class="role" style="margin-top:16px">Treasurer</p><h3 style="margin-top:2px">Yadira</h3><p class="course">Business with Marketing · Year 3</p><blockquote class="says">“I love trying new things and food, so hmu whenever!”</blockquote><dl class="about"><div><dt>Fav food</dt><dd>Tsukemen</dd></div><div><dt>Hobby</dt><dd>Bouldering</dd></div><div><dt>Fav artist</dt><dd>Silence Wang</dd></div><div><dt>MBTI</dt><dd>ENFP</dd></div></dl></figure>
+        <figure class="member"><div class="frame"><img src="committee-noah.jpg" alt="Noah, Publicity and Welfare Officer"></div><p class="role" style="margin-top:16px">Publicity &amp; Welfare</p><h3 style="margin-top:2px">Noah</h3><p class="course">Dental Surgery · Year 2</p><blockquote class="says">“You’ll probably see me around Leeds eating out (big back 🍰). Feel free to say hi!”</blockquote><dl class="about"><div><dt>Fav food</dt><dd>Co-op meal deal</dd></div><div><dt>Hobby</dt><dd>Eating out</dd></div><div><dt>Fav artist</dt><dd>PND</dd></div><div><dt>MBTI</dt><dd>ENTJ</dd></div></dl></figure>
       </div>
     </div>
   </section>
