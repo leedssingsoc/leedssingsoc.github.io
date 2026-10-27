@@ -25,6 +25,11 @@ find `<script type="application/json" id="extra-events">` near the bottom and ad
 ]
 ```
 
+For events with ticket stages, use `"tiers"` instead of `"price"`, e.g.
+`"tiers": [{"name": "Early bird", "soldOut": true}, {"name": "Advance", "price": "£18 members · £20 non-members"}]`,
+and optionally `"priceNote": "..."` (shown next to the ticket button). To read the prices off a Google Form,
+run `python tools/read_form.py <form share link>`.
+
 Separate several events with commas. The site puts each one in date order under
 "Coming up", adds a countdown, and moves it to "Already happened" after the date.
 Ticket buttons switch to "Ticket sales have closed." when the event starts. To close

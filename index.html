@@ -160,6 +160,10 @@ section.block{padding-block:96px 0}
 .prog{list-style:none;margin:0;padding:0;display:grid;gap:4px}
 .prog b{display:inline-block;width:76px;font-variant-numeric:tabular-nums}
 .promo{display:block;width:100%;max-width:220px;aspect-ratio:464/848;height:auto;border-radius:10px;background:#000;margin-top:12px}
+.tiers{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.tiers b{font-weight:700}
+.tiers .gone{color:var(--muted);text-decoration:line-through}
+.tiers .gone span{text-decoration:none;display:inline-block;margin-left:4px;font-size:12px;font-weight:700;color:var(--red-ink)}
 .ctas-left{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 
 .past{margin-top:44px}
@@ -728,6 +732,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   const upList = document.querySelector('.events'), pastList = document.querySelector('.past');
   extra.filter(ev => ev && /^\d{4}-\d{2}-\d{2}$/.test(ev.date) && ev.title).forEach(ev => {
     const poster = safeUrl(ev.poster), link = safeUrl(ev.link);
+    const tiers = Array.isArray(ev.tiers) ? ev.tiers.filter(t => t && t.name) : [];
     const card = document.createElement('article');
     card.className = 'card feature' + (poster ? '' : ' noposter');
     card.dataset.until = ev.date;
@@ -737,8 +742,11 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
       `<h3 class="ftitle">${esc(ev.title)}</h3>` + (ev.desc ? `<p>${esc(ev.desc)}</p>` : '') +
       `<dl class="facts"><div><dt>When</dt><dd>${esc(longLabel(ev.date))}${ev.time ? ', ' + esc(ev.time) : ''}</dd></div>` +
       (ev.venue ? `<div><dt>Where</dt><dd>${esc(ev.venue)}</dd></div>` : '') +
-      (ev.price ? `<div><dt>Price</dt><dd>${esc(ev.price)}</dd></div>` : '') + `</dl>` +
-      (link ? `<div class="ctas-left"><a class="btn red" href="${esc(link)}" target="_blank" rel="noopener">${esc(ev.linkLabel || 'Sign up')}</a></div>` : '') + `</div>`;
+      (tiers.length ? `<div><dt>Tickets</dt><dd><ul class="tiers">${tiers.map(t =>
+        `<li${t.soldOut ? ' class="gone"' : ''}><b>${esc(t.name)}</b> ${t.soldOut ? '<span>Sold out</span>' : esc(t.price || '')}</li>`).join('')}</ul></dd></div>`
+        : ev.price ? `<div><dt>Price</dt><dd>${esc(ev.price)}</dd></div>` : '') + `</dl>` +
+      (link ? `<div class="ctas-left"><a class="btn red" href="${esc(link)}" target="_blank" rel="noopener">${esc(ev.linkLabel || 'Sign up')}</a>` +
+        (ev.priceNote ? `<span class="tiny">${esc(ev.priceNote)}</span>` : '') + `</div>` : '') + `</div>`;
     const later = [...upList.querySelectorAll(':scope > [data-until]')].find(el => el.dataset.until > ev.date);
     upList.insertBefore(card, later || null);
     const row = document.createElement('div');

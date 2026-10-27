@@ -19,6 +19,25 @@ Everything is in `index.html`; images, videos and logos sit next to it.
   (`.ctas-left`) become "Ticket sales have closed." when the event starts. When Jarryl says sales
   closed early, add `data-closed` to that card (or `"closed": true` in the JSON event).
 
+## Ticket forms and prices (Jarryl, 27 Oct 2026)
+Ticket forms (e.g. Monsta nights) are Google Forms made and managed by the treasurer (Yadira), not Jarryl.
+The website only links to the form's share link (`forms.gle/...` or `.../viewform`, never `/edit`) and shows
+the prices. Bank details, sort codes, account numbers and phone numbers stay in the form, never on the site.
+- When Jarryl says "update the prices" (or sends a new form): run `python tools/read_form.py <share link>`
+  (set `SSL_CERT_FILE=/root/.ccr/ca-bundle.crt` in the cloud). It prints every section and question of ANY
+  form layout, then each line with a £ price or "sold out" and which section it sits in. It hides bank and
+  phone details. Don't assume the old Halloween template: forms change.
+- Put the prices on the event as `"tiers"`: `[{"name": "Early bird", "soldOut": true},
+  {"name": "Second advance", "price": "£18 members · £20 non-members"}, ...]`, in the form's own stage names
+  and order, plus `"priceNote": "Prices go up nearer the event. The ticket form always has the latest price."`
+  (Hand-written cards: same idea in their Price/Tickets row.)
+- If the form is unclear (a price with no stage name, members/non-members not marked, prices only in an image,
+  two prices that disagree, or a branch you can't tell apart), DON'T guess: show Jarryl the lines the reader
+  printed and ask. Use only prices the form states; never work them out or invent a stage.
+- If the reader says the form is closed, add `"closed": true` (or `data-closed`) so the button shows
+  "Ticket sales have closed."
+- After updating, tell Jarryl in one line what changed (old → new) so he can check it against the form.
+
 ## Homepage photos
 - The two taped photos at the top change every day (UK date). They're picked from the `WIDE`
   (landscape, big print) and `TALL` (portrait, small print) lists in the script. When new gallery
