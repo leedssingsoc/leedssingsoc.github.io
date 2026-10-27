@@ -33,5 +33,5 @@ job-search bot). It is REPORT-ONLY: Jarryl is the only one who changes the websi
 commits or pushes. It just tells him what to fix.
 If a run crashes, the check retries failed steps and still sends the message (marking "❓ couldn't check").
 A watchdog task, `leedssingsoc-site-watchdog` (09:21 daily), checks today's pinned message exists; if not, it
-posts a ⏳ placeholder and re-runs the check, and recreates the task if it was deleted. Backup of the prompt:
+posts a ⏳ placeholder and runs the full check itself (and recreates the task if it was deleted, when it can). Backup of the prompt:
 `routines/site-check-cloud.md` in the private repo waveriderjc-max/jobsearch.
