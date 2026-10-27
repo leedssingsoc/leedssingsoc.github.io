@@ -818,5 +818,56 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
 })();
 </script>
 
+<!-- Visitor stats (GoatCounter, no cookies): page views plus taps on buttons and links. Stats: https://leedssingsoc.goatcounter.com -->
+<script>
+(function () {
+  function send(name) {
+    if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: name, title: name, event: true });
+  }
+  function slug(t) { return (t || '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40); }
+  function area(el) { var s = el.closest('section[id], header[id], footer, nav'); return s ? (s.id || s.tagName.toLowerCase()) : 'page'; }
+  function name(el) {
+    if (el.id === 'menu-btn') return 'tap-menu';
+    if (el.id === 'copy') return 'tap-copy-email';
+    var href = el.getAttribute('href') || '';
+    var sp = el.closest('.sp');
+    if (sp) { var b = sp.querySelector('b'); var who = slug(b ? b.textContent : 'sponsor');
+      return (href.indexOf('google.com/maps') > -1 ? 'tap-directions-' : href.indexOf('instagram.com/') > -1 ? 'tap-sponsor-instagram-' : 'tap-sponsor-website-') + who; }
+    if (href.indexOf('memberships') > -1) return 'tap-membership-' + area(el);
+    if (href.indexOf('chat.whatsapp.com') > -1) return 'tap-whatsapp-' + area(el);
+    if (href.indexOf('instagram.com/leedssingsoc') > -1) return 'tap-instagram-' + area(el);
+    if (href.indexOf('instagram.com/') > -1) return 'tap-instagram-' + slug(href.split('instagram.com/')[1]);
+    if (href.indexOf('engage.luu.org.uk/events') > -1) { var c = el.closest('article'); var h = c && c.querySelector('h3'); return 'tap-ticket-' + slug(h ? h.textContent : href.split('/').pop()); }
+    if (href.charAt(0) === '#') return 'tap-nav-' + (href.slice(1) || 'top') + '-from-' + area(el);
+    if (href) return 'tap-link-' + slug(el.textContent);
+    return 'tap-button-' + slug(el.textContent);
+  }
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('a, button');
+    if (el) send(name(el));
+  }, true);
+  document.addEventListener('toggle', function (e) {
+    var d = e.target;
+    if (d.tagName !== 'DETAILS' || !d.open) return;
+    var sum = d.querySelector('summary');
+    send((area(d) === 'faq' ? 'open-faq-' : 'open-more-') + slug(sum ? sum.textContent : area(d)));
+  }, true);
+  document.addEventListener('play', function (e) {
+    var v = e.target;
+    if (v.tagName === 'VIDEO' && !v.autoplay) send('play-video-' + slug((v.getAttribute('src') || '').replace(/\.mp4$/, '')));
+  }, true);
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (list) {
+      list.forEach(function (en) {
+        if (en.isIntersecting) { send('see-' + en.target.id); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    window.addEventListener('load', function () {
+      document.querySelectorAll('section[id]').forEach(function (sec) { io.observe(sec); });
+    });
+  }
+})();
+</script>
+<script data-goatcounter="https://leedssingsoc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

@@ -44,3 +44,11 @@ If a run crashes, the check retries failed steps and still sends the message (ma
 A watchdog task, `leedssingsoc-site-watchdog` (09:21 daily), checks today's pinned message exists; if not, it
 posts a ⏳ placeholder and runs the full check itself (and recreates the task if it was deleted, when it can). Backup of the prompt:
 `routines/site-check-cloud.md` in the private repo waveriderjc-max/jobsearch.
+
+## Visitor stats (since 27 Oct 2026)
+GoatCounter (no cookies, so no cookie banner needed): https://leedssingsoc.goatcounter.com . The script block
+at the end of `index.html` counts page views and sends events named `tap-…` (buttons/links, e.g.
+`tap-membership-<section>`, `tap-whatsapp-<section>`, `tap-directions-<sponsor>`, `tap-ticket-<event>`),
+`open-faq-…`/`open-more-…` (details opened), `play-video-…` and `see-<section>` (section scrolled into view).
+Keep it when editing the page; new buttons are tracked automatically. Counts only, never who someone is.
+The daily site check reads the stats with env var GOATCOUNTER_TOKEN (read-only API token).
