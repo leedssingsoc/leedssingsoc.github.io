@@ -117,6 +117,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .p1{width:78%;left:0;top:20px;transform:rotate(-2.5deg)}
 .p1 figcaption{text-align:left;padding-left:18px}
 .p2{width:46%;right:0;top:170px;transform:rotate(3deg)}
+.p3{width:76%;left:2%;top:455px;transform:rotate(1.6deg);z-index:1}
+.p2{z-index:2}
+@media (min-width: 961px){.prints{min-height:900px}}
 
 /* Slang band */
 .band{background:var(--band);color:var(--on-band);overflow:hidden;white-space:nowrap}
@@ -278,6 +281,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
 @media (max-width: 960px){
   .hero .wrap{grid-template-columns:1fr;gap:40px;padding-block:40px 64px}
   .prints{min-height:0;height:min(92vw, 520px)}
+  .p3{display:none}
   .team{grid-template-columns:repeat(3, 1fr)}
   .wall{columns:2}
   .partner,.join .wrap{grid-template-columns:1fr}
@@ -357,6 +361,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     <div class="prints">
       <figure class="print p1" id="print-a"><img src="gallery-snacks.jpg" alt="Members taking a selfie on campus holding Singaporean snacks"><figcaption>Give It A Go, 4 Oct</figcaption></figure>
       <figure class="print p2" id="print-b"><img src="gallery-six-lift.jpg" alt="Members holding a friend up horizontally outside a campus building"><figcaption>lift him up!</figcaption></figure>
+      <figure class="print p3" id="print-c"><img src="gallery-otley-group.jpg" alt="Members in costume posing in a pub"><figcaption>the Otley Run crew</figcaption></figure>
     </div>
   </div>
 </header>
@@ -748,7 +753,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     if (n === shownDay) return;
     shownDay = n;
     showPhrase(n);
-    setPrint('print-a', pick(WIDE, n)); setPrint('print-b', pick(TALL, n));
+    setPrint('print-a', pick(WIDE, n)); setPrint('print-b', pick(TALL, n)); setPrint('print-c', pick(WIDE, n + 5));
   }
   daily(); setInterval(daily, 30000);
 

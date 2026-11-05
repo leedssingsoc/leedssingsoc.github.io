@@ -47,8 +47,9 @@ the prices. Bank details, sort codes, account numbers and phone numbers stay in 
 - After updating, tell Jarryl in one line what changed (old → new) so he can check it against the form.
 
 ## Homepage photos
-- The two taped photos at the top change every day (UK date). They're picked from the `WIDE`
-  (landscape, big print) and `TALL` (portrait, small print) lists in the script. When new gallery
+- The taped photos at the top change every day (UK date). They're picked from the `WIDE`
+  (landscape, big print, plus a third print `#print-c` on laptops that fills the column under the other two)
+  and `TALL` (portrait, small print) lists in the script. Phones show only the first two. When new gallery
   photos are added, add them to the matching list with a short handwritten-style caption.
 
 ## House style
