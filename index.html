@@ -114,6 +114,24 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .print img{display:block;width:100%;height:auto}
 .print figcaption{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-family:var(--hand);font-weight:600;font-size:22px;color:#0E2A2F}
 .print::before{content:"";position:absolute;top:-12px;left:50%;width:90px;height:26px;transform:translateX(-50%) rotate(-3deg);background:var(--tape);backdrop-filter:blur(1px)}
+/* Peranakan-tile washi tape: four-petal tiles in the logo's teal and red with a soft gold, slightly see-through */
+.prints .print::before{width:96px;height:28px;opacity:.82;box-shadow:0 1px 2px rgba(0,0,0,.08);
+  background:
+    radial-gradient(circle, #D9343E 0 2px, transparent 2.5px) 0 0/18px 18px,
+    radial-gradient(ellipse 3px 5.6px at 50% 24%, #2E7D78 90%, transparent) 0 0/18px 18px,
+    radial-gradient(ellipse 3px 5.6px at 50% 76%, #2E7D78 90%, transparent) 0 0/18px 18px,
+    radial-gradient(ellipse 5.6px 3px at 24% 50%, #2E7D78 90%, transparent) 0 0/18px 18px,
+    radial-gradient(ellipse 5.6px 3px at 76% 50%, #2E7D78 90%, transparent) 0 0/18px 18px,
+    radial-gradient(circle at 0 0, #E2B04A 0 2.8px, transparent 3.2px) 0 0/18px 18px,
+    #F4EBDD}
+.prints .p2::before{transform:translateX(-50%) rotate(4deg)}
+.prints .p3::before{transform:translateX(-50%) rotate(-1deg)}
+/* Postmark stamped on the big print, like a postcard home */
+.postmark{position:absolute;left:-26px;top:-30px;width:104px;height:104px;transform:rotate(-14deg);color:#C0313A;opacity:.78;mix-blend-mode:multiply;pointer-events:none;z-index:3}
+.postmark text{font-family:var(--display);font-weight:700;fill:currentColor}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .postmark{mix-blend-mode:normal;color:#E8636B}}
+:root[data-theme="dark"] .postmark{mix-blend-mode:normal;color:#E8636B}
+@media (max-width: 960px){.postmark{width:84px;height:84px;left:-12px;top:-24px}}
 .p1{width:78%;left:0;top:20px;transform:rotate(-2.5deg)}
 .p1 figcaption{text-align:left;padding-left:18px}
 .p2{width:46%;right:0;top:170px;transform:rotate(3deg)}
@@ -359,7 +377,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
       </div>
     </div>
     <div class="prints">
-      <figure class="print p1" id="print-a"><img src="gallery-snacks.jpg" alt="Members taking a selfie on campus holding Singaporean snacks"><figcaption>Give It A Go, 4 Oct</figcaption></figure>
+      <figure class="print p1" id="print-a"><svg class="postmark" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="pm-ring" d="M60,60 m-41,0 a41,41 0 1,1 82,0 a41,41 0 1,1 -82,0"/></defs><circle cx="60" cy="60" r="54" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="60" cy="60" r="32" fill="none" stroke="currentColor" stroke-width="1.6"/><text font-size="11.5" letter-spacing="2.2"><textPath href="#pm-ring">LEEDS ✈ SINGAPORE ✈ LEEDS ✈</textPath></text><text id="pm-day" x="60" y="57" font-size="15" text-anchor="middle">5 NOV</text><text id="pm-year" x="60" y="73" font-size="11" text-anchor="middle" letter-spacing="1.5">2026</text></svg><img src="gallery-snacks.jpg" alt="Members taking a selfie on campus holding Singaporean snacks"><figcaption>Give It A Go, 4 Oct</figcaption></figure>
       <figure class="print p2" id="print-b"><img src="gallery-six-lift.jpg" alt="Members holding a friend up horizontally outside a campus building"><figcaption>lift him up!</figcaption></figure>
       <figure class="print p3" id="print-c"><img src="gallery-otley-group.jpg" alt="Members in costume posing in a pub"><figcaption>the Otley Run crew</figcaption></figure>
     </div>
@@ -753,6 +771,10 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     if (n === shownDay) return;
     shownDay = n;
     showPhrase(n);
+    const pm = new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'Europe/London'}).formatToParts(new Date());
+    const part = t => (pm.find(x => x.type === t) || {}).value || '';
+    document.getElementById('pm-day').textContent = (part('day') + ' ' + part('month')).toUpperCase();
+    document.getElementById('pm-year').textContent = part('year');
     setPrint('print-a', pick(WIDE, n)); setPrint('print-b', pick(TALL, n)); setPrint('print-c', pick(WIDE, n + 5));
   }
   daily(); setInterval(daily, 30000);
