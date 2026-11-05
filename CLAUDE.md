@@ -24,7 +24,7 @@ Everything is in `index.html`; images, videos and logos sit next to it.
   card and `data-done="Applications open"` to the chip (JSON: `"keepOpen": true, "liveText": "..."`): it counts
   down ("Opens in …"), then shows the done text, and the buttons stay usable until `data-until`.
 - NTU Management Associate Programme card (`#ntu-map`): counts down to 1 Jan 2027 (NTU said only "January 2027";
-  move `data-cd` if they give an exact date), stays up until 31 Jan. When NTU publishes the application link,
+  move `data-cd` if they give an exact date), stays up until 28 Feb 2027 (Jarryl, unless NTU states a closing date). When NTU publishes the application link,
   add an "Apply now" button, keeping the interest form and programme website buttons.
 
 ## Ticket forms and prices (Jarryl, 27 Oct 2026)
