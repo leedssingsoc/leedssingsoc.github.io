@@ -18,6 +18,9 @@ Everything is in `index.html`; images, videos and logos sit next to it.
 - Ticket links close by themselves (Jarryl, 26 Oct 2026): each card's ticket/sign-up buttons
   (`.ctas-left`) become "Ticket sales have closed." when the event starts. When Jarryl says sales
   closed early, add `data-closed` to that card (or `"closed": true` in the JSON event).
+- The NTU Management Associate Programme card (`#ntu-map`, data-until 2027-01-31) has no countdown chip
+  on purpose, so its buttons stay open all January. When NTU publishes the application link (Jan 2027),
+  add an "Apply now" button to that card, keeping the interest form and programme website buttons.
 
 ## Ticket forms and prices (Jarryl, 27 Oct 2026)
 Ticket forms (e.g. Monsta nights) are Google Forms made and managed by the treasurer (Yadira), not Jarryl.
