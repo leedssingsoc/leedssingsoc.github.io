@@ -18,9 +18,14 @@ Everything is in `index.html`; images, videos and logos sit next to it.
 - Ticket links close by themselves (Jarryl, 26 Oct 2026): each card's ticket/sign-up buttons
   (`.ctas-left`) become "Ticket sales have closed." when the event starts. When Jarryl says sales
   closed early, add `data-closed` to that card (or `"closed": true` in the JSON event).
-- The NTU Management Associate Programme card (`#ntu-map`, data-until 2027-01-31) has no countdown chip
-  on purpose, so its buttons stay open all January. When NTU publishes the application link (Jan 2027),
-  add an "Apply now" button to that card, keeping the interest form and programme website buttons.
+- Every future event gets a live countdown (Jarryl, 5 Nov 2026): a chip with `data-cd="YYYY-MM-DD"` (and
+  `data-time` if known). JSON events get one automatically.
+- For things that OPEN on a date (applications, sign-ups) rather than happen on it, add `data-keep-open` to the
+  card and `data-done="Applications open"` to the chip (JSON: `"keepOpen": true, "liveText": "..."`): it counts
+  down ("Opens in …"), then shows the done text, and the buttons stay usable until `data-until`.
+- NTU Management Associate Programme card (`#ntu-map`): counts down to 1 Jan 2027 (NTU said only "January 2027";
+  move `data-cd` if they give an exact date), stays up until 31 Jan. When NTU publishes the application link,
+  add an "Apply now" button, keeping the interest form and programme website buttons.
 
 ## Ticket forms and prices (Jarryl, 27 Oct 2026)
 Ticket forms (e.g. Monsta nights) are Google Forms made and managed by the treasurer (Yadira), not Jarryl.

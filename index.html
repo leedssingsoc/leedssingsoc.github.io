@@ -464,10 +464,10 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
           </div>
         </article>
 
-        <article class="card feature" id="ntu-map" data-until="2027-01-31">
+        <article class="card feature" id="ntu-map" data-until="2027-01-31" data-keep-open>
           <img src="gallery-ntu-group.jpg" alt="Members with the NTU Management Associate Programme team on campus">
           <div class="fbody">
-            <div class="chips"><span class="chip hot">Jan 2027</span><span class="chip">Applications</span><span class="chip">Singapore</span></div>
+            <div class="chips"><span class="chip hot">Opens Jan 2027</span><span class="chip" data-cd="2027-01-01" data-done="Applications open">Singapore</span></div>
             <h3 class="ftitle">NTU Management Associate Programme: applications open</h3>
             <p>Thinking about a career back home? NTU's Management Associate Programme is a 2-year graduate programme in university management in Singapore. Its team visited us on 2 November, and applications open in January 2027.</p>
             <dl class="facts">
@@ -767,8 +767,9 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     card.className = 'card feature' + (poster ? '' : ' noposter');
     card.dataset.until = ev.date;
     if (ev.closed) card.dataset.closed = '';
+    if (ev.keepOpen) card.dataset.keepOpen = '';
     card.innerHTML = (poster ? `<img src="${esc(poster)}" alt="${esc(ev.title)} poster">` : '') +
-      `<div class="fbody"><div class="chips"><span class="chip hot">${esc(dayLabel(ev.date))}</span><span class="chip" data-cd="${esc(ev.date)}" data-time="${esc(ev.time || '')}"></span></div>` +
+      `<div class="fbody"><div class="chips"><span class="chip hot">${esc(dayLabel(ev.date))}</span><span class="chip" data-cd="${esc(ev.date)}" data-time="${esc(ev.time || '')}"${ev.liveText ? ` data-done="${esc(ev.liveText)}"` : ''}></span></div>` +
       `<h3 class="ftitle">${esc(ev.title)}</h3>` + (ev.desc ? `<p>${esc(ev.desc)}</p>` : '') +
       `<dl class="facts"><div><dt>When</dt><dd>${esc(longLabel(ev.date))}${ev.time ? ', ' + esc(ev.time) : ''}</dd></div>` +
       (ev.venue ? `<div><dt>Where</dt><dd>${esc(ev.venue)}</dd></div>` : '') +
@@ -814,14 +815,15 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     timers.forEach(({ el, start, end }) => {
       const left = Math.floor((start - now) / 1000);
       el.classList.toggle('live', left > 0);
-      if (left <= 0) { el.textContent = now < end ? 'Happening now' : 'Finished'; return; }
+      if (left <= 0) { el.textContent = el.dataset.done || (now < end ? 'Happening now' : 'Finished'); return; }
       const d = Math.floor(left / 86400), h = Math.floor(left % 86400 / 3600), m = Math.floor(left % 3600 / 60), sec = left % 60;
-      el.textContent = d ? `${d}d ${pad(h)}h ${pad(m)}m ${pad(sec)}s` : `Starts in ${pad(h)}h ${pad(m)}m ${pad(sec)}s`;
+      el.textContent = d ? `${d}d ${pad(h)}h ${pad(m)}m ${pad(sec)}s` : `${el.dataset.done ? 'Opens' : 'Starts'} in ${pad(h)}h ${pad(m)}m ${pad(sec)}s`;
     });
   }
   countdown(); setInterval(countdown, 1000);
 
   // Ticket links close once the event starts, or earlier if its card has data-closed (or "closed": true in #extra-events).
+  // Cards with data-keep-open (or "keepOpen": true) keep their buttons: e.g. applications that open on the countdown date.
   const closeTickets = card => card.querySelectorAll('.ctas-left').forEach(c => {
     const n = document.createElement('p'); n.className = 'notice'; n.textContent = 'Ticket sales have closed.';
     c.replaceWith(n);
@@ -830,7 +832,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   function checkSales(){
     timers.forEach(t => {
       const card = t.el.closest('[data-until]');
-      if (card && !t.closed && Date.now() >= t.start) { t.closed = true; closeTickets(card); }
+      if (card && !t.closed && !card.hasAttribute('data-keep-open') && Date.now() >= t.start) { t.closed = true; closeTickets(card); }
     });
   }
   checkSales(); setInterval(checkSales, 30000);
