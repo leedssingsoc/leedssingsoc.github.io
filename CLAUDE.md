@@ -58,6 +58,10 @@ the prices. Bank details, sort codes, account numbers and phone numbers stay in 
   (Cash only · Up to 4 people · Student ID needed · Mon–Thu · Until Mon YYYY), then "Directions →"
   and "Website →" (or "Instagram →" if there is no website; check the link is the Leeds branch).
 - Plain, friendly wording. Don't invent numbers, prices or names.
+- Singaporean touches stay SUBTLE (Jarryl, 5 Nov 2026): Peranakan-tile washi tape (`var(--peranakan)`, one pattern
+  reused for all tape and the footer strip), the dated LEEDS ✈ SINGAPORE postmark on the big hero photo, and a
+  little Singlish in small print ("Paiseh to ask?", "Copied lah!", "fuelled by kopi"). Don't pile on more flags,
+  Merlions or slang; one light touch per area.
 - Don't publish the Maki & Ramen members' e-voucher image (members only).
 
 ## Daily site check (since 26 Oct 2026)
