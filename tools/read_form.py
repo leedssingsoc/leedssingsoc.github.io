@@ -10,6 +10,7 @@ import html
 import json
 import re
 import sys
+import urllib.error
 import urllib.request
 
 SECTION, TEXT_BLOCK = 8, 6
@@ -29,8 +30,16 @@ def redact(text):
 
 def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return r.geturl(), r.read().decode("utf-8", "replace")
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            final, page = r.geturl(), r.read().decode("utf-8", "replace")
+    except urllib.error.HTTPError as e:
+        if e.code in (401, 403):
+            sys.exit("SIGN-IN NEEDED: this form only opens for signed-in Google users, so it can't be read automatically.")
+        raise
+    if "accounts.google.com" in final:
+        sys.exit("SIGN-IN NEEDED: this form only opens for signed-in Google users, so it can't be read automatically.")
+    return final, page
 
 
 def load_data(page):
