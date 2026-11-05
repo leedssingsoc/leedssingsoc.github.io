@@ -74,7 +74,9 @@ the prices. Bank details, sort codes, account numbers and phone numbers stay in 
 
 ## Daily site check (since 26 Oct 2026)
 A claude.ai scheduled task, `leedssingsoc-site-check`, runs every day at 08:36 UK time. It checks the live site
-(new commits, broken images/links, page errors on desktop and phone, out-of-date events or sponsor deals) and
+(new commits, broken images/links, page errors on desktop and phone, out-of-date events or sponsor deals, and
+since 5 Nov 2026 ticket prices vs each event's Google Form via tools/read_form.py; forms that need sign-in are
+listed as "🔒 check by hand" with the site's prices, never guessed) and
 sends Jarryl ONE Telegram message a day, even when all is fine, from the website bot "SingSoc Website Check"
 (@LeedsSingSocSiteBot, env var SITE_BOT_TOKEN; chat id from SITE_CHAT_ID or TELEGRAM_CHAT_ID). The day's message
 is pinned; a re-run the same day edits it instead of sending another. It never uses TELEGRAM_BOT_TOKEN (the
