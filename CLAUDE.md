@@ -24,6 +24,8 @@ Everything is in `index.html`; images, videos and logos sit next to it.
   goes in a collapsed `<details class="more">` with a short summary like "Plan for the day", using
   `<ul|ol class="prog">` rows of `<li><b>label</b> text</li>`. Then the button with one short tiny line.
   JSON events: `"details": [["14:00", "Meet at ..."], ...]` and optional `"detailsTitle"`.
+- "Where" is always `<dd class="venue"><b>Venue name</b><span class="addr">street, postcode</span><a class="dir" ...>Directions →</a></dd>`
+  (Google Maps search link). JSON events: `"venue"` plus optional `"address"`; the directions link is added automatically.
 - Every future event gets a live countdown (Jarryl, 5 Nov 2026): a chip with `data-cd="YYYY-MM-DD"` (and
   `data-time` if known). JSON events get one automatically.
 - For things that OPEN on a date (applications, sign-ups) rather than happen on it, add `data-keep-open` to the

@@ -167,6 +167,11 @@ section.block{padding-block:96px 0}
 .facts dt{font-size:13px;font-weight:700;color:var(--muted);padding-top:2px}
 .facts dd{margin:0}
 .notice{border-left:3px solid var(--red);padding:10px 14px;background:var(--paper);border-radius:0 8px 8px 0;font-size:15px}
+.venue{display:grid;gap:1px;justify-items:start}
+.venue b{font-weight:600}
+.venue .addr{font-size:14px;color:var(--muted)}
+.venue .dir{margin-top:3px;font-size:14px;font-weight:700;color:var(--red-ink);text-decoration:none}
+.venue .dir:hover{text-decoration:underline}
 .more{border-top:1px solid var(--line);padding-top:12px}
 .more summary{cursor:pointer;font-weight:700;color:var(--red-ink)}
 .more[open] summary{margin-bottom:12px}
@@ -426,7 +431,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
             <p>Join us for a Halloween movie night, hosted by the British Chinese Society (BCSoc) with Leeds Japan Society, LUU FilSoc and us. Grab some popcorn and come along.</p>
             <dl class="facts">
               <div><dt>When</dt><dd>Monday 26 October 2026, 6.30pm – 9pm</dd></div>
-              <div><dt>Where</dt><dd>Michael Sadler Theatre, University of Leeds</dd></div>
+              <div><dt>Where</dt><dd class="venue"><b>Michael Sadler Theatre</b><span class="addr">University of Leeds</span><a class="dir" href="https://www.google.com/maps/search/?api=1&amp;query=Michael%20Sadler%20Theatre%2C%20University%20of%20Leeds" target="_blank" rel="noopener">Directions →</a></dd></div>
               <div><dt>Film</dt><dd>To be announced</dd></div>
               <div><dt>Price</dt><dd>£2 for SingSoc members (£1 for BCSoc members)</dd></div>
             </dl>
@@ -447,7 +452,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
             <p class="notice">SingSoc ticket sales for this one have closed. Thanks to everyone who bought through us. See you on the dance floor.</p>
             <dl class="facts">
               <div><dt>When</dt><dd>Tuesday 27 October 2026, 11pm – 4am (last entry 1am)</dd></div>
-              <div><dt>Where</dt><dd>Home Nightclub, 117 Albion Street, Leeds</dd></div>
+              <div><dt>Where</dt><dd class="venue"><b>Home Nightclub</b><span class="addr">117 Albion Street, Leeds</span><a class="dir" href="https://www.google.com/maps/search/?api=1&amp;query=Home%20Nightclub%2C%20117%20Albion%20Street%2C%20Leeds" target="_blank" rel="noopener">Directions →</a></dd></div>
               <div><dt>DJs</dt><dd>Lollibus × Jiannu</dd></div>
               <div><dt>Music</dt><dd>Hip-hop throwbacks, K-pop, UK rap, techno and EDM</dd></div>
               <div><dt>Prizes</dt><dd>£50 each for best-dressed girl, boy and group</dd></div>
@@ -467,7 +472,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
             <p>Singapore Societies from across the UK are heading to Manchester for an afternoon of paintball, organised by Manchester Singapore Society.</p>
             <dl class="facts">
               <div><dt>When</dt><dd>Saturday 14 November 2026, 12.30pm – 4.30pm</dd></div>
-              <div><dt>Where</dt><dd>Manchester Clay Shooting Club, Bottany Bay Woods, Grange Rd, Eccles, M30 8JW</dd></div>
+              <div><dt>Where</dt><dd class="venue"><b>Manchester Clay Shooting Club</b><span class="addr">Bottany Bay Woods, Grange Rd, Eccles, M30 8JW</span><a class="dir" href="https://www.google.com/maps/search/?api=1&amp;query=Manchester%20Clay%20Shooting%20Club%2C%20Bottany%20Bay%20Woods%2C%20Grange%20Rd%2C%20Eccles%2C%20M30%208JW" target="_blank" rel="noopener">Directions →</a></dd></div>
               <div><dt>Price</dt><dd>£18 members · £22 non-members</dd></div>
             </dl>
             <details class="more">
@@ -497,7 +502,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
             <p>Two games of laser tag with the Myanmar Society, in teams mixed across both societies. A good way to meet new people.</p>
             <dl class="facts">
               <div><dt>When</dt><dd>Sunday 15 November 2026, games start at 3pm</dd></div>
-              <div><dt>Where</dt><dd>Laser Force Leeds, 164 Armley Rd, Leeds LS12 2TY · <a href="https://www.google.com/maps/search/?api=1&amp;query=Laser%20Force%20Leeds%2C%20164%20Armley%20Rd%2C%20Leeds%20LS12%202TY" target="_blank" rel="noopener">Directions →</a></dd></div>
+              <div><dt>Where</dt><dd class="venue"><b>Laser Force Leeds</b><span class="addr">164 Armley Rd, Armley, Leeds LS12 2TY</span><a class="dir" href="https://www.google.com/maps/search/?api=1&amp;query=Laser%20Force%20Leeds%2C%20164%20Armley%20Rd%2C%20Armley%2C%20Leeds%20LS12%202TY" target="_blank" rel="noopener">Directions →</a></dd></div>
               <div><dt>Price</dt><dd>£12 members · £15 non-members</dd></div>
             </dl>
             <details class="more">
@@ -526,7 +531,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
             <p>Monsta is back for Christmas, teaming up with BCSoc Leeds for a winter wonderland night with a special guest K-pop DJ from the USA.</p>
             <dl class="facts">
               <div><dt>When</dt><dd>Sunday 6 December 2026, 11pm – 4am</dd></div>
-              <div><dt>Where</dt><dd>Warehouse Nightclub, Leeds</dd></div>
+              <div><dt>Where</dt><dd class="venue"><b>Warehouse Nightclub</b><span class="addr">Leeds</span><a class="dir" href="https://www.google.com/maps/search/?api=1&amp;query=Warehouse%20Nightclub%2C%20Leeds" target="_blank" rel="noopener">Directions →</a></dd></div>
               <div><dt>Price</dt><dd>From £10 (advanced) · £20 on the door</dd></div>
             </dl>
             <details class="more">
@@ -862,7 +867,8 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
       `<div class="fbody"><div class="chips"><span class="chip hot">${esc(dayLabel(ev.date))}</span><span class="chip" data-cd="${esc(ev.date)}" data-time="${esc(ev.time || '')}"${ev.liveText ? ` data-done="${esc(ev.liveText)}"` : ''}></span></div>` +
       `<h3 class="ftitle">${esc(ev.title)}</h3>` + (ev.desc ? `<p>${esc(ev.desc)}</p>` : '') +
       `<dl class="facts"><div><dt>When</dt><dd>${esc(longLabel(ev.date))}${ev.time ? ', ' + esc(ev.time) : ''}</dd></div>` +
-      (ev.venue ? `<div><dt>Where</dt><dd>${esc(ev.venue)}</dd></div>` : '') +
+      (ev.venue ? `<div><dt>Where</dt><dd class="venue"><b>${esc(ev.venue)}</b>${ev.address ? `<span class="addr">${esc(ev.address)}</span>` : ''}` +
+        `<a class="dir" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ev.venue + (ev.address ? ', ' + ev.address : ''))}" target="_blank" rel="noopener">Directions →</a></dd></div>` : '') +
       (tiers.length ? `<div><dt>Tickets</dt><dd><ul class="tiers">${tiers.map(t =>
         `<li${t.soldOut ? ' class="gone"' : ''}><b>${esc(t.name)}</b> ${t.soldOut ? '<span>Sold out</span>' : esc(t.price || '')}</li>`).join('')}</ul></dd></div>`
         : ev.price ? `<div><dt>Price</dt><dd>${esc(ev.price)}</dd></div>` : '') + `</dl>` +
