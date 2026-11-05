@@ -18,6 +18,12 @@ Everything is in `index.html`; images, videos and logos sit next to it.
 - Ticket links close by themselves (Jarryl, 26 Oct 2026): each card's ticket/sign-up buttons
   (`.ctas-left`) become "Ticket sales have closed." when the event starts. When Jarryl says sales
   closed early, add `data-closed` to that card (or `"closed": true` in the JSON event).
+- Event card layout (Jarryl, 5 Nov 2026), modelled on the Paintball card so it never feels overwhelming:
+  chips (date + countdown), title, ONE or two short sentences, then just three facts: When, Where, Price.
+  Everything else (programme/timings, line-up, ticket tiers, dress code, meeting point, what's included)
+  goes in a collapsed `<details class="more">` with a short summary like "Plan for the day", using
+  `<ul|ol class="prog">` rows of `<li><b>label</b> text</li>`. Then the button with one short tiny line.
+  JSON events: `"details": [["14:00", "Meet at ..."], ...]` and optional `"detailsTitle"`.
 - Every future event gets a live countdown (Jarryl, 5 Nov 2026): a chip with `data-cd="YYYY-MM-DD"` (and
   `data-time` if known). JSON events get one automatically.
 - For things that OPEN on a date (applications, sign-ups) rather than happen on it, add `data-keep-open` to the
