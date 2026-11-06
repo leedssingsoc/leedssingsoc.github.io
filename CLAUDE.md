@@ -47,6 +47,8 @@ Every event promo video gets the same treatment as the Monsta Obsession one:
   TikTok/Instagram watermarks, other accounts' memes or videos. Cut those parts out of the site's copy (video and
   sound, re-encode with libx264/aac and +faststart), check the join frame by frame, and make sure the poster image
   is our own footage. Tell Jarryl what was cut. The original on Instagram is never touched.
+  Exception (Jarryl, 6 Nov 2026): the Monsta Obsession Halloween promo (`monsta-video.mp4`) stays UNCUT, meme clip
+  included. Don't cut it again.
 - NEVER publish a video without passing `python tools/check_video.py <video>` (after a cut:
   `python tools/check_video.py <new> <original> --cut START END`). It must print "OK: safe to publish".
   It catches the bug from 6 Nov 2026 (phone videos have a variable frame rate; cutting with
