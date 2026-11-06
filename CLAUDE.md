@@ -69,6 +69,10 @@ Every event promo video gets the same treatment as the Monsta Obsession one:
   `<track kind="metadata" src="x.vtt">` inside the <video>; wrap the gallery figure in `<div class="vidrow">` (card
   promos in `<span class="capwrap">`). The script lists the lines BESIDE the video (below on phones) and highlights
   the current one as it plays. Only use facts Jarryl gave; edit the .vtt to change wording.
+  Promo captions are HYPE and push ticket sales (Jarryl, 6 Nov 2026): short punchy lines, an emoji each, ending on a
+  buy-now line. Past events' videos end by pointing to the NEXT Monsta night. Captions that name a price
+  (`monsta-xmas-captions.vtt`: "Members pay just £8 right now") or the next event (`monsta-obsession-captions.vtt`)
+  must be updated whenever a release sells out or a new Monsta night is added, same as the card's tiers.
 - A "Get tickets →" link outside the event card (e.g. under a gallery video) needs `data-tickets-for="<card id>"`;
   it disappears automatically when that event's ticket sales close (at the start) and stays gone afterwards.
 

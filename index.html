@@ -624,7 +624,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
         <div class="vidrow">
           <figure class="vid tall"><video data-autoplay src="monsta-xmas-video.mp4" poster="monsta-xmas-video-poster.jpg" style="aspect-ratio:464/848" muted loop playsinline controls preload="none" aria-label="Noah dancing in reindeer antlers, promoting KPOP Wonderland: get your tickets with SingSoc"><track kind="metadata" src="monsta-xmas-captions.vtt" srclang="en" label="Captions"></video></figure>
         </div>
-        <p class="vid-cap hand">Noah&#x27;s warmed up for Christmas Monsta. Are you? 🎄 <a href="#monsta-wonderland" data-tickets-for="monsta-wonderland">Get tickets →</a></p>
+        <p class="vid-cap hand">Noah&#x27;s warmed up. Are you? 🎄 Members from £8 while advanced lasts. <a href="#monsta-wonderland" data-tickets-for="monsta-wonderland">Get tickets →</a></p>
       </div>
 
       <div class="album">
@@ -640,6 +640,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
         <div class="vidrow">
           <figure class="vid tall"><video src="monsta-video.mp4" poster="monsta-video-poster.jpg" style="aspect-ratio:464/848" data-autoplay muted loop playsinline controls preload="none" aria-label="Our Halloween promo video for Monsta Leeds: Obsession"><track kind="metadata" src="monsta-obsession-captions.vtt" srclang="en" label="Captions"></video></figure>
         </div>
+        <p class="vid-cap hand" data-tickets-for="monsta-wonderland">Missed this one? KPOP Wonderland is next, Sun 6 Dec 🎄 <a href="#monsta-wonderland">Get tickets →</a></p>
       </div>
 
       <div class="album">
@@ -972,7 +973,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   }
   // Links elsewhere on the page (e.g. "Get tickets →" under a gallery video) disappear once that event's sales close.
   function hideClosedLinks(){
-    document.querySelectorAll('a[data-tickets-for]').forEach(a => {
+    document.querySelectorAll('[data-tickets-for]').forEach(a => {
       const card = document.getElementById(a.dataset.ticketsFor);
       a.hidden = !card || card.hidden || !card.querySelector('.ctas-left a');
     });
