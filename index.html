@@ -960,14 +960,25 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   }
   movePast(); setInterval(movePast, 60000);
 
-  // Gallery videos only download when scrolled near, then play muted; they pause again off screen.
-  const autoVids = document.querySelectorAll('video[data-autoplay]');
+  // Gallery videos only download when scrolled near, and only ONE plays at a time (the one most in view),
+  // so phones never decode several at once and stutter. Off-screen videos pause.
+  const autoVids = [...document.querySelectorAll('video[data-autoplay]')];
   if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(entries => entries.forEach(e => {
-      const v = e.target;
-      if (e.isIntersecting) { v.preload = 'auto'; v.play().catch(() => {}); } else if (!v.paused) v.pause();
-    }), { rootMargin: '200px 0px' });
-    autoVids.forEach(v => io.observe(v));
+    const seen = new Map();
+    const pickOne = () => {
+      let best = null, bestRatio = 0.35;
+      seen.forEach((r, v) => { if (r > bestRatio) { best = v; bestRatio = r; } });
+      autoVids.forEach(v => { if (v !== best && !v.paused) v.pause(); });
+      if (best && best.paused) best.play().catch(() => {});
+    };
+    const near = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.preload = 'auto'; }), { rootMargin: '300px 0px' });
+    const view = new IntersectionObserver(es => { es.forEach(e => seen.set(e.target, e.isIntersecting ? e.intersectionRatio : 0)); pickOne(); },
+      { threshold: [0, 0.2, 0.35, 0.5, 0.65, 0.8, 1] });
+    autoVids.forEach(v => {
+      near.observe(v); view.observe(v);
+      // If someone taps play on a video themselves, that one wins and the rest pause.
+      v.addEventListener('play', () => autoVids.forEach(o => { if (o !== v && !o.paused) o.pause(); }));
+    });
   } else autoVids.forEach(v => { v.autoplay = true; v.preload = 'metadata'; });
 
   const btn = document.getElementById('menu-btn'), menu = document.getElementById('menu');

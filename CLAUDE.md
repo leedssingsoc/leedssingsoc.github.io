@@ -61,6 +61,8 @@ Every event promo video gets the same treatment as the Monsta Obsession one:
   Phone videos often have uneven frame gaps (e.g. 33/67 ms alternating), which stutters on screen; the checker flags
   it, and the fix is `-vf setpts=N/<fps>/TB -r <fps>` (fps = frames ÷ duration). All three gallery videos were evened
   out to 20 fps on 6 Nov 2026.
+  Only ONE gallery video plays at a time (the one most in view; tapping play on another pauses the rest). Keep that
+  script: several videos decoding at once made them lag on phones.
 
 ## Ticket forms and prices (Jarryl, 27 Oct 2026)
 Ticket forms (e.g. Monsta nights) are Google Forms made and managed by the treasurer (Yadira), not Jarryl.
