@@ -47,6 +47,15 @@ Every event promo video gets the same treatment as the Monsta Obsession one:
   TikTok/Instagram watermarks, other accounts' memes or videos. Cut those parts out of the site's copy (video and
   sound, re-encode with libx264/aac and +faststart), check the join frame by frame, and make sure the poster image
   is our own footage. Tell Jarryl what was cut. The original on Instagram is never touched.
+- NEVER publish a video without passing `python tools/check_video.py <video>` (after a cut:
+  `python tools/check_video.py <new> <original> --cut START END`). It must print "OK: safe to publish".
+  It catches the bug from 6 Nov 2026 (phone videos have a variable frame rate; cutting with
+  `setpts=N/FRAME_RATE/TB` made the picture run fast and freeze while the sound carried on).
+  Cut ONLY with trim/atrim + concat, which keeps the real timestamps:
+  `ffmpeg -i in.mp4 -filter_complex "[0:v]trim=0:A,setpts=PTS-STARTPTS[v1];[0:v]trim=start=B,setpts=PTS-STARTPTS[v2];
+  [0:a]atrim=0:A,asetpts=PTS-STARTPTS[a1];[0:a]atrim=start=B,asetpts=PTS-STARTPTS[a2];[v1][a1][v2][a2]concat=n=2:v=1:a=1[v][a]"
+  -map "[v]" -map "[a]" -c:v libx264 -crf 24 -pix_fmt yuv420p -r 30 -movflags +faststart -c:a aac -b:a 128k out.mp4`
+  Then play it on the LIVE site in Playwright (currentTime advances at real speed) once GitHub Pages has deployed.
 
 ## Ticket forms and prices (Jarryl, 27 Oct 2026)
 Ticket forms (e.g. Monsta nights) are Google Forms made and managed by the treasurer (Yadira), not Jarryl.
