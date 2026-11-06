@@ -183,6 +183,7 @@ section.block{padding-block:96px 0}
 .promo{display:block;width:100%;max-width:220px;aspect-ratio:464/848;height:auto;border-radius:10px;background:#000;margin-top:12px}
 .tiers{list-style:none;margin:0;padding:0;display:grid;gap:2px}
 .tiers b{font-weight:700}
+.tiers .now span{display:inline-block;margin-left:6px;font-size:12px;font-weight:700;color:var(--on-red);background:var(--red);border-radius:4px;padding:1px 6px;vertical-align:1px}
 .tiers .gone{color:var(--muted);text-decoration:line-through}
 .tiers .gone span{text-decoration:none;display:inline-block;margin-left:4px;font-size:12px;font-weight:700;color:var(--red-ink)}
 .ctas-left{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
@@ -534,7 +535,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
             <dl class="facts">
               <div><dt>When</dt><dd>Sunday 6 December 2026, 11pm – 4am</dd></div>
               <div><dt>Where</dt><dd class="venue"><b>The Warehouse</b><span class="addr">19-21 Somers St, Leeds LS1 2RG</span><a class="dir" href="https://www.google.com/maps/search/?api=1&amp;query=The%20Warehouse%2C%2019-21%20Somers%20St%2C%20Leeds%20LS1%202RG" target="_blank" rel="noopener">Directions →</a></dd></div>
-              <div><dt>Price</dt><dd>From £10 (advanced) · £20 on the door</dd></div>
+              <div><dt>Price</dt><dd>Now £8 members · £10 non-members</dd></div>
             </dl>
             <details class="more">
               <summary>Line-up, prices and dress code</summary>
@@ -545,10 +546,11 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
                 <li><b>Entry</b> Last entry 1am</li>
               </ul>
               <p><b>Ticket prices</b></p>
-              <ul class="tiers"><li><b>Advanced</b> £10</li><li><b>Second release</b> £12</li><li><b>Final release</b> £15</li><li><b>Door</b> £20</li></ul>
+              <ul class="tiers"><li class="now"><b>Advanced</b> £8 members · £10 non-members <span>Now selling</span></li><li><b>Second release</b> £10 members · £12 non-members</li><li><b>Final release</b> £13 members · £15 non-members</li><li><b>Door</b> £20</li></ul>
             </details>
             <div class="ctas-left">
-              <p class="notice" style="margin:0">Ticket link coming soon. Follow <a href="https://www.instagram.com/leedssingsoc/" target="_blank" rel="noopener">@leedssingsoc</a> to hear when it&#x27;s out.</p>
+              <a class="btn red" href="https://forms.gle/8g9ohJPMkhG1Vby68" target="_blank" rel="noopener">Get tickets</a>
+              <span class="tiny">Members save £2 on every release. Prices go up nearer the night.</span>
             </div>
           </div>
         </article>

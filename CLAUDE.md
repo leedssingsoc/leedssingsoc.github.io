@@ -84,6 +84,12 @@ the prices. Bank details, sort codes, account numbers and phone numbers stay in 
 - If the reader says the form is closed, add `"closed": true` (or `data-closed`) so the button shows
   "Ticket sales have closed."
 - After updating, tell Jarryl in one line what changed (old → new) so he can check it against the form.
+- Monsta nights (Jarryl, 6 Nov 2026): SingSoc MEMBER price = Monsta Leeds' advertised price minus £2; non-member
+  price = Monsta's price, unless Jarryl says otherwise. Show both on every release ("£8 members · £10 non-members").
+  Door price stays Monsta's (sold at the venue). Jarryl says when each release sells out / the next one starts:
+  then add class "gone" (crossed out + "Sold out") to that tier, move `class="now"` + `<span>Now selling</span>`
+  to the next one, and update the card's Price row ("Now £X members · £Y non-members"). Don't move releases on
+  your own guess.
 
 ## Homepage photos
 - The taped photos at the top change every day (UK date). They're picked from the `WIDE`
