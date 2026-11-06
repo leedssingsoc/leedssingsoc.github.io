@@ -35,6 +35,19 @@ Everything is in `index.html`; images, videos and logos sit next to it.
   move `data-cd` if they give an exact date), stays up until 28 Feb 2027 (Jarryl, unless NTU states a closing date). When NTU publishes the application link,
   add an "Apply now" button, keeping the interest form and programme website buttons.
 
+## Promo videos (Jarryl, 6 Nov 2026)
+Every event promo video gets the same treatment as the Monsta Obsession one:
+- Keep it on the event card (inside `<details class="more">`), AND add it to the Gallery as its own album,
+  "<Event name>" + `<span class="hand">d Mon</span>`, in date order with the other albums. Never remove a promo
+  video when its event ends.
+- Gallery markup: `<figure class="vid"><video src="..." poster="..." style="aspect-ratio:W/H" data-autoplay muted loop
+  playsinline controls preload="none" aria-label="..."></video></figure>` (loads only when scrolled to, plays muted,
+  pauses off screen). Portrait phone videos add class `tall` (`<figure class="vid tall">`) so they stay narrow.
+- Before publishing, check the frames (ffmpeg scene detection + a frame strip) for clips borrowed from other people:
+  TikTok/Instagram watermarks, other accounts' memes or videos. Cut those parts out of the site's copy (video and
+  sound, re-encode with libx264/aac and +faststart), check the join frame by frame, and make sure the poster image
+  is our own footage. Tell Jarryl what was cut. The original on Instagram is never touched.
+
 ## Ticket forms and prices (Jarryl, 27 Oct 2026)
 Ticket forms (e.g. Monsta nights) are Google Forms made and managed by the treasurer (Yadira), not Jarryl.
 The website only links to the form's share link (`forms.gle/...` or `.../viewform`, never `/edit`) and shows
