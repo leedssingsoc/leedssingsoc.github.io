@@ -65,6 +65,12 @@ Every event promo video gets the same treatment as the Monsta Obsession one:
   and a document-level 'play' listener pauses every other <video> (gallery, event-card promos, anything added later)
   whenever one starts; if several start together the first wins. Background tabs pause all videos. Keep that script:
   several videos decoding at once made them lag on phones. New videos need no extra code for this.
+- Video captions (Jarryl, 6 Nov 2026): NEVER draw on top of the footage. Put the lines in a `.vtt` file and add
+  `<track kind="metadata" src="x.vtt">` inside the <video>; wrap the gallery figure in `<div class="vidrow">` (card
+  promos in `<span class="capwrap">`). The script lists the lines BESIDE the video (below on phones) and highlights
+  the current one as it plays. Only use facts Jarryl gave; edit the .vtt to change wording.
+- A "Get tickets →" link outside the event card (e.g. under a gallery video) needs `data-tickets-for="<card id>"`;
+  it disappears automatically when that event's ticket sales close (at the start) and stays gone afterwards.
 
 ## Ticket forms and prices (Jarryl, 27 Oct 2026)
 Ticket forms (e.g. Monsta nights) are Google Forms made and managed by the treasurer (Yadira), not Jarryl.

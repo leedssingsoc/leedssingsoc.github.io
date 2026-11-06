@@ -204,7 +204,19 @@ section.block{padding-block:96px 0}
 .vid{margin:0 0 22px;background:#000;border-radius:10px;overflow:hidden;max-width:820px}
 .vid video{display:block;width:100%;height:auto}
 .vid.tall{max-width:340px}
-.vid-cap{margin:-8px 0 0;font-size:22px;color:var(--ink)}
+.vidrow{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.vidrow .vid{margin:0;flex:0 0 auto}
+.vidrow .vid.tall{width:340px;max-width:100%}
+.capwrap .promo{width:220px}
+.capwrap{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.capwrap .promo{margin-top:0;flex:0 0 auto}
+.vcaps{list-style:none;margin:0;padding:0;display:grid;gap:10px;flex:1 1 220px;min-width:0;max-width:360px}
+.vcaps li{font-family:var(--hand);font-size:22px;line-height:1.2;color:var(--muted);opacity:.55;transition:opacity .25s,color .25s,transform .25s;transform-origin:left center}
+.vcaps li.on{opacity:1;color:var(--ink);transform:scale(1.04)}
+.vcaps li.on::before{content:"▶ ";font-family:var(--body);font-size:12px;color:var(--red);vertical-align:3px}
+.capwrap .vcaps li{font-size:19px}
+@media (max-width: 640px){.vidrow,.capwrap{flex-direction:column;align-items:stretch}.vcaps{max-width:none}.vidrow .vid{align-self:center}}
+.vid-cap{margin:14px 0 0;font-size:22px;color:var(--ink)}
 .vid-cap a{font-family:var(--body);font-size:15px;font-weight:700;color:var(--red-ink);text-decoration:none;margin-left:6px}
 .wall{columns:3;column-gap:22px}
 .wall .print{position:relative;width:auto;margin:0 0 26px;break-inside:avoid;padding:8px 8px 8px}
@@ -552,7 +564,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
             </details>
             <details class="more">
               <summary>Watch Noah&#x27;s promo</summary>
-              <video class="promo" src="monsta-xmas-video.mp4" poster="monsta-xmas-video-poster.jpg" style="aspect-ratio:464/848" muted loop playsinline controls preload="none" aria-label="Noah dancing in reindeer antlers, promoting KPOP Wonderland: get your tickets with SingSoc"></video>
+              <span class="capwrap"><video class="promo" src="monsta-xmas-video.mp4" poster="monsta-xmas-video-poster.jpg" style="aspect-ratio:464/848" muted loop playsinline controls preload="none" aria-label="Noah dancing in reindeer antlers, promoting KPOP Wonderland: get your tickets with SingSoc"><track kind="metadata" src="monsta-xmas-captions.vtt" srclang="en" label="Captions"></video></span>
             </details>
             <div class="ctas-left">
               <a class="btn red" href="https://forms.gle/8g9ohJPMkhG1Vby68" target="_blank" rel="noopener">Get tickets</a>
@@ -609,8 +621,10 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
 
       <div class="album">
         <div class="album-title"><h3>Monsta Leeds × BCSoc: KPOP Wonderland</h3><span class="hand">6 Dec</span></div>
-        <figure class="vid tall"><video data-autoplay src="monsta-xmas-video.mp4" poster="monsta-xmas-video-poster.jpg" style="aspect-ratio:464/848" muted loop playsinline controls preload="none" aria-label="Noah dancing in reindeer antlers, promoting KPOP Wonderland: get your tickets with SingSoc"></video></figure>
-        <p class="vid-cap hand">Noah&#x27;s warmed up for Christmas Monsta. Are you? 🎄 <a href="#monsta-wonderland">Get tickets →</a></p>
+        <div class="vidrow">
+          <figure class="vid tall"><video data-autoplay src="monsta-xmas-video.mp4" poster="monsta-xmas-video-poster.jpg" style="aspect-ratio:464/848" muted loop playsinline controls preload="none" aria-label="Noah dancing in reindeer antlers, promoting KPOP Wonderland: get your tickets with SingSoc"><track kind="metadata" src="monsta-xmas-captions.vtt" srclang="en" label="Captions"></video></figure>
+        </div>
+        <p class="vid-cap hand">Noah&#x27;s warmed up for Christmas Monsta. Are you? 🎄 <a href="#monsta-wonderland" data-tickets-for="monsta-wonderland">Get tickets →</a></p>
       </div>
 
       <div class="album">
@@ -954,7 +968,15 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
       if (card && !t.closed && !card.hasAttribute('data-keep-open') && Date.now() >= t.start) { t.closed = true; closeTickets(card); }
     });
   }
-  checkSales(); setInterval(checkSales, 30000);
+  // Links elsewhere on the page (e.g. "Get tickets →" under a gallery video) disappear once that event's sales close.
+  function hideClosedLinks(){
+    document.querySelectorAll('a[data-tickets-for]').forEach(a => {
+      const card = document.getElementById(a.dataset.ticketsFor);
+      a.hidden = !card || card.hidden || !card.querySelector('.ctas-left a');
+    });
+  }
+  checkSales(); hideClosedLinks();
+  setInterval(() => { checkSales(); hideClosedLinks(); }, 30000);
 
   // From the day after an event (and only once it has ended, for nights that run past midnight),
   // move it from "Coming up" to "Already happened". Re-checked every minute for pages left open.
@@ -991,6 +1013,32 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
       { threshold: [0, 0.2, 0.35, 0.5, 0.65, 0.8, 1] });
     autoVids.forEach(v => { near.observe(v); view.observe(v); });
   } else autoVids.forEach(v => { v.autoplay = true; v.preload = 'metadata'; });
+
+  // Captions: any <video> with a <track kind="metadata" src="....vtt"> gets its lines listed BESIDE the video (below it
+  // on phones), never on top of the footage. The line for the current moment lights up as it plays.
+  // The .vtt file is read directly, so edit that file to change the words.
+  const toSec = t => t.split(':').reduce((a, x) => a * 60 + parseFloat(x), 0);
+  document.querySelectorAll('video track[kind="metadata"]').forEach(t => {
+    const video = t.parentElement;
+    const host = video.closest('.vidrow, .capwrap'); if (!host) return;
+    const list = document.createElement('ol'); list.className = 'vcaps'; list.setAttribute('aria-label', 'Video captions');
+    host.appendChild(list);
+    let cues = [], items = [], last = -2;
+    fetch(t.getAttribute('src')).then(r => r.text()).then(txt => {
+      cues = txt.replace(/\r/g, '').split(/\n\n+/).map(block => {
+        const m = /([\d:.]+)\s*-->\s*([\d:.]+)[^\n]*\n([\s\S]+)/.exec(block);
+        return m && { start: toSec(m[1]), end: toSec(m[2]), text: m[3].trim() };
+      }).filter(Boolean);
+      items = cues.map(c => { const li = document.createElement('li'); li.textContent = c.text; list.appendChild(li); return li; });
+      show();
+    }).catch(() => {});
+    function show() {
+      const now = video.currentTime, i = cues.findIndex(c => now >= c.start && now < c.end);
+      if (i === last) return;
+      last = i; items.forEach((li, k) => li.classList.toggle('on', k === i));
+    }
+    ['timeupdate', 'seeked', 'play', 'loadedmetadata'].forEach(ev => video.addEventListener(ev, show));
+  });
 
   // Every video on the page (gallery, event-card promos, ones added later): whenever one starts playing, all the
   // others pause, so only one ever plays. Listening on the document also covers videos added after load.
