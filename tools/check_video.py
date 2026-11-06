@@ -2,7 +2,7 @@
 
 Usage: python tools/check_video.py video.mp4 [original.mp4 --cut START END]
 
-Always checks: H.264 + AAC, yuv420p, faststart (plays while downloading), and that the picture and the
+Always checks: H.264 + AAC, yuv420p, faststart (plays while downloading), even frame timing (no stutter), and that the picture and the
 sound last the same time (within 0.1s). A mismatch is exactly the bug where a re-cut video runs fast and then
 freezes while the sound carries on.
 With an original and the cut range (seconds removed), also checks that frames after the cut match the original
@@ -53,6 +53,16 @@ def main(argv):
         if abs(dv - da) > 0.1:
             problems.append(f"picture and sound lengths differ by {abs(dv - da):.2f}s: it will run fast/freeze or drift. "
                             "Cut with trim/atrim + concat (keeps real timestamps), never setpts=N/FRAME_RATE/TB.")
+    if v:
+        pts = sorted(float(x) for x in subprocess.run(
+            ["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "packet=pts_time", "-of", "csv=p=0", path],
+            capture_output=True, text=True, check=True).stdout.split() if x.strip())
+        gaps = [round((b - a) * 1000) for a, b in zip(pts, pts[1:])]
+        if gaps:
+            print(f"frame gaps {min(gaps)}-{max(gaps)} ms")
+            if max(gaps) - min(gaps) > 5:
+                problems.append("uneven frame timing (stutters/lags on screen). Even it out with "
+                                "-vf setpts=N/<fps>/TB -r <fps>, where fps = frames ÷ duration (e.g. 20)")
     with open(path, "rb") as f:
         head = f.read(4096)
     if head.find(b"moov") == -1 or (head.find(b"mdat") != -1 and head.find(b"moov") > head.find(b"mdat")):

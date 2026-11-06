@@ -58,6 +58,9 @@ Every event promo video gets the same treatment as the Monsta Obsession one:
   [0:a]atrim=0:A,asetpts=PTS-STARTPTS[a1];[0:a]atrim=start=B,asetpts=PTS-STARTPTS[a2];[v1][a1][v2][a2]concat=n=2:v=1:a=1[v][a]"
   -map "[v]" -map "[a]" -c:v libx264 -crf 24 -pix_fmt yuv420p -r 30 -movflags +faststart -c:a aac -b:a 128k out.mp4`
   Then play it on the LIVE site in Playwright (currentTime advances at real speed) once GitHub Pages has deployed.
+  Phone videos often have uneven frame gaps (e.g. 33/67 ms alternating), which stutters on screen; the checker flags
+  it, and the fix is `-vf setpts=N/<fps>/TB -r <fps>` (fps = frames ÷ duration). All three gallery videos were evened
+  out to 20 fps on 6 Nov 2026.
 
 ## Ticket forms and prices (Jarryl, 27 Oct 2026)
 Ticket forms (e.g. Monsta nights) are Google Forms made and managed by the treasurer (Yadira), not Jarryl.
