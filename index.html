@@ -1032,9 +1032,20 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
         const m = /([\d:.]+)\s*-->\s*([\d:.]+)[^\n]*\n([\s\S]+)/.exec(block);
         return m && { start: toSec(m[1]), end: toSec(m[2]), text: m[3].trim() };
       }).filter(Boolean);
-      items = cues.map(c => { const li = document.createElement('li'); li.textContent = c.text; list.appendChild(li); return li; });
-      show();
+      items = cues.map(c => { const li = document.createElement('li'); li.dataset.text = c.text; list.appendChild(li); return li; });
+      fill(); setInterval(fill, 1000); show();
     }).catch(() => {});
+    // "{countdown:<card id>|<line with %s>|<line once it has started>}" in a caption shows that event's live
+    // countdown in the line, the same as its card's chip (e.g. "30d 05h 12m"), then the second line once it starts.
+    function fill() {
+      items.forEach(li => {
+        li.textContent = li.dataset.text.replace(/\{countdown:([\w-]+)\|([^|}]*)\|([^}]*)\}/g, (_, id, during, after) => {
+          const chip = document.querySelector('#' + id + ' [data-cd]');
+          const t = chip ? chip.textContent.replace(/^(Starts|Opens) in /, '') : '';
+          return /^\d/.test(t) ? during.replace('%s', t.replace(/ \d+s$/, '').replace(/^00h /, '')) : after;
+        });
+      });
+    }
     function show() {
       const now = video.currentTime, i = cues.findIndex(c => now >= c.start && now < c.end);
       if (i === last) return;

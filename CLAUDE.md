@@ -73,6 +73,9 @@ Every event promo video gets the same treatment as the Monsta Obsession one:
   buy-now line. Past events' videos end by pointing to the NEXT Monsta night. Captions that name a price
   (`monsta-xmas-captions.vtt`: "Members pay just £8 right now") or the next event (`monsta-obsession-captions.vtt`)
   must be updated whenever a release sells out or a new Monsta night is added, same as the card's tiers.
+  Live countdown in a caption (Jarryl, 6 Nov 2026): write `{countdown:<event card id>|⏳ Only %s to go ...|<line once it
+  has started>}` in the .vtt; it shows the same live countdown as that card's chip (minus seconds) and swaps to the
+  second line at the start time. Every upcoming event's promo should end on one.
 - A "Get tickets →" link outside the event card (e.g. under a gallery video) needs `data-tickets-for="<card id>"`;
   it disappears automatically when that event's ticket sales close (at the start) and stays gone afterwards.
 
