@@ -963,9 +963,10 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   // Gallery videos only download when scrolled near, and only ONE plays at a time (the one most in view),
   // so phones never decode several at once and stutter. Off-screen videos pause.
   const autoVids = [...document.querySelectorAll('video[data-autoplay]')];
+  let pickOne = null;
   if ('IntersectionObserver' in window) {
     const seen = new Map();
-    const pickOne = () => {
+    pickOne = () => {
       let best = null, bestRatio = 0.35;
       seen.forEach((r, v) => { if (r > bestRatio) { best = v; bestRatio = r; } });
       autoVids.forEach(v => { if (v !== best && !v.paused) v.pause(); });
@@ -974,12 +975,20 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     const near = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.preload = 'auto'; }), { rootMargin: '300px 0px' });
     const view = new IntersectionObserver(es => { es.forEach(e => seen.set(e.target, e.isIntersecting ? e.intersectionRatio : 0)); pickOne(); },
       { threshold: [0, 0.2, 0.35, 0.5, 0.65, 0.8, 1] });
-    autoVids.forEach(v => {
-      near.observe(v); view.observe(v);
-      // If someone taps play on a video themselves, that one wins and the rest pause.
-      v.addEventListener('play', () => autoVids.forEach(o => { if (o !== v && !o.paused) o.pause(); }));
-    });
+    autoVids.forEach(v => { near.observe(v); view.observe(v); });
   } else autoVids.forEach(v => { v.autoplay = true; v.preload = 'metadata'; });
+
+  // Every video on the page (gallery, event-card promos, ones added later): whenever one starts playing, all the
+  // others pause, so only one ever plays. Listening on the document also covers videos added after load.
+  document.addEventListener('play', e => {
+    if (e.target.tagName !== 'VIDEO' || e.target.paused) return;  // already stopped by another video's start: let that one win
+    document.querySelectorAll('video').forEach(o => { if (o !== e.target && !o.paused) o.pause(); });
+  }, true);
+  // Nothing plays in a background tab; the video in view resumes when you come back.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) document.querySelectorAll('video').forEach(v => { if (!v.paused) v.pause(); });
+    else if (pickOne) pickOne();
+  });
 
   const btn = document.getElementById('menu-btn'), menu = document.getElementById('menu');
   const setMenu = open => { menu.classList.toggle('open', open); btn.setAttribute('aria-expanded', open); btn.textContent = open ? 'Close' : 'Menu'; };
