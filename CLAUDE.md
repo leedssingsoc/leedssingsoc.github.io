@@ -103,6 +103,10 @@ the prices. Bank details, sort codes, account numbers and phone numbers stay in 
   then add class "gone" (crossed out + "Sold out") to that tier, move `class="now"` + `<span>Now selling</span>`
   to the next one, and update the card's Price row ("Now £X members · £Y non-members"). Don't move releases on
   your own guess.
+- SPEED for quick updates (Jarryl, 7 Nov 2026): price/release moves and small text changes are ONE edit + push, then
+  reply to Jarryl straight away (what changed, old → new). No screenshots or local test runs for these. GitHub Pages
+  can take 1–8 min to publish; don't make him wait for it. Check the live page once in the background afterwards and
+  only follow up if it's wrong.
 
 ## Homepage photos
 - The taped photos at the top change every day (UK date). They're picked from the `WIDE`
