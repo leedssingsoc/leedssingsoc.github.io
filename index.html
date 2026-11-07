@@ -1027,7 +1027,8 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     const list = document.createElement('ol'); list.className = 'vcaps'; list.setAttribute('aria-label', 'Video captions');
     host.appendChild(list);
     let cues = [], items = [], last = -2;
-    fetch(t.getAttribute('src')).then(r => r.text()).then(txt => {
+    fetch(t.getAttribute('src'), { cache: 'no-cache' }).then(r => r.text())  // always the latest wording/prices
+      .then(txt => {
       cues = txt.replace(/\r/g, '').split(/\n\n+/).map(block => {
         const m = /([\d:.]+)\s*-->\s*([\d:.]+)[^\n]*\n([\s\S]+)/.exec(block);
         return m && { start: toSec(m[1]), end: toSec(m[2]), text: m[3].trim() };
