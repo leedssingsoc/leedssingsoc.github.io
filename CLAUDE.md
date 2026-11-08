@@ -125,6 +125,8 @@ the prices. Bank details, sort codes, account numbers and phone numbers stay in 
   little Singlish in small print ("Paiseh to ask?", "Copied lah!", "fuelled by kopi"). Don't pile on more flags,
   Merlions or slang; one light touch per area.
 - Don't publish the Maki & Ramen members' e-voucher image (members only).
+- NO WhatsApp group links anywhere on the site (Jarryl, 8 Nov 2026: the public link brought in spam faster than the
+  committee could remove it). Point people to Instagram (@leedssingsoc) instead.
 
 ## Daily site check (since 26 Oct 2026)
 A claude.ai scheduled task, `leedssingsoc-site-check`, runs every day at 08:36 UK time. It checks the live site
