@@ -349,25 +349,56 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   .mark small{display:none}
   section.block{padding-block:72px 0}
 }
-/* F1-style "driver intro" for the committee (Jarryl, 9 Nov 2026): when the team scrolls into view, a red speed
-   streak wipes across each photo in turn, the photo is revealed behind it, and the role and name slide in.
-   Only runs once, only with JS, and never for people who turn off motion. */
-.team.f1 .member .frame{overflow:hidden}
-.team.f1 .member .frame::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
-  background:linear-gradient(100deg,transparent 0 8%,#7a0d14 18%,#D9343E 40%,#ff6a6a 50%,#D9343E 60%,#7a0d14 82%,transparent 92%);
-  transform:translateX(-120%) skewX(-12deg)}
-.team.f1 .member img{opacity:0;transform:scale(1.12);filter:saturate(1.4) contrast(1.1)}
-.team.f1 .member .role,.team.f1 .member h3{opacity:0;transform:translateX(-26px)}
-.team.f1 .member .course,.team.f1 .member .says,.team.f1 .member .about{opacity:0}
-.team.f1.go .member .frame::after{animation:f1streak .75s cubic-bezier(.6,0,.3,1) forwards;animation-delay:calc(var(--i) * .28s)}
-.team.f1.go .member img{animation:f1photo .55s ease-out forwards;animation-delay:calc(var(--i) * .28s + .32s)}
-.team.f1.go .member .role{animation:f1slide .4s ease-out forwards;animation-delay:calc(var(--i) * .28s + .5s)}
-.team.f1.go .member h3{animation:f1slide .4s ease-out forwards;animation-delay:calc(var(--i) * .28s + .6s)}
-.team.f1.go .member .course,.team.f1.go .member .says,.team.f1.go .member .about{animation:f1fade .5s ease-out forwards;animation-delay:calc(var(--i) * .28s + .75s)}
-@keyframes f1streak{0%{transform:translateX(-120%) skewX(-12deg)}100%{transform:translateX(130%) skewX(-12deg)}}
-@keyframes f1photo{to{opacity:1;transform:none;filter:none}}
-@keyframes f1slide{to{opacity:1;transform:none}}
-@keyframes f1fade{to{opacity:1}}
+/* Committee "driver line-up" reel (Jarryl, 9 Nov 2026), modelled on the F1 intro TikTok he sent: each member gets
+   a cinematic slide (photo with slow zoom, first name in red handwriting, ROLE in huge caps, giant faint initial
+   behind), then a blurred whip into the next. Built by the script from the .member cards, so it never goes stale. */
+.reel{position:relative;overflow:hidden;border-radius:14px;background:var(--band);aspect-ratio:16/7;margin:0 0 34px;color:#fff;cursor:pointer;isolation:isolate}
+.reel .slide{position:absolute;inset:0;opacity:0;visibility:hidden}
+.reel .slide.on{opacity:1;visibility:visible}
+.reel .bg{position:absolute;inset:0;background:radial-gradient(110% 90% at 80% 45%,#1c4a52 0%,#0E2A2F 55%,#091c20 100%)}
+.reel .big{position:absolute;left:-2%;top:50%;transform:translateY(-52%);font-family:var(--display);font-weight:800;font-style:italic;
+  font-size:min(46vw,520px);line-height:.8;color:transparent;-webkit-text-stroke:2px rgba(217,52,62,.28);user-select:none}
+.reel .ph{position:absolute;right:0;top:0;bottom:0;width:58%;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}
+.reel .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 62%;transform:scale(1.05)}
+.reel .txt{position:absolute;left:5%;bottom:14%;z-index:2;max-width:70%}
+.reel .first{font-family:var(--hand);font-weight:600;font-size:clamp(24px,4.4vw,52px);color:#F36A72;line-height:1;margin-left:4px;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.reel .last{font-family:var(--display);font-weight:800;font-style:italic;text-transform:uppercase;letter-spacing:-.01em;
+  font-size:clamp(30px,7.2vw,92px);line-height:.9;text-shadow:0 4px 18px rgba(0,0,0,.55)}
+.reel .sub{margin-top:10px;font-size:clamp(12px,1.4vw,15px);letter-spacing:.14em;text-transform:uppercase;color:rgba(238,243,242,.8)}
+.reel .last{color:#EEF3F2}
+.reel .last::after{content:"";display:block;width:64px;height:4px;margin-top:10px;background:var(--red);border-radius:2px}
+.reel .num{position:absolute;left:5%;top:9%;z-index:2;font-family:var(--display);font-weight:800;font-size:clamp(14px,1.6vw,18px);letter-spacing:.2em;color:rgba(255,255,255,.7)}
+.reel .flash{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;
+  background:linear-gradient(100deg,transparent 15%,rgba(217,52,62,0) 30%,rgba(217,52,62,.85) 48%,#F6F6F3 50%,rgba(217,52,62,.85) 52%,rgba(217,52,62,0) 70%,transparent 85%)}
+.reel .dots{position:absolute;right:16px;bottom:12px;z-index:4;display:flex;gap:6px}
+.reel .dots i{width:18px;height:3px;border-radius:2px;background:rgba(238,243,242,.3)}
+.reel .dots i.on{background:var(--red)}
+.reel .hint{position:absolute;left:16px;bottom:12px;z-index:4;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+/* motion: slow push-in while on screen, text slams in, whip blur in/out */
+.reel.run .slide.on .ph img{animation:rz 2.6s ease-out forwards}
+.reel.run .slide.on .last{animation:rslam .45s cubic-bezier(.2,.9,.2,1) .15s both}
+.reel.run .slide.on .first{animation:rin .5s ease-out .35s both}
+.reel.run .slide.on .sub,.reel.run .slide.on .num{animation:rfade .5s ease-out .5s both}
+.reel.run .slide.on .big{animation:rbig 2.6s ease-out both}
+.reel.run .slide.in{animation:whipin .38s cubic-bezier(.2,.8,.2,1) both}
+.reel.run .slide.out{visibility:visible;opacity:1;animation:whipout .32s cubic-bezier(.7,0,.9,.4) both}
+.reel.run .flash.go{animation:rflash .42s ease-out}
+@keyframes rz{from{transform:scale(1.18)}to{transform:scale(1.05)}}
+@keyframes rslam{from{opacity:0;transform:translateX(-60px) skewX(-12deg);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes rin{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+@keyframes rfade{from{opacity:0}to{opacity:1}}
+@keyframes rbig{from{transform:translate(8%,-52%)}to{transform:translate(0,-52%)}}
+@keyframes whipin{from{transform:translateX(35%) skewX(-8deg);filter:blur(14px);opacity:.2}to{transform:none;filter:none;opacity:1}}
+@keyframes whipout{to{transform:translateX(-35%) skewX(-8deg);filter:blur(14px);opacity:0}}
+@keyframes rflash{0%{opacity:0;transform:translateX(-60%)}30%{opacity:.9}100%{opacity:0;transform:translateX(60%)}}
+@media (max-width: 820px){
+  .reel{aspect-ratio:4/5}
+  .reel .ph{width:100%;bottom:22%;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 100%);mask-image:linear-gradient(180deg,#000 55%,transparent 100%)}
+  .reel .ph img{object-position:50% 70%}
+  .reel .txt{bottom:12%;max-width:90%}
+  .reel .big{font-size:120vw;top:58%}
+}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
@@ -699,6 +730,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
         <div><p class="label">Committee 26/27</p><h2>Say hi to the team.</h2></div>
         <p>Questions about the society? Any of us can help.</p>
       </div>
+      <div class="reel" id="reel" role="img" aria-label="Committee line-up: Keona, Jarryl, William, Yadira and Noah" hidden></div>
       <div class="team">
         <figure class="member"><div class="frame"><img src="committee-keona.jpg" alt="Keona, President"></div><p class="role" style="margin-top:16px">President</p><h3 style="margin-top:2px">Keona</h3><p class="course">Dental Surgery · Year 2</p><blockquote class="says">“I enjoy watching Law and Order (SVU) and reruns of Modern Family. My favourite place in Leeds is Park Square in the summer for a good tanning session ☀️”</blockquote><dl class="about"><div><dt>Fav food</dt><dd>Mala</dd></div><div><dt>Hobby</dt><dd>Scrapbooking</dd></div><div><dt>Fav artist</dt><dd>Gracie Abrams</dd></div><div><dt>MBTI</dt><dd>ISTJ</dd></div></dl></figure>
         <figure class="member"><div class="frame"><img src="committee-jarryl.jpg" alt="Jarryl, Vice-President"></div><p class="role" style="margin-top:16px">Vice-President</p><h3 style="margin-top:2px">Jarryl</h3><p class="course">Business · Year 3</p><blockquote class="says">“I’m really into softball and baseball, so if anyone’s up for a game, I’d be more than happy to join y’all on the field!”</blockquote><dl class="about"><div><dt>Fav food</dt><dd>Laksa</dd></div><div><dt>Hobby</dt><dd>Softball</dd></div><div><dt>Fav artist</dt><dd>CHVRCHES</dd></div><div><dt>MBTI</dt><dd>ESFJ</dd></div></dl></figure>
@@ -1016,14 +1048,47 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   }
   movePast(); setInterval(movePast, 60000);
 
-  // Committee F1-style intro: arm it, then play once when the team is on screen.
-  const team = document.querySelector('.team');
-  if (team && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    team.querySelectorAll('.member').forEach((m, i) => m.style.setProperty('--i', i));
-    team.classList.add('f1');
-    const tio = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { team.classList.add('go'); tio.disconnect(); } }, { threshold: 0.25 });
-    tio.observe(team);
-  }
+  // Committee line-up reel, built from the .member cards (photo, name, role, course). Plays while on screen,
+  // pauses off screen, tap/click to skip to the next person. With reduced motion it just fades between people.
+  (function () {
+    const reel = document.getElementById('reel'), members = [...document.querySelectorAll('.team .member')];
+    if (!reel || !members.length) return;
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const dots = document.createElement('div'); dots.className = 'dots';
+    const slides = members.map((m, i) => {
+      const name = m.querySelector('h3').textContent.trim(), role = m.querySelector('.role').textContent.trim();
+      const course = (m.querySelector('.course') || {}).textContent || '';
+      const el = document.createElement('div'); el.className = 'slide';
+      el.innerHTML = '<div class="bg"></div><div class="big"></div><div class="ph"><img alt=""></div>' +
+        '<div class="txt"><div class="first"></div><div class="last"></div><div class="sub"></div></div>';
+      el.querySelector('.big').textContent = name.charAt(0);
+      el.querySelector('img').src = m.querySelector('img').getAttribute('src');
+      el.querySelector('.first').textContent = name;
+      el.querySelector('.last').textContent = role;
+      el.querySelector('.sub').textContent = course.trim();
+      reel.appendChild(el); dots.appendChild(document.createElement('i'));
+      return el;
+    });
+    const flash = document.createElement('div'); flash.className = 'flash'; reel.appendChild(flash);
+    reel.appendChild(dots);
+    if (!calm) reel.classList.add('run');
+    reel.hidden = false;
+    let cur = -1, timer = null, visible = false;
+    function show(n) {
+      const prev = slides[cur];
+      if (prev) { prev.classList.remove('on', 'in'); prev.classList.add('out'); setTimeout(() => prev.classList.remove('out'), 340); }
+      cur = (n + slides.length) % slides.length;
+      const s = slides[cur]; s.classList.remove('out'); void s.offsetWidth; s.classList.add('on', 'in');
+      if (!calm) { flash.classList.remove('go'); void flash.offsetWidth; flash.classList.add('go'); }
+      [...dots.children].forEach((d, k) => d.classList.toggle('on', k === cur));
+    }
+    const tick = () => { clearTimeout(timer); if (visible && !document.hidden) timer = setTimeout(() => { show(cur + 1); tick(); }, 2600); };
+    show(0);
+    reel.addEventListener('click', () => { show(cur + 1); tick(); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => { visible = es[0].isIntersecting; tick(); }, { threshold: .4 }).observe(reel);
+    else { visible = true; tick(); }
+    document.addEventListener('visibilitychange', tick);
+  })();
 
   // Gallery videos only download when scrolled near, and only ONE plays at a time (the one most in view),
   // so phones never decode several at once and stutter. Off-screen videos pause.

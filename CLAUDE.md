@@ -125,8 +125,9 @@ the prices. Bank details, sort codes, account numbers and phone numbers stay in 
   little Singlish in small print ("Paiseh to ask?", "Copied lah!", "fuelled by kopi"). Don't pile on more flags,
   Merlions or slang; one light touch per area.
 - Don't publish the Maki & Ramen members' e-voucher image (members only).
-- Committee section has an F1-style "driver intro" (Jarryl, 9 Nov 2026): classes `f1`/`go` on `.team`, added by the
-  script; a red streak wipes each photo in turn, then name/role slide in. Plays once; skipped with reduced motion.
+- Committee "driver line-up" reel (`#reel`, Jarryl, 9 Nov 2026), modelled on the F1 intro TikTok: the script builds one
+  slide per `.team .member` (photo, name, role, course), so adding/changing a committee member updates it automatically.
+  2.6s per person, whip-blur transitions, plays only on screen, tap for next; fades only with reduced motion.
 - NO WhatsApp group links anywhere on the site (Jarryl, 8 Nov 2026: the public link brought in spam faster than the
   committee could remove it). Point people to Instagram (@leedssingsoc) instead.
 
