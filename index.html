@@ -899,8 +899,10 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
     });
     el.setAttribute('aria-label', el.id === 't-sg' ? `Singapore time ${text}` : `Leeds time ${text}`);
   }
+  let warpUntil = 0, warpFrom = 0;  // set by the intro spin below
   function tick(){
-    const now = new Date();
+    const now = Date.now() < warpUntil ? null : new Date();
+    if (!now) return;
     setFlaps(document.getElementById('t-leeds'), fL.format(now));
     setFlaps(document.getElementById('t-sg'), fS.format(now));
     const z = (zone.formatToParts(now).find(p=>p.type==='timeZoneName')||{}).value || 'GMT';
@@ -912,6 +914,22 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
     document.getElementById('faq-gap').textContent = `Right now it's ${bst ? 7 : 8} hours ahead (UK on ${bst ? 'BST' : 'GMT'}).`;
   }
   tick(); setInterval(tick, 1000);
+
+  // Clock spin-up (Jarryl, 9 Nov 2026): right after the skyline intro, both split-flap clocks race through time
+  // (about 12 hours in 1.6 s, slowing down) and snap onto the real time, then tick normally. Skipped with reduced motion.
+  window.clockSpin = function () {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const D = 1600, span = 12 * 3600e3, t0 = performance.now(), start = Date.now() - span;
+    warpUntil = Date.now() + D + 50;
+    const step = () => {
+      const k = Math.min(1, (performance.now() - t0) / D), e = 1 - Math.pow(1 - k, 3);
+      const fake = new Date(start + span * e + (performance.now() - t0));
+      setFlaps(document.getElementById('t-leeds'), fL.format(fake));
+      setFlaps(document.getElementById('t-sg'), fS.format(fake));
+      if (k < 1) requestAnimationFrame(step); else { warpUntil = 0; tick(); }
+    };
+    requestAnimationFrame(step);
+  };
 
   // Phrase of the day, shown in all four of Singapore's languages. Same for everyone on a given UK date, changes at midnight.
   // Each entry: meaning, then [phrase, how to say it] for English/Singlish, Chinese, Malay, Tamil.
@@ -1103,7 +1121,7 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
   (function () {
     let shown = false; try { shown = sessionStorage.getItem('introSeen') === '1'; sessionStorage.setItem('introSeen', '1'); } catch (e) {}
     const logo = document.querySelector('.mark .sky');
-    if (shown || !logo || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (shown || !logo || matchMedia('(prefers-reduced-motion: reduce)').matches) { setTimeout(() => window.clockSpin && clockSpin(), 300); return; }
     const box = document.createElement('div'); box.id = 'intro'; box.setAttribute('aria-hidden', 'true');
     const city = document.createElement('div'); city.className = 'city';
     const mask = document.createElement('div'); mask.className = 'mask'; city.appendChild(mask);
@@ -1125,7 +1143,7 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
       const tag = city.querySelector('.tag'); tag.style.animation = 'none'; tag.style.transition = 'opacity .15s'; tag.style.opacity = 0;
       city.animate([{ transform: 'none' }, { transform: `translate(${b.left + b.width / 2 - (a.left + a.width / 2)}px,${b.top + b.height / 2 - (a.top + a.height / 2)}px) scale(${b.width / a.width})` }],
         { duration: 520, easing: 'cubic-bezier(.6,0,.2,1)', fill: 'forwards' });
-      setTimeout(() => { box.classList.add('done'); document.documentElement.style.overflow = ''; }, 380);
+      setTimeout(() => { box.classList.add('done'); document.documentElement.style.overflow = ''; window.clockSpin && clockSpin(); }, 380);
       setTimeout(() => box.remove(), 900);
     };
     box.addEventListener('click', finish);
