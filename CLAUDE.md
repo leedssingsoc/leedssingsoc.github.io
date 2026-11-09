@@ -131,6 +131,14 @@ the prices. Bank details, sort codes, account numbers and phone numbers stay in 
   The reel uses sticker-free photos (`committee-reel-<name>.jpg`, full original resolution, from Jarryl's PDF 9 Nov
   2026) via `data-reel` on each card's <img>, framed with `data-reel-pos` (object-position). The cards keep their
   stickered photos. Never shrink the reel photos; new committee: ask for the original photo without stickers.
+- Motion package (Jarryl, 9 Nov 2026), all skipped with reduced motion:
+  - Loading screen `#intro` (once per session, tap to skip): skyline rises in slices, red speed band + "LEEDS × SINGAPORE"
+    slam, then a full-screen Singapore flag sweeps in, holds ~0.55 s, sweeps off; phones crop the flag to the crescent.
+  - Clock spin (`clockSpin`): after the intro, once the clocks are fully on screen, both split-flap clocks race ~12 h in
+    2.6 s and land on the real time, then tick normally.
+  - Section transitions (`html.fx`, `.rise`, `.seen`): 3D fly-in per section (perspective, rotateX, overshoot), cards one
+    after another, red-and-white kerb under each h2, and a "sector" banner (red speed band + huge outlined section name
+    that settles as a faint watermark). Section names in the `names` map in the script.
 - NO WhatsApp group links anywhere on the site (Jarryl, 8 Nov 2026: the public link brought in spam faster than the
   committee could remove it). Point people to Instagram (@leedssingsoc) instead.
 
