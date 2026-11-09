@@ -416,6 +416,22 @@ html.fx .seen .kerb{animation:gp-kerb .55s cubic-bezier(.7,0,.2,1) .15s forwards
 html.fx .seen .kerb::after{animation:gp-streak .6s ease-out .2s forwards}
 @keyframes gp-kerb{to{clip-path:inset(0 0 0 0)}}
 @keyframes gp-streak{to{left:140px}}
+/* Page-load intro (Jarryl, 9 Nov 2026): the Leeds–Singapore skyline from the logo rises up slice by slice, a red
+   race-light streak runs along its base, then it flies into the logo in the top bar. Once per browser session,
+   tap to skip, skipped with reduced motion. */
+#intro{position:fixed;inset:0;z-index:1000;background:var(--paper);display:grid;place-items:center;cursor:pointer;transition:opacity .45s ease}
+#intro.done{opacity:0;pointer-events:none}
+#intro .city{position:relative;width:min(78vw,560px);aspect-ratio:402/112;will-change:transform}
+#intro .sl{position:absolute;top:0;bottom:0;background:url(skyline.png) no-repeat;background-size:min(78vw,560px) auto;filter:var(--sky-filter);
+  transform:translateY(110%);opacity:0;animation:city-up .55s cubic-bezier(.2,.9,.25,1) forwards;animation-delay:var(--d)}
+#intro .mask{position:absolute;inset:0;overflow:hidden}
+#intro .road{position:absolute;left:0;right:0;bottom:-10px;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
+#intro .road::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:40%;background:linear-gradient(90deg,transparent,var(--red),#fff,var(--red),transparent);
+  animation:city-streak .7s cubic-bezier(.6,0,.3,1) .75s forwards}
+#intro .tag{position:absolute;left:0;right:0;top:calc(100% + 26px);text-align:center;font-family:var(--hand);font-size:22px;color:var(--red);opacity:0;animation:city-fade .4s ease .95s forwards}
+@keyframes city-up{to{transform:none;opacity:1}}
+@keyframes city-streak{to{left:100%}}
+@keyframes city-fade{to{opacity:1}}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
@@ -1064,6 +1080,39 @@ html.fx .seen .kerb::after{animation:gp-streak .6s ease-out .2s forwards}
     if (noEvents) noEvents.hidden = !!upList.querySelector(':scope > [data-until]:not([hidden])');
   }
   movePast(); setInterval(movePast, 60000);
+
+  // Page-load intro: skyline rises, streak, then flies into the header logo. Once per session; tap to skip.
+  (function () {
+    let shown = false; try { shown = sessionStorage.getItem('introSeen') === '1'; sessionStorage.setItem('introSeen', '1'); } catch (e) {}
+    const logo = document.querySelector('.mark .sky');
+    if (shown || !logo || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const box = document.createElement('div'); box.id = 'intro'; box.setAttribute('aria-hidden', 'true');
+    const city = document.createElement('div'); city.className = 'city';
+    const mask = document.createElement('div'); mask.className = 'mask'; city.appendChild(mask);
+    const N = 9;
+    for (let i = 0; i < N; i++) {
+      const sl = document.createElement('div'); sl.className = 'sl';
+      sl.style.left = (i * 100 / N) + '%'; sl.style.width = (100 / N + 0.4) + '%';
+      sl.style.backgroundPosition = (i * 100 / (N - 1)) + '% 0';
+      sl.style.backgroundSize = (N * 100) + '% 100%';
+      sl.style.setProperty('--d', (i * 70) + 'ms'); mask.appendChild(sl);
+    }
+    city.insertAdjacentHTML('beforeend', '<div class="road"></div><div class="tag">Leeds · Singapore</div>');
+    box.appendChild(city); document.body.appendChild(box);
+    document.documentElement.style.overflow = 'hidden';
+    let ended = false;
+    const finish = () => {
+      if (ended) return; ended = true;
+      const a = city.getBoundingClientRect(), b = logo.getBoundingClientRect();
+      const tag = city.querySelector('.tag'); tag.style.animation = 'none'; tag.style.transition = 'opacity .15s'; tag.style.opacity = 0;
+      city.animate([{ transform: 'none' }, { transform: `translate(${b.left + b.width / 2 - (a.left + a.width / 2)}px,${b.top + b.height / 2 - (a.top + a.height / 2)}px) scale(${b.width / a.width})` }],
+        { duration: 520, easing: 'cubic-bezier(.6,0,.2,1)', fill: 'forwards' });
+      setTimeout(() => { box.classList.add('done'); document.documentElement.style.overflow = ''; }, 380);
+      setTimeout(() => box.remove(), 900);
+    };
+    box.addEventListener('click', finish);
+    setTimeout(finish, 1650);
+  })();
 
   // Section transitions (Singapore GP style): mark parts to "rise", add a kerb stripe under each heading,
   // and play each section's entrance once when it scrolls into view.
