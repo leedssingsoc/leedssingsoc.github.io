@@ -399,6 +399,23 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   .reel .txt{bottom:12%;max-width:90%}
   .reel .big{font-size:120vw;top:58%}
 }
+/* Section transitions, Singapore Grand Prix style (Jarryl, 9 Nov 2026), to match the F1 committee reel:
+   1) "rise": each section's parts slide up into place with a short motion blur, cards one after another;
+   2) "kerb": a red-and-white Marina Bay kerb stripe whips in under each section heading with a speed streak.
+   Added by the script (html.fx), plays once per section, skipped with reduced motion. */
+html.fx .rise{opacity:0;transform:translateY(34px);filter:blur(4px)}
+html.fx .seen .rise{animation:gp-rise .6s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0ms)}
+@keyframes gp-rise{to{opacity:1;transform:none;filter:none}}
+.kerb{position:relative;display:block;width:132px;height:7px;margin-top:14px;border-radius:2px;overflow:hidden;
+  background:repeating-linear-gradient(115deg,var(--red) 0 12px,#fff 12px 24px);border:1.5px solid var(--red);box-sizing:border-box;height:9px}
+.join .kerb{box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+html.fx .kerb{clip-path:inset(0 100% 0 0)}
+html.fx .kerb::after{content:"";position:absolute;top:-4px;bottom:-4px;width:60px;left:-60px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);filter:blur(2px)}
+html.fx .seen .kerb{animation:gp-kerb .55s cubic-bezier(.7,0,.2,1) .15s forwards}
+html.fx .seen .kerb::after{animation:gp-streak .6s ease-out .2s forwards}
+@keyframes gp-kerb{to{clip-path:inset(0 0 0 0)}}
+@keyframes gp-streak{to{left:140px}}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
@@ -1047,6 +1064,30 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     if (noEvents) noEvents.hidden = !!upList.querySelector(':scope > [data-until]:not([hidden])');
   }
   movePast(); setInterval(movePast, 60000);
+
+  // Section transitions (Singapore GP style): mark parts to "rise", add a kerb stripe under each heading,
+  // and play each section's entrance once when it scrolls into view.
+  (function () {
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('section.block .head h2, section.join h2').forEach(h => h.insertAdjacentHTML('afterend', '<span class="kerb" aria-hidden="true"></span>'));
+      return;
+    }
+    const groups = '.events, .past, .sponsors, .team, .faq, .wall, .prints-row';
+    const secs = [...document.querySelectorAll('section.block, section.join')];
+    secs.forEach(sec => {
+      const h2 = sec.querySelector('h2'); if (h2) h2.insertAdjacentHTML('afterend', '<span class="kerb" aria-hidden="true"></span>');
+      const wrap = sec.querySelector('.wrap') || sec; let n = 0;
+      [...wrap.children].forEach(el => {
+        const list = el.matches(groups) ? el : null;
+        const parts = list ? [...list.children] : [el];
+        parts.forEach(p => { p.classList.add('rise'); p.style.setProperty('--d', Math.min(n++ * 80, 640) + 'ms'); });
+      });
+    });
+    document.documentElement.classList.add('fx');
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('seen'); io.unobserve(e.target); } }),
+      { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
+    secs.forEach(s => io.observe(s));
+  })();
 
   // Committee line-up reel, built from the .member cards (photo, name, role, course). Plays while on screen,
   // pauses off screen, tap/click to skip to the next person. With reduced motion it just fades between people.
