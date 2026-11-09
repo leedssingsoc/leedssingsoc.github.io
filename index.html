@@ -437,23 +437,35 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
 /* Page-load intro (Jarryl, 9 Nov 2026): the Leeds–Singapore skyline from the logo rises up slice by slice, a red
    race-light streak runs along its base, then it flies into the logo in the top bar. Once per browser session,
    tap to skip, skipped with reduced motion. */
-#intro{position:fixed;inset:0;z-index:1000;background:var(--paper);display:grid;place-items:center;cursor:pointer;transition:opacity .45s ease}
+#intro{position:fixed;inset:0;z-index:1000;background:var(--paper);display:grid;place-items:center;cursor:pointer;transition:opacity .25s ease;overflow:hidden}
 #intro.done{opacity:0;pointer-events:none}
 #intro .city{position:relative;width:min(78vw,560px);aspect-ratio:402/112;will-change:transform}
 #intro .sl{position:absolute;top:0;bottom:0;background:url(skyline.png) no-repeat;background-size:min(78vw,560px) auto;filter:var(--sky-filter);
   transform:translateY(110%);opacity:0;animation:city-up .55s cubic-bezier(.2,.9,.25,1) forwards;animation-delay:var(--d)}
 #intro .mask{position:absolute;inset:0;overflow:hidden}
 #intro .road{position:absolute;left:0;right:0;bottom:-10px;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
-#intro .road::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:40%;background:linear-gradient(90deg,transparent,#2fd15a,#fff,#2fd15a,transparent)}
-#intro.green .road::after{animation:city-streak .55s cubic-bezier(.6,0,.3,1) forwards}
-#intro .gantry{position:absolute;left:50%;top:calc(100% + 30px);transform:translateX(-50%);display:flex;gap:clamp(8px,2vw,14px);
-  padding:10px 14px;border-radius:10px;background:var(--band);box-shadow:0 6px 18px rgba(14,42,47,.25)}
-#intro .pod{display:grid;gap:6px;padding:6px;border-radius:6px;background:#0a1d21}
-#intro .lamp{width:clamp(18px,4.2vw,30px);aspect-ratio:1;border-radius:50%;background:#26383c;box-shadow:inset 0 2px 4px rgba(0,0,0,.6);transition:background .08s,box-shadow .08s}
-#intro .lamp.red{background:radial-gradient(circle at 40% 35%,#ff8a90,var(--red) 55%,#8e1820);box-shadow:0 0 14px 3px rgba(217,52,62,.75)}
-#intro .lamp.go{background:radial-gradient(circle at 40% 35%,#a6ffb7,#2fd15a 55%,#137a30);box-shadow:0 0 16px 4px rgba(47,209,90,.75)}
-#intro .tag{position:absolute;left:0;right:0;top:calc(100% + 118px);text-align:center;font-family:var(--hand);font-size:22px;color:var(--red);opacity:0;}
-#intro.green .tag{animation:city-fade .3s ease forwards}
+#intro .road::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:40%;background:linear-gradient(90deg,transparent,var(--red),#fff,var(--red),transparent)}
+#intro.flash .road::after{animation:city-streak .55s cubic-bezier(.6,0,.3,1) forwards}
+/* Flash: a red speed band whips across, "LEEDS × SINGAPORE" slams in huge slanted outline caps (same style as the
+   section banners), then a diagonal red wipe sweeps the screen away to reveal the page. */
+#intro .band{position:fixed;left:-10%;right:-10%;top:50%;height:clamp(60px,12vw,120px);margin-top:calc(clamp(60px,12vw,120px) / -2 + 40px);pointer-events:none;
+  background:linear-gradient(90deg,transparent 0,var(--red) 16%,#ff6b73 46%,#fff 50%,#ff6b73 54%,var(--red) 84%,transparent 100%);
+  transform:translateX(-120%) skewX(-24deg);opacity:.9;z-index:0}
+#intro .city{z-index:1}
+#intro.flash .band{animation:intro-band .6s cubic-bezier(.7,0,.3,1) forwards}
+#intro .slam{position:fixed;left:0;right:0;top:calc(50% + clamp(70px,12vw,130px));text-align:center;pointer-events:none;white-space:nowrap;
+  font-family:var(--display);font-weight:800;font-style:italic;text-transform:uppercase;letter-spacing:-.02em;line-height:.9;
+  font-size:clamp(40px,10vw,128px);color:transparent;-webkit-text-stroke:2px var(--red);opacity:0;transform:translateX(60vw) skewX(-14deg);filter:blur(8px)}
+#intro .slam span{color:var(--red);-webkit-text-stroke:0}
+#intro.flash .slam{animation:intro-slam .6s cubic-bezier(.12,.9,.25,1) .1s forwards}
+#intro .wipe{position:fixed;top:-20%;bottom:-20%;left:-120%;width:max(40%,260px);pointer-events:none;z-index:2;transform:skewX(-18deg);
+  background:linear-gradient(90deg,#fff 0,var(--red) 8%,var(--red) 92%,var(--band) 100%)}
+#intro.out .wipe{animation:intro-wipe .6s cubic-bezier(.7,0,.25,1) forwards}
+@keyframes intro-band{to{transform:translateX(120%) skewX(-24deg)}}
+@keyframes intro-slam{60%{opacity:1;transform:translateX(-2vw) skewX(-4deg);filter:none}to{opacity:1;transform:none;filter:none}}
+@keyframes intro-wipe{to{left:130%}}
+#intro .tag{display:none;position:absolute;left:0;right:0;top:calc(100% + 26px);text-align:center;font-family:var(--hand);font-size:22px;color:var(--red);opacity:0;}
+#intro.flash .tag{animation:city-fade .3s ease forwards}
 @keyframes city-up{to{transform:none;opacity:1}}
 @keyframes city-streak{to{left:100%}}
 @keyframes city-fade{to{opacity:1}}
@@ -1148,29 +1160,25 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
       sl.style.backgroundSize = (N * 100) + '% 100%';
       sl.style.setProperty('--d', (i * 70) + 'ms'); mask.appendChild(sl);
     }
-    city.insertAdjacentHTML('beforeend', '<div class="road"></div><div class="gantry">' +
-      '<div class="pod"><span class="lamp"></span><span class="lamp"></span></div>'.repeat(5) + '</div><div class="tag">Leeds · Singapore</div>');
+    city.insertAdjacentHTML('beforeend', '<div class="road"></div>');
+    box.insertAdjacentHTML('beforeend', '<div class="band"></div><div class="slam">Leeds <span>×</span> Singapore</div><div class="wipe"></div>');
     box.appendChild(city); document.body.appendChild(box);
     document.documentElement.style.overflow = 'hidden';
     let ended = false;
     const finish = () => {
       if (ended) return; ended = true;
       const a = city.getBoundingClientRect(), b = logo.getBoundingClientRect();
-      const tag = city.querySelector('.tag'); tag.style.animation = 'none'; tag.style.transition = 'opacity .15s'; tag.style.opacity = 0;
+      
       city.animate([{ transform: 'none' }, { transform: `translate(${b.left + b.width / 2 - (a.left + a.width / 2)}px,${b.top + b.height / 2 - (a.top + a.height / 2)}px) scale(${b.width / a.width})` }],
         { duration: 520, easing: 'cubic-bezier(.6,0,.2,1)', fill: 'forwards' });
-      setTimeout(() => { box.classList.add('done'); document.documentElement.style.overflow = ''; window.clockSpin && clockSpin(); }, 380);
+      box.classList.add('out', 'flash');
+      setTimeout(() => { box.classList.add('done'); document.documentElement.style.overflow = ''; window.clockSpin && clockSpin(); }, 420);
       setTimeout(() => box.remove(), 900);
     };
     box.addEventListener('click', finish);
-    // F1 start lights: the five red pairs come on one by one, then all turn green ("lights out, away we go").
-    const pods = [...city.querySelectorAll('.pod')];
-    pods.forEach((pod, i) => setTimeout(() => pod.querySelectorAll('.lamp').forEach(l => l.classList.add('red')), 450 + i * 330));
-    setTimeout(() => {
-      city.querySelectorAll('.lamp').forEach(l => { l.classList.remove('red'); l.classList.add('go'); });
-      box.classList.add('green');
-    }, 450 + 5 * 330 + 350);
-    setTimeout(finish, 450 + 5 * 330 + 350 + 700);
+    // Skyline rises (0–0.9 s), then the flash: speed band + "LEEDS × SINGAPORE" slam, then the red wipe reveals the page.
+    setTimeout(() => box.classList.add('flash'), 900);
+    setTimeout(finish, 2100);
   })();
 
   // Section transitions (Singapore GP style): mark parts to "rise", add a kerb stripe under each heading,
