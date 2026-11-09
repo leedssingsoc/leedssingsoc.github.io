@@ -444,9 +444,16 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
   transform:translateY(110%);opacity:0;animation:city-up .55s cubic-bezier(.2,.9,.25,1) forwards;animation-delay:var(--d)}
 #intro .mask{position:absolute;inset:0;overflow:hidden}
 #intro .road{position:absolute;left:0;right:0;bottom:-10px;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
-#intro .road::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:40%;background:linear-gradient(90deg,transparent,var(--red),#fff,var(--red),transparent);
-  animation:city-streak .7s cubic-bezier(.6,0,.3,1) .75s forwards}
-#intro .tag{position:absolute;left:0;right:0;top:calc(100% + 26px);text-align:center;font-family:var(--hand);font-size:22px;color:var(--red);opacity:0;animation:city-fade .4s ease .95s forwards}
+#intro .road::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:40%;background:linear-gradient(90deg,transparent,#2fd15a,#fff,#2fd15a,transparent)}
+#intro.green .road::after{animation:city-streak .55s cubic-bezier(.6,0,.3,1) forwards}
+#intro .gantry{position:absolute;left:50%;top:calc(100% + 30px);transform:translateX(-50%);display:flex;gap:clamp(8px,2vw,14px);
+  padding:10px 14px;border-radius:10px;background:var(--band);box-shadow:0 6px 18px rgba(14,42,47,.25)}
+#intro .pod{display:grid;gap:6px;padding:6px;border-radius:6px;background:#0a1d21}
+#intro .lamp{width:clamp(18px,4.2vw,30px);aspect-ratio:1;border-radius:50%;background:#26383c;box-shadow:inset 0 2px 4px rgba(0,0,0,.6);transition:background .08s,box-shadow .08s}
+#intro .lamp.red{background:radial-gradient(circle at 40% 35%,#ff8a90,var(--red) 55%,#8e1820);box-shadow:0 0 14px 3px rgba(217,52,62,.75)}
+#intro .lamp.go{background:radial-gradient(circle at 40% 35%,#a6ffb7,#2fd15a 55%,#137a30);box-shadow:0 0 16px 4px rgba(47,209,90,.75)}
+#intro .tag{position:absolute;left:0;right:0;top:calc(100% + 118px);text-align:center;font-family:var(--hand);font-size:22px;color:var(--red);opacity:0;}
+#intro.green .tag{animation:city-fade .3s ease forwards}
 @keyframes city-up{to{transform:none;opacity:1}}
 @keyframes city-streak{to{left:100%}}
 @keyframes city-fade{to{opacity:1}}
@@ -1141,7 +1148,8 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
       sl.style.backgroundSize = (N * 100) + '% 100%';
       sl.style.setProperty('--d', (i * 70) + 'ms'); mask.appendChild(sl);
     }
-    city.insertAdjacentHTML('beforeend', '<div class="road"></div><div class="tag">Leeds · Singapore</div>');
+    city.insertAdjacentHTML('beforeend', '<div class="road"></div><div class="gantry">' +
+      '<div class="pod"><span class="lamp"></span><span class="lamp"></span></div>'.repeat(5) + '</div><div class="tag">Leeds · Singapore</div>');
     box.appendChild(city); document.body.appendChild(box);
     document.documentElement.style.overflow = 'hidden';
     let ended = false;
@@ -1155,7 +1163,14 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
       setTimeout(() => box.remove(), 900);
     };
     box.addEventListener('click', finish);
-    setTimeout(finish, 1650);
+    // F1 start lights: the five red pairs come on one by one, then all turn green ("lights out, away we go").
+    const pods = [...city.querySelectorAll('.pod')];
+    pods.forEach((pod, i) => setTimeout(() => pod.querySelectorAll('.lamp').forEach(l => l.classList.add('red')), 450 + i * 330));
+    setTimeout(() => {
+      city.querySelectorAll('.lamp').forEach(l => { l.classList.remove('red'); l.classList.add('go'); });
+      box.classList.add('green');
+    }, 450 + 5 * 330 + 350);
+    setTimeout(finish, 450 + 5 * 330 + 350 + 700);
   })();
 
   // Section transitions (Singapore GP style): mark parts to "rise", add a kerb stripe under each heading,
