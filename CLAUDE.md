@@ -128,6 +128,9 @@ the prices. Bank details, sort codes, account numbers and phone numbers stay in 
 - Committee "driver line-up" reel (`#reel`, Jarryl, 9 Nov 2026), modelled on the F1 intro TikTok: the script builds one
   slide per `.team .member` (photo, name, role, course), so adding/changing a committee member updates it automatically.
   2.6s per person, whip-blur transitions, plays only on screen, tap for next; fades only with reduced motion.
+  The reel uses sticker-free photos (`committee-reel-<name>.jpg`, full original resolution, from Jarryl's PDF 9 Nov
+  2026) via `data-reel` on each card's <img>, framed with `data-reel-pos` (object-position). The cards keep their
+  stickered photos. Never shrink the reel photos; new committee: ask for the original photo without stickers.
 - NO WhatsApp group links anywhere on the site (Jarryl, 8 Nov 2026: the public link brought in spam faster than the
   committee could remove it). Point people to Instagram (@leedssingsoc) instead.
 
