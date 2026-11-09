@@ -349,6 +349,25 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   .mark small{display:none}
   section.block{padding-block:72px 0}
 }
+/* F1-style "driver intro" for the committee (Jarryl, 9 Nov 2026): when the team scrolls into view, a red speed
+   streak wipes across each photo in turn, the photo is revealed behind it, and the role and name slide in.
+   Only runs once, only with JS, and never for people who turn off motion. */
+.team.f1 .member .frame{overflow:hidden}
+.team.f1 .member .frame::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(100deg,transparent 0 8%,#7a0d14 18%,#D9343E 40%,#ff6a6a 50%,#D9343E 60%,#7a0d14 82%,transparent 92%);
+  transform:translateX(-120%) skewX(-12deg)}
+.team.f1 .member img{opacity:0;transform:scale(1.12);filter:saturate(1.4) contrast(1.1)}
+.team.f1 .member .role,.team.f1 .member h3{opacity:0;transform:translateX(-26px)}
+.team.f1 .member .course,.team.f1 .member .says,.team.f1 .member .about{opacity:0}
+.team.f1.go .member .frame::after{animation:f1streak .75s cubic-bezier(.6,0,.3,1) forwards;animation-delay:calc(var(--i) * .28s)}
+.team.f1.go .member img{animation:f1photo .55s ease-out forwards;animation-delay:calc(var(--i) * .28s + .32s)}
+.team.f1.go .member .role{animation:f1slide .4s ease-out forwards;animation-delay:calc(var(--i) * .28s + .5s)}
+.team.f1.go .member h3{animation:f1slide .4s ease-out forwards;animation-delay:calc(var(--i) * .28s + .6s)}
+.team.f1.go .member .course,.team.f1.go .member .says,.team.f1.go .member .about{animation:f1fade .5s ease-out forwards;animation-delay:calc(var(--i) * .28s + .75s)}
+@keyframes f1streak{0%{transform:translateX(-120%) skewX(-12deg)}100%{transform:translateX(130%) skewX(-12deg)}}
+@keyframes f1photo{to{opacity:1;transform:none;filter:none}}
+@keyframes f1slide{to{opacity:1;transform:none}}
+@keyframes f1fade{to{opacity:1}}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
@@ -996,6 +1015,15 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
     if (noEvents) noEvents.hidden = !!upList.querySelector(':scope > [data-until]:not([hidden])');
   }
   movePast(); setInterval(movePast, 60000);
+
+  // Committee F1-style intro: arm it, then play once when the team is on screen.
+  const team = document.querySelector('.team');
+  if (team && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    team.querySelectorAll('.member').forEach((m, i) => m.style.setProperty('--i', i));
+    team.classList.add('f1');
+    const tio = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { team.classList.add('go'); tio.disconnect(); } }, { threshold: 0.25 });
+    tio.observe(team);
+  }
 
   // Gallery videos only download when scrolled near, and only ONE plays at a time (the one most in view),
   // so phones never decode several at once and stutter. Off-screen videos pause.
