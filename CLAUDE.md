@@ -49,6 +49,8 @@ Every event promo video gets the same treatment as the Monsta Obsession one:
   is our own footage. Tell Jarryl what was cut. The original on Instagram is never touched.
   Exception (Jarryl, 6 Nov 2026): the Monsta Obsession Halloween promo (`monsta-video.mp4`) stays UNCUT, meme clip
   included. Don't cut it again.
+  Also uncut (Jarryl, 13 Nov 2026): the Laser Tag promo (`lasertag-video.mp4`, Leeds Myanmar Society's reel) keeps its
+  opening "F1 Videographer Speed" meme clip.
 - NEVER publish a video without passing `python tools/check_video.py <video>` (after a cut:
   `python tools/check_video.py <new> <original> --cut START END`). It must print "OK: safe to publish".
   It catches the bug from 6 Nov 2026 (phone videos have a variable frame rate; cutting with
