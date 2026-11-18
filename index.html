@@ -172,6 +172,10 @@ section.block{padding-block:96px 0}
 .posters.run .ptabs button[aria-selected=true] i{animation:pbar var(--pdur,4.5s) linear both}
 .posters.hold .ptabs button i{animation-play-state:paused}
 @keyframes pbar{to{width:100%}}
+.posters .pdesc{margin:0;font-size:14px;line-height:1.45;color:var(--muted);min-height:4.4em}
+.posters .pdesc b{display:block;color:var(--ink);font-size:14px}
+.posters .pdesc.in{animation:pdescin .4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pdescin{from{opacity:0;transform:translateX(18px) skewX(-6deg);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
 @keyframes pwhipin{from{transform:translateX(35%) skewX(-8deg);filter:blur(14px);opacity:.2}to{transform:none;filter:none;opacity:1}}
 @keyframes pwhipout{to{transform:translateX(-35%) skewX(-8deg);filter:blur(14px);opacity:0}}
 @keyframes pwhipinb{from{transform:translateX(-35%) skewX(8deg);filter:blur(14px);opacity:.2}to{transform:none;filter:none;opacity:1}}
@@ -755,13 +759,14 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
         <article class="card feature" id="monsta-wonderland" data-until="2026-12-06">
           <div class="posters" data-posters>
             <div class="pframe" title="Tap for the other room">
-              <img class="on" src="monsta-kpop-wonderland-poster.jpg" alt="Main room poster: Monsta Leeds x BCSoc presents KPOP Wonderland: Sunday 6 December 2026, 11pm to 4am, Warehouse Nightclub. Advanced £10, second release £12, final release £15, door £20. Dress code Christmas, blue or white.">
-              <img src="monsta-cpop-night-poster.jpg" alt="Room 2 poster: Monsta Leeds CPOP Night, 6.12.2026, sounds by DJ 88SSIXX: C-pop, K-pop, bounce, EDM. Warehouse Leeds, Room 2." loading="lazy">
+              <img class="on" src="monsta-kpop-wonderland-poster.jpg" data-desc="&lt;b&gt;Main room · KPOP Wonderland&lt;/b&gt; DJ Indy, DJ Sol and a special guest DJ from the USA. K-pop, throwbacks, hip-hop, OPM and EDM all night, 11pm – 4am." alt="Main room poster: Monsta Leeds x BCSoc presents KPOP Wonderland: Sunday 6 December 2026, 11pm to 4am, Warehouse Nightclub. Advanced £10, second release £12, final release £15, door £20. Dress code Christmas, blue or white.">
+              <img src="monsta-cpop-night-poster.jpg" data-desc="&lt;b&gt;Room 2 · CPOP Night&lt;/b&gt; Monsta&#x27;s brand-new CPOP room. DJ 88SSIXX takes over 1:30am – 3am: C-pop, K-pop, bounce, EDM and sing-along Chinese pop anthems." alt="Room 2 poster: Monsta Leeds CPOP Night, 6.12.2026, sounds by DJ 88SSIXX: C-pop, K-pop, bounce, EDM. Warehouse Leeds, Room 2." loading="lazy">
             </div>
             <div class="ptabs" role="tablist" aria-label="Rooms">
               <button role="tab" aria-selected="true">Main room<small>KPOP Wonderland</small><i></i></button>
               <button role="tab" aria-selected="false">Room 2<small>CPOP Night</small><i></i></button>
             </div>
+            <p class="pdesc" aria-live="polite"></p>
           </div>
           <div class="fbody">
             <div class="chips"><span class="chip hot">Sun 6 Dec</span><span class="chip" data-cd="2026-12-06" data-time="11pm – 4am">Leeds</span><span class="chip">2 rooms</span></div>
@@ -775,7 +780,7 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
             <details class="more">
               <summary>Rooms, line-up, prices and dress code</summary>
               <ul class="prog">
-                <li><b>Main room</b> KPOP Wonderland: DJ Indy, a special guest DJ from the USA, and more to be announced. K-pop, throwbacks, hip-hop, OPM and EDM</li>
+                <li><b>Main room</b> KPOP Wonderland: DJ Indy, DJ Sol and a special guest DJ from the USA. K-pop, throwbacks, hip-hop, OPM and EDM</li>
                 <li><b>Room 2</b> CPOP Night: DJ 88SSIXX takes over 1:30am – 3am. C-pop, K-pop, bounce, EDM and sing-along Chinese pop anthems</li>
                 <li><b>Dress</b> Christmas, blue or white</li>
                 <li><b>Entry</b> Last entry 1am</li>
@@ -1518,9 +1523,12 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
 (function(){
   document.querySelectorAll('[data-posters]').forEach(function(box){
     var frame=box.querySelector('.pframe'), imgs=[].slice.call(frame.querySelectorAll('img')),
-        tabs=[].slice.call(box.querySelectorAll('.ptabs button')), cur=0, timer=null, seen=false, hover=false,
+        tabs=[].slice.call(box.querySelectorAll('.ptabs button')), desc=box.querySelector('.pdesc'), cur=0, timer=null, seen=false, hover=false,
         DUR=4500, calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
     box.style.setProperty('--pdur',DUR+'ms');
+    function setDesc(n,anim){ if(!desc)return; desc.innerHTML=imgs[n].dataset.desc||'';
+      if(anim&&!calm){desc.classList.remove('in');void desc.offsetWidth;desc.classList.add('in')} }
+    setDesc(0,false);
     function show(n,back){
       n=(n+imgs.length)%imgs.length; if(n===cur)return;
       var a=imgs[cur], b=imgs[n];
@@ -1530,7 +1538,7 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
       if(!calm){frame.classList.remove('flash');void frame.offsetWidth;frame.classList.add('flash')}
       setTimeout(function(){a.classList.remove('out','back')},400);
       tabs.forEach(function(t,i){t.setAttribute('aria-selected',i===n?'true':'false')});
-      cur=n; restart();
+      cur=n; setDesc(n,true); restart();
     }
     function restart(){
       clearTimeout(timer); box.classList.remove('run'); void box.offsetWidth;
