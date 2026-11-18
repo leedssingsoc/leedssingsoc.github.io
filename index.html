@@ -153,7 +153,30 @@ section.block{padding-block:96px 0}
 .events{display:grid;gap:18px}
 .feature{display:grid;grid-template-columns:minmax(0, 320px) 1fr;gap:28px;padding:16px}
 .feature.noposter{grid-template-columns:1fr}
-.feature > img{width:100%;border-radius:8px;display:block;align-self:start}
+.feature > img,.feature > .posters{width:100%;border-radius:8px;display:block;align-self:start}
+/* Two-poster slideshow (one event, two rooms): F1 whip-blur like the committee reel, tabs underneath */
+.posters{position:relative;display:grid;gap:8px}
+.posters .pframe{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:8px;background:#0b0b0d;cursor:pointer}
+.posters .pframe img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;visibility:hidden}
+.posters .pframe img.on{opacity:1;visibility:visible}
+.posters .pframe img.in{visibility:visible;animation:pwhipin .45s cubic-bezier(.2,.8,.2,1) both}
+.posters .pframe img.out{visibility:visible;opacity:1;animation:pwhipout .34s cubic-bezier(.7,0,.9,.4) both}
+.posters .pframe img.in.back{animation-name:pwhipinb}.posters .pframe img.out.back{animation-name:pwhipoutb}
+.posters .pframe::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;background:linear-gradient(100deg,transparent 35%,rgba(217,52,62,.55) 48%,rgba(255,255,255,.35) 50%,transparent 62%)}
+.posters .pframe.flash::after{animation:rflash .45s ease-out}
+.posters .ptabs{display:flex;gap:6px}
+.posters .ptabs button{flex:1;font:inherit;font-size:13px;font-weight:700;padding:7px 8px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;position:relative;overflow:hidden;text-align:left;line-height:1.25}
+.posters .ptabs button small{display:block;font-weight:500;font-size:11.5px}
+.posters .ptabs button[aria-selected=true]{color:var(--ink);border-color:var(--red)}
+.posters .ptabs button i{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--red)}
+.posters.run .ptabs button[aria-selected=true] i{animation:pbar var(--pdur,4.5s) linear both}
+.posters.hold .ptabs button i{animation-play-state:paused}
+@keyframes pbar{to{width:100%}}
+@keyframes pwhipin{from{transform:translateX(35%) skewX(-8deg);filter:blur(14px);opacity:.2}to{transform:none;filter:none;opacity:1}}
+@keyframes pwhipout{to{transform:translateX(-35%) skewX(-8deg);filter:blur(14px);opacity:0}}
+@keyframes pwhipinb{from{transform:translateX(-35%) skewX(8deg);filter:blur(14px);opacity:.2}to{transform:none;filter:none;opacity:1}}
+@keyframes pwhipoutb{to{transform:translateX(35%) skewX(8deg);filter:blur(14px);opacity:0}}
+@media (prefers-reduced-motion: reduce){.posters .pframe img.in,.posters .pframe img.out{animation:rfade .3s both}.posters .pframe img.out{animation:none;visibility:hidden}.posters .pframe.flash::after{animation:none}}
 .fbody{display:grid;gap:14px;align-content:start;padding:6px 6px 6px 0;min-width:0}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{font-size:13px;font-weight:700;padding:4px 10px;border-radius:6px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
@@ -335,7 +358,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
   .head{grid-template-columns:1fr}
   .head p{justify-self:start}
   .feature{grid-template-columns:1fr}
-  .feature > img{max-width:420px}
+  .feature > img,.feature > .posters{max-width:420px}
   .sponsors{grid-template-columns:repeat(2, 1fr)}
 }
 @media (max-width: 520px){
@@ -730,21 +753,30 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
         </article>
 
         <article class="card feature" id="monsta-wonderland" data-until="2026-12-06">
-          <img src="monsta-kpop-wonderland-poster.jpg" alt="Monsta Leeds x BCSoc presents KPOP Wonderland: Sunday 6 December 2026, 11pm to 4am, Warehouse Nightclub. Advanced £10, second release £12, final release £15, door £20. Dress code Christmas, blue or white.">
+          <div class="posters" data-posters>
+            <div class="pframe" title="Tap for the other room">
+              <img class="on" src="monsta-kpop-wonderland-poster.jpg" alt="Main room poster: Monsta Leeds x BCSoc presents KPOP Wonderland: Sunday 6 December 2026, 11pm to 4am, Warehouse Nightclub. Advanced £10, second release £12, final release £15, door £20. Dress code Christmas, blue or white.">
+              <img src="monsta-cpop-night-poster.jpg" alt="Room 2 poster: Monsta Leeds CPOP Night, 6.12.2026, sounds by DJ 88SSIXX: C-pop, K-pop, bounce, EDM. Warehouse Leeds, Room 2." loading="lazy">
+            </div>
+            <div class="ptabs" role="tablist" aria-label="Rooms">
+              <button role="tab" aria-selected="true">Main room<small>KPOP Wonderland</small><i></i></button>
+              <button role="tab" aria-selected="false">Room 2<small>CPOP Night</small><i></i></button>
+            </div>
+          </div>
           <div class="fbody">
-            <div class="chips"><span class="chip hot">Sun 6 Dec</span><span class="chip" data-cd="2026-12-06" data-time="11pm – 4am">Leeds</span></div>
+            <div class="chips"><span class="chip hot">Sun 6 Dec</span><span class="chip" data-cd="2026-12-06" data-time="11pm – 4am">Leeds</span><span class="chip">2 rooms</span></div>
             <h3 class="ftitle">Monsta Leeds × BCSoc: KPOP Wonderland</h3>
-            <p>Monsta is back for Christmas, teaming up with BCSoc Leeds for a winter wonderland night with a special guest K-pop DJ from the USA.</p>
+            <p>Monsta is back for Christmas with BCSoc Leeds: two rooms, two themes, one ticket. KPOP Wonderland in the main room, and Monsta's brand-new CPOP room in Room 2.</p>
             <dl class="facts">
               <div><dt>When</dt><dd>Sunday 6 December 2026, 11pm – 4am</dd></div>
               <div><dt>Where</dt><dd class="venue"><b>The Warehouse</b><span class="addr">19-21 Somers St, Leeds LS1 2RG</span><a class="dir" href="https://www.google.com/maps/search/?api=1&amp;query=The%20Warehouse%2C%2019-21%20Somers%20St%2C%20Leeds%20LS1%202RG" target="_blank" rel="noopener">Directions →</a></dd></div>
               <div><dt>Price</dt><dd>Now £13 members · £15 non-members</dd></div>
             </dl>
             <details class="more">
-              <summary>Line-up, prices and dress code</summary>
+              <summary>Rooms, line-up, prices and dress code</summary>
               <ul class="prog">
-                <li><b>DJs</b> DJ Indy, a special guest DJ from the USA, and more to be announced</li>
-                <li><b>Music</b> K-pop, throwbacks, hip-hop, OPM and EDM</li>
+                <li><b>Main room</b> KPOP Wonderland: DJ Indy, a special guest DJ from the USA, and more to be announced. K-pop, throwbacks, hip-hop, OPM and EDM</li>
+                <li><b>Room 2</b> CPOP Night: DJ 88SSIXX takes over 1:30am – 3am. C-pop, K-pop, bounce, EDM and sing-along Chinese pop anthems</li>
                 <li><b>Dress</b> Christmas, blue or white</li>
                 <li><b>Entry</b> Last entry 1am</li>
               </ul>
@@ -787,7 +819,7 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
 
       <div class="past">
         <h3>Already happened <span class="tiny" style="font-family:var(--body);font-weight:500">· most recent first</span></h3>
-        <div class="row" data-after="2026-12-06" hidden><p class="when">6 Dec</p><div><h4>Monsta Leeds × BCSoc: KPOP Wonderland</h4><p>A Christmas K-pop night at The Warehouse with BCSoc Leeds and a guest DJ from the USA.</p></div><img class="thumb" src="monsta-kpop-wonderland-poster.jpg" alt="KPOP Wonderland poster" loading="lazy"></div>
+        <div class="row" data-after="2026-12-06" hidden><p class="when">6 Dec</p><div><h4>Monsta Leeds × BCSoc: KPOP Wonderland</h4><p>A Christmas K-pop night at The Warehouse with BCSoc Leeds and a guest DJ from the USA, plus Monsta's first CPOP room.</p></div><img class="thumb" src="monsta-kpop-wonderland-poster.jpg" alt="KPOP Wonderland poster" loading="lazy"></div>
         <div class="row" data-after="2026-11-28" hidden><p class="when">28 Nov</p><div><h4>York Christmas Market Trip</h4><p>A free day trip to the Christmas markets in York.</p></div><img class="thumb" src="york-xmas-poster.jpg" alt="York Christmas Markets poster" loading="lazy"></div>
         <div class="row" data-after="2026-11-22" hidden><p class="when">22 Nov</p><div><h4>Single&#x27;s Night with BCSoc</h4><p>A night upstairs at Rita&#x27;s with BCSoc and four other societies.</p></div><img class="thumb" src="singles-night-poster.jpg" alt="Single&#x27;s Night poster" loading="lazy"></div>
         <div class="row" data-after="2026-11-15" hidden><p class="when">15 Nov</p><div><h4>Laser Tag with the Myanmar Society</h4><p>Two games of laser tag at Laser Force, with mixed teams from both societies. <a href="#gallery">See the photos</a></p></div><img class="thumb" src="lasertag-poster.jpg" alt="Lasertag Social poster" loading="lazy"></div>
@@ -1479,5 +1511,45 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
 })();
 </script>
 <script data-goatcounter="https://leedssingsoc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<script>
+/* Poster slideshow for events with more than one poster (e.g. two rooms). Auto-advances only while on screen,
+   whip-blur transition like the committee reel, tap the poster or a tab, swipe on phones; pauses on hover. */
+(function(){
+  document.querySelectorAll('[data-posters]').forEach(function(box){
+    var frame=box.querySelector('.pframe'), imgs=[].slice.call(frame.querySelectorAll('img')),
+        tabs=[].slice.call(box.querySelectorAll('.ptabs button')), cur=0, timer=null, seen=false, hover=false,
+        DUR=4500, calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    box.style.setProperty('--pdur',DUR+'ms');
+    function show(n,back){
+      n=(n+imgs.length)%imgs.length; if(n===cur)return;
+      var a=imgs[cur], b=imgs[n];
+      imgs.forEach(function(i){i.classList.remove('in','out','back')});
+      a.classList.remove('on'); a.classList.add('out'); b.classList.add('on','in');
+      if(back){a.classList.add('back');b.classList.add('back')}
+      if(!calm){frame.classList.remove('flash');void frame.offsetWidth;frame.classList.add('flash')}
+      setTimeout(function(){a.classList.remove('out','back')},400);
+      tabs.forEach(function(t,i){t.setAttribute('aria-selected',i===n?'true':'false')});
+      cur=n; restart();
+    }
+    function restart(){
+      clearTimeout(timer); box.classList.remove('run'); void box.offsetWidth;
+      if(seen&&!hover&&!document.hidden){box.classList.add('run'); timer=setTimeout(function(){show(cur+1)},DUR)}
+    }
+    frame.addEventListener('click',function(){show(cur+1)});
+    tabs.forEach(function(t,i){t.addEventListener('click',function(){show(i,i<cur)})});
+    box.addEventListener('mouseenter',function(){hover=true;box.classList.add('hold');clearTimeout(timer)});
+    box.addEventListener('mouseleave',function(){hover=false;box.classList.remove('hold');restart()});
+    var x0=null;
+    frame.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+    frame.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;x0=null;
+      if(Math.abs(dx)>40){e.preventDefault();show(dx<0?cur+1:cur-1,dx>0)}});
+    document.addEventListener('visibilitychange',restart);
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){seen=es[0].isIntersecting;restart()},{threshold:.35}).observe(frame);
+    } else {seen=true;restart()}
+  });
+})();
+</script>
 </body>
 </html>
