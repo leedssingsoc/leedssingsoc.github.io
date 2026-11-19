@@ -35,6 +35,12 @@ Everything is in `index.html`; images, videos and logos sit next to it.
   move `data-cd` if they give an exact date), stays up until 28 Feb 2027 (Jarryl, unless NTU states a closing date). When NTU publishes the application link,
   add an "Apply now" button, keeping the interest form and programme website buttons.
 
+## Joint-SingSoc events (Jarryl, 19 Nov 2026)
+SSSMUK Paintball 2026 (14 Nov, Manchester) was organised by Manchester Singapore Students' Society (@manchestersingsoc)
+with these societies taking part: University of Birmingham Singapore Society (@uobsingsoc), University of Nottingham
+Singapore Society (@uonsingaporesoc), Sheffield Singapore Society (@sheffieldsingaporesociety), Leeds (@leedssingsoc) and
+Liverpool Singapore Society (@liverpoolsgsoc). Name them when writing about joint-SingSoc events.
+
 ## Promo videos (Jarryl, 6 Nov 2026)
 Every event promo video gets the same treatment as the Monsta Obsession one:
 - Keep it on the event card (inside `<details class="more">`), AND add it to the Gallery as its own album,
