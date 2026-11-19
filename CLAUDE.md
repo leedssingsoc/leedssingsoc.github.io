@@ -18,6 +18,9 @@ Everything is in `index.html`; images, videos and logos sit next to it.
 - Ticket links close by themselves (Jarryl, 26 Oct 2026): each card's ticket/sign-up buttons
   (`.ctas-left`) become "Ticket sales have closed." when the event starts. When Jarryl says sales
   closed early, add `data-closed` to that card (or `"closed": true` in the JSON event).
+- Sign-ups that close BEFORE the event (e.g. the form closes on a set date): add `data-closes="YYYY-MM-DDTHH:MM:SSZ"` (UTC;
+  UK winter time = UTC, summer = UTC+1) to the card; the buttons switch to the closed notice at that moment. Optional
+  `data-closed-text="Sign-ups have closed."` for free events. York trip: closes 23:59 Mon 23 Nov 2026 (Jarryl).
 - Event card layout (Jarryl, 5 Nov 2026), modelled on the Paintball card so it never feels overwhelming:
   chips (date + countdown), title, ONE or two short sentences, then just three facts: When, Where, Price.
   Everything else (programme/timings, line-up, ticket tiers, dress code, meeting point, what's included)

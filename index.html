@@ -726,7 +726,7 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
           </div>
         </article>
 
-        <article class="card feature" id="york-xmas" data-until="2026-11-28">
+        <article class="card feature" id="york-xmas" data-until="2026-11-28" data-closes="2026-11-23T23:59:00Z" data-closed-text="Sign-ups have closed.">
           <img src="york-xmas-poster.jpg" alt="York Christmas Markets poster: 28 November, 12pm, meet at Leeds train station, location York.">
           <div class="fbody">
             <div class="chips"><span class="chip hot">Sat 28 Nov</span><span class="chip" data-cd="2026-11-28" data-time="12pm">York</span></div>
@@ -751,7 +751,7 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
             </details>
             <div class="ctas-left">
               <a class="btn red" href="https://forms.gle/iGsdo7CE8VCNSb4PA" target="_blank" rel="noopener">Secure your spot</a>
-              <span class="tiny">Free! Fill in the form so we know you&#x27;re coming.</span>
+              <span class="tiny">Free! Sign up by 11:59pm on Mon 23 Nov so we know you&#x27;re coming.</span>
             </div>
           </div>
         </article>
@@ -1247,11 +1247,19 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
   // Ticket links close once the event starts, or earlier if its card has data-closed (or "closed": true in #extra-events).
   // Cards with data-keep-open (or "keepOpen": true) keep their buttons: e.g. applications that open on the countdown date.
   const closeTickets = card => card.querySelectorAll('.ctas-left').forEach(c => {
-    const n = document.createElement('p'); n.className = 'notice'; n.textContent = 'Ticket sales have closed.';
+    const n = document.createElement('p'); n.className = 'notice'; n.textContent = card.dataset.closedText || 'Ticket sales have closed.';
     c.replaceWith(n);
   });
   document.querySelectorAll('[data-until][data-closed]').forEach(closeTickets);
+  // data-closes="YYYY-MM-DDTHH:MM:SSZ": sign-ups close at that moment (UTC; UK time in winter), e.g. when the form closes.
+  function checkCloses(){
+    document.querySelectorAll('[data-until][data-closes]').forEach(card => {
+      if (!card.dataset.closesDone && Date.now() >= Date.parse(card.dataset.closes)) { card.dataset.closesDone = '1'; closeTickets(card); }
+    });
+  }
+  checkCloses();
   function checkSales(){
+    checkCloses();
     timers.forEach(t => {
       const card = t.el.closest('[data-until]');
       if (card && !t.closed && !card.hasAttribute('data-keep-open') && Date.now() >= t.start) { t.closed = true; closeTickets(card); }
