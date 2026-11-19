@@ -35,6 +35,13 @@ Everything is in `index.html`; images, videos and logos sit next to it.
   move `data-cd` if they give an exact date), stays up until 28 Feb 2027 (Jarryl, unless NTU states a closing date). When NTU publishes the application link,
   add an "Apply now" button, keeping the interest form and programme website buttons.
 
+## Quiet cancellations (President's rule, 19 Nov 2026)
+If an event is cancelled (e.g. low sign-ups), we DON'T announce it publicly. Tell only the people who signed up, in that
+event's WhatsApp group chat; take the sign-up link down; the Instagram post is deleted by the committee. On the website:
+`python tools/remove_event.py <card id>` (dry run), then `--apply`, test, push to main. That removes the card and its
+"Already happened" row, with no "cancelled" notice anywhere. Prepared for the York trip (`york-xmas`, 28 Nov), which may
+be cancelled: do it only when Jarryl says it's cancelled.
+
 ## Joint-SingSoc events (Jarryl, 19 Nov 2026)
 SSSMUK Paintball 2026 (14 Nov, Manchester) was organised by Manchester Singapore Students' Society (@manchestersingsoc)
 with these societies taking part: University of Birmingham Singapore Society (@uobsingsoc), University of Nottingham
