@@ -45,6 +45,11 @@ event's WhatsApp group chat; take the sign-up link down; the Instagram post is d
 "Already happened" row, with no "cancelled" notice anywhere. Prepared for the York trip (`york-xmas`, 28 Nov), which may
 be cancelled: do it only when Jarryl says it's cancelled.
 
+## Other societies' event details (Jarryl, 21 Nov 2026)
+For events run by another society (e.g. BCSoc's Single's Night), use ONLY the details and wording that society has
+published (their poster, stories, form or message): game names, line-ups, timings, sticker meanings. Never make up or
+reword game lists or rules, and never design "official-looking" graphics for their event without saying they're ours.
+
 ## Joint-SingSoc events (Jarryl, 19 Nov 2026)
 SSSMUK Paintball 2026 (14 Nov, Manchester) was organised by Manchester Singapore Students' Society (@manchestersingsoc)
 with these societies taking part: University of Birmingham Singapore Society (@uobsingsoc), University of Nottingham
