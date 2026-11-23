@@ -38,12 +38,16 @@ Everything is in `index.html`; images, videos and logos sit next to it.
   move `data-cd` if they give an exact date), stays up until 28 Feb 2027 (Jarryl, unless NTU states a closing date). When NTU publishes the application link,
   add an "Apply now" button, keeping the interest form and programme website buttons.
 
-## Quiet cancellations (President's rule, 19 Nov 2026)
-If an event is cancelled (e.g. low sign-ups), we DON'T announce it publicly. Tell only the people who signed up, in that
-event's WhatsApp group chat; take the sign-up link down; the Instagram post is deleted by the committee. On the website:
-`python tools/remove_event.py <card id>` (dry run), then `--apply`, test, push to main. That removes the card and its
-"Already happened" row, with no "cancelled" notice anywhere. Used for the York trip (`york-xmas`, 28 Nov), cancelled and removed
-23 Nov 2026. Only remove an event when Jarryl says it's cancelled.
+## Quiet cancellations (President's rule, 19 Nov 2026; order set by Jarryl, 23 Nov 2026)
+If an event is cancelled (e.g. low sign-ups), we DON'T announce it publicly. Always in this order:
+1. Tell the committee.
+2. Tell the people who signed up, in that event's WhatsApp group chat (apologetic, few emojis).
+3. Close the link: the sign-up form (treasurer) AND the website card: `python tools/remove_event.py <card id>`
+   (dry run), then `--apply`, test, push to main. That removes the card and its "Already happened" row, with no
+   "cancelled" notice anywhere.
+4. Delete the Instagram post.
+5. Delete the WhatsApp announcement.
+Only remove an event when Jarryl says it's cancelled. Used for the York trip (`york-xmas`, 28 Nov), removed 23 Nov 2026.
 
 ## Other societies' event details (Jarryl, 21 Nov 2026)
 For events run by another society (e.g. BCSoc's Single's Night), use ONLY the details and wording that society has
