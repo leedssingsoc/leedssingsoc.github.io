@@ -20,7 +20,7 @@ Everything is in `index.html`; images, videos and logos sit next to it.
   closed early, add `data-closed` to that card (or `"closed": true` in the JSON event).
 - Sign-ups that close BEFORE the event (e.g. the form closes on a set date): add `data-closes="YYYY-MM-DDTHH:MM:SSZ"` (UTC;
   UK winter time = UTC, summer = UTC+1) to the card; the buttons switch to the closed notice at that moment. Optional
-  `data-closed-text="Sign-ups have closed."` for free events. York trip: closes 23:59 Mon 23 Nov 2026 (Jarryl).
+  `data-closed-text="Sign-ups have closed."` for free events.
 - Event card layout (Jarryl, 5 Nov 2026), modelled on the Paintball card so it never feels overwhelming:
   chips (date + countdown), title, ONE or two short sentences, then just three facts: When, Where, Price.
   Everything else (programme/timings, line-up, ticket tiers, dress code, meeting point, what's included)
@@ -42,8 +42,8 @@ Everything is in `index.html`; images, videos and logos sit next to it.
 If an event is cancelled (e.g. low sign-ups), we DON'T announce it publicly. Tell only the people who signed up, in that
 event's WhatsApp group chat; take the sign-up link down; the Instagram post is deleted by the committee. On the website:
 `python tools/remove_event.py <card id>` (dry run), then `--apply`, test, push to main. That removes the card and its
-"Already happened" row, with no "cancelled" notice anywhere. Prepared for the York trip (`york-xmas`, 28 Nov), which may
-be cancelled: do it only when Jarryl says it's cancelled.
+"Already happened" row, with no "cancelled" notice anywhere. Used for the York trip (`york-xmas`, 28 Nov), cancelled and removed
+23 Nov 2026. Only remove an event when Jarryl says it's cancelled.
 
 ## Other societies' event details (Jarryl, 21 Nov 2026)
 For events run by another society (e.g. BCSoc's Single's Night), use ONLY the details and wording that society has
