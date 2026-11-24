@@ -59,6 +59,8 @@ SSSMUK Paintball 2026 (14 Nov, Manchester) was organised by Manchester Singapore
 with these societies taking part: University of Birmingham Singapore Society (@uobsingsoc), University of Nottingham
 Singapore Society (@uonsingaporesoc), Sheffield Singapore Society (@sheffieldsingaporesociety), Leeds (@leedssingsoc) and
 Liverpool Singapore Society (@liverpoolsgsoc). Name them when writing about joint-SingSoc events.
+A Leeds Christmas (Sat 5 Dec 2026, card `#leeds-christmas`): Sheffield (@sheffieldsingaporesociety), Leeds, York
+(@uoy.singsoc) and Durham (@dusingsoc) SingSocs, supported by Singapore Global Network (@singaporeglobalnetwork).
 
 ## Promo videos (Jarryl, 6 Nov 2026)
 Every event promo video gets the same treatment as the Monsta Obsession one:
