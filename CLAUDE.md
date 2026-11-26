@@ -162,7 +162,8 @@ the prices. Bank details, sort codes, account numbers and phone numbers stay in 
   stickered photos. Never shrink the reel photos; new committee: ask for the original photo without stickers.
 - Motion package (Jarryl, 9 Nov 2026), all skipped with reduced motion:
   - Loading screen `#intro` (once per session, tap to skip): skyline rises in slices, red speed band + "LEEDS × SINGAPORE"
-    slam, then a full-screen Singapore flag sweeps in, holds ~0.55 s, sweeps off; phones crop the flag to the crescent.
+    slam, then a Changi-style split-flap departure board (same tiles as the homepage clocks) shuffles and lands on
+    LEEDS ✈ SINGAPORE, then fades into the page (Jarryl, 26 Nov 2026; replaced the full-screen Singapore flag).
   - Clock spin (`clockSpin`): after the intro, once the clocks are fully on screen, both split-flap clocks race ~12 h in
     2.6 s and land on the real time, then tick normally.
   - Section transitions (`html.fx`, `.rise`, `.seen`): 3D fly-in per section (perspective, rotateX, overshoot), cards one
