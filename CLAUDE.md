@@ -215,7 +215,8 @@ Script just before GoatCounter (after the quiz). All built from normal markup:
 Committee voice recordings live in voice/lineN.mp3 (trim silence, loudnorm to -16 LUFS, mono 64k MP3 so iPhones play
 them). List them in VOICES in the Singlish-ify script: { text: exact Singlish output, file, by: name or '' }. The 🔊 button
 plays the recording when the translation matches, otherwise the device voice. Shows "🎙 Real voice · voiced by <name>"
-(only add a name if that person agreed). Line 1 ("you coming to monsta or not?") recorded 26 Nov 2026.
+Jarryl wants the voices ANONYMOUS (26 Nov 2026): keep by: '' so it only says "🎙 Real voice". All recordings are his
+voice; future example lines get a recording from him. Line 1 ("you coming to monsta or not?") recorded 26 Nov 2026.
 
 ## Collab logos + multi-page flyers (Jarryl, 27 Nov 2026)
 - Collab cards: `data-hosts="file=Name=link|file=Name=link"` (link = their Instagram, or website e.g. SGN; logo AND name are clickable) (and optional `data-support=...`) on the <article> builds a "Hosted by /
