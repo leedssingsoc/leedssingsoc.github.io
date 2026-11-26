@@ -2084,10 +2084,10 @@ dialog.flyer[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr
   const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* 5. Night mode that follows Singapore time (7pm–7am SGT), unless the visitor switched it off. */
+  /* 5. Night mode that follows Leeds time (7pm–7am UK), unless the visitor switched it off (Jarryl, 26 Nov 2026). */
   const root = document.documentElement, clockNote = $('#clock-note');
-  if (clockNote) clockNote.insertAdjacentHTML('afterend', '<p class="sgnight-note">🌙 It’s night in Singapore, so we’ve switched the lights off.<button type="button">Switch back</button></p>');
-  const sgHour = () => +new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Singapore', hour: 'numeric', hourCycle: 'h23' }).format(new Date());
+  if (clockNote) clockNote.insertAdjacentHTML('afterend', '<p class="sgnight-note">🌙 It’s night in Leeds, so we’ve switched the lights off.<button type="button">Switch back</button></p>');
+  const sgHour = () => +new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: 'numeric', hourCycle: 'h23' }).format(new Date());
   function night() {
     const h = sgHour(), isNight = h >= 19 || h < 7, off = store.get('sgnightOff') === new Date().toDateString();
     const on = isNight && !off;

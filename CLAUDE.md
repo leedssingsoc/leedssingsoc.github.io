@@ -191,12 +191,13 @@ committee cards and sponsors the usual way:
 quiz (`dialog#quiz`, script before GoatCounter): 5 questions, 10 dishes (scores per answer in `Q`, results in `D`; ties random,
 keep every dish reachable and roughly balanced), result links to the next event and "Share to your story" makes a 1080x1920 PNG
 (Web Share on phones, download elsewhere). Counts quiz-open / quiz-result-<dish> / quiz-share-<dish> in GoatCounter. "Singlish-ify"
-and "Chope a seat" tiles are placeholders marked Coming soon. Nothing is stored or sent.
+and "Chope a seat" are live too (see Batch 2). Nothing is stored or sent.
 
 ## Batch 2 features (Jarryl, 26 Nov 2026)
 Script just before GoatCounter (after the quiz). All built from normal markup:
-- Singapore night mode: 7pm–7am Singapore time sets data-theme="dark" + html.sgnight (note under the clocks with
-  "Switch back", remembered for the day in localStorage). Note: SG night = roughly 11am–11pm UK time.
+- Night mode: 7pm–7am LEEDS time (Jarryl changed it from Singapore time, 26 Nov 2026) sets data-theme="dark" + html.sgnight
+  (note under the clocks with "Switch back", remembered for the day in localStorage).
+- Community board / flight buddies (ideas 8–9): Jarryl decided not to do them (26 Nov 2026).
 - Event flyers: tapping an event poster (or "⤢ Flyer" chip on cards with the two-poster slideshow) opens a full-screen
   flyer with a split-flap countdown, the facts and the card's buttons.
 - Moving photo wall "From the camera roll" under the gallery covers, using thumbs/<name>.jpg (340px tall). When adding
