@@ -216,7 +216,8 @@ Committee voice recordings live in voice/lineN.mp3 (trim silence, loudnorm to -1
 them). List them in VOICES in the Singlish-ify script: { text: exact Singlish output, file, by: name or '' }. The 🔊 button
 plays the recording when the translation matches, otherwise the device voice. Shows "🎙 Real voice · voiced by <name>"
 Jarryl wants the voices ANONYMOUS (26 Nov 2026): keep by: '' so it only says "🎙 Real voice". All recordings are his
-voice; future example lines get a recording from him. Line 1 ("you coming to monsta or not?") recorded 26 Nov 2026.
+voice; future example lines get a recording from him. All 8 "Try one" lines recorded 26 Nov 2026; several outputs are fixed in EXACT
+(Jarryl's own wording) so they match the recordings. Changing an example = re-record it.
 
 ## Collab logos + multi-page flyers (Jarryl, 27 Nov 2026)
 - Collab cards: `data-hosts="file=Name=link|file=Name=link"` (link = their Instagram, or website e.g. SGN; logo AND name are clickable) (and optional `data-support=...`) on the <article> builds a "Hosted by /
