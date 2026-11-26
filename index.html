@@ -2345,8 +2345,11 @@ dialog.flyer.multi .fl-nav{display:grid}
     W(/\b(eat|eating|food)\b/g, m => m === 'eating' ? 'makan-ing' : 'makan'), W(/\bdude\b|\bmate\b|\bman\b(?=[,!?. ]|$)/g, 'bro'), W(/\bhey\b|\boi\b/g, 'eh'),
     W(/\blet'?s go for\b/g, 'jom go'), W(/\blet'?s go\b/g, 'jom'), W(/\blet'?s\b/g, 'jom'), W(/\bdun be (damn |so )?/g, 'dun $1'), W(/\bhurry( up)?\b/g, 'faster'), W(/\bvery expensive\b|\bexpensive\b/g, 'ex'), W(/\balready\b/g, 'alr'),
   ];
+  // Exact lines Jarryl chose (they match his voice recordings); checked before the rules.
+  const EXACT = { 'wow this food is so delicious': 'wah this food damn good sia' };
   function singlish(txt) {
     const t = txt.trim(); if (!t) return '';
+    const ek = t.toLowerCase().replace(/[^a-z0-9 ]+/g, '').replace(/\s+/g, ' ').trim(); if (EXACT[ek]) return EXACT[ek];
     return t.split(/(?<=[.!?])\s+/).map(raw => {
       let s = raw.toLowerCase().replace(/[.!?]+$/, '').trim(); const end = (raw.match(/[.!?]+$/) || [''])[0];
       const q = end.includes('?'), ex = end.includes('!');
