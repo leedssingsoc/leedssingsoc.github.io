@@ -2298,7 +2298,7 @@ dialog.flyer.multi .fl-nav{display:grid}
     W(/\b(hometown|village)\b/g, 'kampung'), W(/\b(one of us|our own people)\b/g, 'kakinang'), W(/\b(silly|dumb)\b/g, 'gong'), W(/\bno money\b|\bbroke\b/g, 'no lui'),
     W(/\bdelicious\b/g, 'ho jiak'), W(/\b(very|really|so) (good|nice|fun)\b/g, 'sibei $2'),
   ];
-  const ORIGIN = { onz: ['Singlish', 'I’m in, let’s do it'], 'ho seh bo': ['Hokkien', 'how are you'], 'bo tai ji': ['Hokkien', 'no big deal'], zao: ['Hokkien', 'leave'], 'pang seh': ['Hokkien', 'stood up'],
+  const ORIGIN = { solid: ['Singlish', 'awesome'], onz: ['Singlish', 'I’m in, let’s do it'], 'ho seh bo': ['Hokkien', 'how are you'], 'bo tai ji': ['Hokkien', 'no big deal'], zao: ['Hokkien', 'leave'], 'pang seh': ['Hokkien', 'stood up'],
     'bo hiao': ['Hokkien', 'don’t know how to'], 'eat snake': ['Singlish (from Hokkien)', 'slack off'], 'chut pattern': ['Hokkien + English', 'make excuses'], action: ['Singlish', 'show off'],
     kancheong: ['Cantonese', 'nervous'], cheem: ['Hokkien', 'complicated'], zhun: ['Hokkien', 'accurate'], 'ang pao': ['Hokkien', 'red packet'], siam: ['Hokkien', 'avoid'],
     'kiam siap': ['Hokkien', 'stingy'], 'ho say': ['Hokkien', 'all good'], song: ['Hokkien', 'happy'], jio: ['Hokkien', 'invite'], kopitiam: ['Hokkien + Malay', 'coffee shop'],
@@ -2346,7 +2346,7 @@ dialog.flyer.multi .fl-nav{display:grid}
     W(/\blet'?s go for\b/g, 'jom go'), W(/\blet'?s go\b/g, 'jom'), W(/\blet'?s\b/g, 'jom'), W(/\bdun be (damn |so )?/g, 'dun $1'), W(/\bhurry( up)?\b/g, 'faster'), W(/\bvery expensive\b|\bexpensive\b/g, 'ex'), W(/\balready\b/g, 'alr'),
   ];
   // Exact lines Jarryl chose (they match his voice recordings); checked before the rules.
-  const EXACT = { 'wow this food is so delicious': 'wah this food damn good sia', 'lets go party it will be so fun': 'onz, lets go, it will be fun', 'im broke so lucky i didnt go to this event': 'wa bo lui, heng i never go for this event sia' };
+  const EXACT = { 'wow this food is so delicious': 'wah this food damn good sia', 'lets go party it will be so fun': 'solid lah bro, lets go lets go, it will be fun', 'im broke so lucky i didnt go to this event': 'wa bo lui, heng i never go for this event sia' };
   function singlish(txt) {
     const t = txt.trim(); if (!t) return '';
     const ek = t.toLowerCase().replace(/[^a-z0-9 ]+/g, '').replace(/\s+/g, ' ').trim(); if (EXACT[ek]) return EXACT[ek];
