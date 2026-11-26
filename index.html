@@ -644,6 +644,76 @@ dialog.quizbox[open]{display:flex;flex-direction:column;animation:sheet-in .28s 
 .qz-res .eat{margin-top:16px;font-size:14px;color:var(--muted)}
 .qz-res .eat a{color:var(--red-ink);font-weight:700}
 @media (prefers-reduced-motion: reduce){.qz-anim,.qz-res .big,dialog.quizbox[open]{animation:none}}
+
+/* ===== Batch 2 (Jarryl, 26 Nov 2026): SG night mode, flyer pages, photo wall, Singlish-ify, Chope a seat, food map ===== */
+/* Night mode note on the clock board */
+.sgnight-note{display:none;margin:8px 0 0;font-size:13px;color:#FFC72C}
+html.sgnight .sgnight-note{display:block}
+.sgnight-note button{all:unset;cursor:pointer;text-decoration:underline;margin-left:6px;color:#fff}
+/* Flyer pages */
+.flyer-open{all:unset;cursor:pointer;display:block;position:relative;border-radius:8px}
+.flyer-open:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.flyer-open::after{content:"⤢ Open flyer";position:absolute;right:8px;bottom:8px;font:700 12px/1 var(--body);color:#fff;background:rgba(14,42,47,.78);padding:6px 9px;border-radius:999px}
+dialog.flyer{border:0;padding:0;margin:0;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;background:#0B1C1F;color:#EEF3F2;overflow:hidden}
+dialog.flyer::backdrop{background:#0B1C1F}
+dialog.flyer[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);animation:sheet-in .3s cubic-bezier(.2,.8,.2,1)}
+@media (max-width:760px){dialog.flyer[open]{grid-template-columns:1fr;grid-template-rows:auto 1fr;overflow:auto}}
+.fl-art{position:relative;display:grid;place-items:center;padding:28px;overflow:hidden;background:#071417}
+.fl-art .blur{position:absolute;inset:-40px;background:center/cover;filter:blur(40px) saturate(1.3);opacity:.45}
+.fl-art img{position:relative;max-width:100%;max-height:calc(100dvh - 56px);border-radius:10px;box-shadow:0 30px 60px rgba(0,0,0,.5);transform:rotate(-1.5deg)}
+@media (max-width:760px){.fl-art{padding:56px 22px 22px}.fl-art img{max-height:56dvh}}
+.fl-info{padding:clamp(24px,5vw,64px);display:flex;flex-direction:column;justify-content:center;gap:14px;overflow:auto}
+.fl-info .k{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#FFC72C}
+.fl-info h2{font-family:var(--display);font-size:clamp(30px,4.4vw,54px);line-height:1.02;margin:0;color:#fff}
+.fl-cd{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0}
+.fl-cd div{background:linear-gradient(#222D31 50%,#1A2427 50%);border-radius:8px;padding:10px 12px;min-width:64px;text-align:center;box-shadow:inset 0 -2px 0 rgba(0,0,0,.35)}
+.fl-cd b{display:block;font:800 clamp(30px,5vw,46px)/1 var(--display);color:#FFC72C;font-variant-numeric:tabular-nums}
+.fl-cd span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.fl-facts{display:grid;gap:6px;font-size:16px;color:#d6e0df}
+.fl-facts b{color:#fff}
+.fl-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.fl-ctas .btn.line{color:#fff;border-color:rgba(255,255,255,.6)}
+.fl-x{all:unset;cursor:pointer;position:fixed;top:14px;right:14px;z-index:2;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:24px;background:rgba(255,255,255,.12);color:#fff}
+/* Moving photo wall */
+.drift{margin:34px -20px 0;overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.drift .row{display:flex;gap:14px;width:max-content;padding:10px 0;animation:drift 70s linear infinite}
+.drift .row.r2{animation-duration:90s;animation-direction:reverse}
+.drift:hover .row{animation-play-state:paused}
+.drift figure{margin:0;background:#fff;padding:6px 6px 22px;box-shadow:0 1px 2px rgba(0,0,0,.08),0 8px 18px rgba(14,42,47,.14);flex:none;transition:transform .3s}
+.drift figure:nth-child(3n){transform:rotate(-2deg)}.drift figure:nth-child(3n+1){transform:rotate(1.5deg)}
+.drift figure:hover{transform:scale(1.06) rotate(0)}
+.drift img{display:block;height:clamp(110px,16vw,170px);width:auto}
+@keyframes drift{to{transform:translateX(-50%)}}
+.drift-cap{font-family:var(--hand);font-size:22px;color:var(--red-ink);margin:28px 0 0}
+@media (prefers-reduced-motion: reduce){.drift .row{animation:none}.drift{overflow-x:auto}}
+/* Singlish-ify + Chope a seat share the quiz dialog look */
+.sg-in{width:100%;box-sizing:border-box;font:500 17px/1.45 var(--body);padding:14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);min-height:96px;resize:vertical}
+.sg-in:focus{outline:none;border-color:var(--red)}
+.sg-out{margin-top:16px;padding:18px;border-radius:14px;background:var(--ink);color:var(--paper);font-family:var(--hand);font-size:clamp(24px,6vw,30px);line-height:1.25;min-height:70px}
+.sg-out:empty::before{content:"…";opacity:.4}
+.sg-ex{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.sg-ex button{all:unset;cursor:pointer;font-size:13px;font-weight:700;padding:7px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+.sg-acts{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.cg-hud{display:flex;justify-content:space-between;align-items:center;font-weight:800;margin-bottom:12px}
+.cg-hud b{font:800 28px/1 var(--display);color:var(--red-ink);font-variant-numeric:tabular-nums}
+.cg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.cg-t{all:unset;box-sizing:border-box;cursor:pointer;aspect-ratio:1;border-radius:14px;background:var(--surface);border:1.5px solid var(--line);display:grid;place-items:center;font-size:clamp(26px,8vw,38px);position:relative;transition:transform .08s}
+.cg-t:active{transform:scale(.94)}
+.cg-t.free{border-color:#2f9e55;background:#e9f7ee;box-shadow:0 0 0 3px rgba(47,158,85,.2)}
+.cg-t.free::after{content:"FREE";position:absolute;bottom:4px;font:800 9px/1 var(--body);color:#2f9e55;letter-spacing:.08em}
+.cg-t.mine{background:#fff4e2;border-color:#e0a73a}
+.cg-t.aunty{background:#fdeceb;border-color:var(--red)}
+.cg-msg{text-align:center;margin:14px 0 0;color:var(--muted);font-size:14px}
+/* Food map */
+.spview{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:0 0 16px 10px;vertical-align:top}
+.spview button{all:unset;cursor:pointer;font-size:14px;font-weight:700;padding:8px 14px;background:var(--surface);color:var(--ink)}
+.spview button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.spmap{height:min(520px,70vh);border-radius:14px;overflow:hidden;border:1px solid var(--line);margin:0 0 28px;z-index:0}
+.spmap .pin{width:38px;height:38px;border-radius:50%;background:#fff;border:3px solid var(--red);box-shadow:0 4px 12px rgba(0,0,0,.25);display:grid;place-items:center;overflow:hidden}
+.spmap .pin img{width:28px;height:28px;object-fit:contain}
+.spmap .leaflet-popup-content{margin:12px 14px;font-family:var(--body)}
+.spmap .pop b{display:block;font-size:15px}.spmap .pop small{color:#5A6B6E}.spmap .pop .deal{display:block;color:#B4232D;font-weight:800;margin:4px 0}
+.spmap .pop a{font-weight:700;color:#B4232D}
 </style>
 
 <nav class="nav" aria-label="Main">
@@ -2001,6 +2071,228 @@ dialog.quizbox[open]{display:flex;flex-direction:column;animation:sheet-in .28s 
   box.addEventListener('click', e => { if (e.target === box) box.close(); });
   box.addEventListener('close', () => document.documentElement.classList.remove('noscroll'));
   window.__quiz = { D, card: () => card(), setWinner: k => { winner = k; } };
+})();
+</script>
+<script>
+/* Batch 2 (Jarryl, 26 Nov 2026): Singapore night mode, event flyer pages, moving photo wall,
+   Singlish-ify, Chope a seat, partners food map. Built from the normal markup; nothing is stored except
+   the night-mode choice and the Chope best score (this browser only). */
+(function () {
+  const $ = (s, r) => (r || document).querySelector(s), $$ = (s, r) => [...(r || document).querySelectorAll(s)];
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const count = n => { if (window.goatcounter && goatcounter.count) goatcounter.count({ path: n, event: true }); };
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 5. Night mode that follows Singapore time (7pm–7am SGT), unless the visitor switched it off. */
+  const root = document.documentElement, clockNote = $('#clock-note');
+  if (clockNote) clockNote.insertAdjacentHTML('afterend', '<p class="sgnight-note">🌙 It’s night in Singapore, so we’ve switched the lights off.<button type="button">Switch back</button></p>');
+  const sgHour = () => +new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Singapore', hour: 'numeric', hourCycle: 'h23' }).format(new Date());
+  function night() {
+    const h = sgHour(), isNight = h >= 19 || h < 7, off = store.get('sgnightOff') === new Date().toDateString();
+    const on = isNight && !off;
+    root.classList.toggle('sgnight', on);
+    if (on) root.dataset.theme = 'dark'; else if (root.dataset.theme === 'dark' && root.dataset.sgset) delete root.dataset.theme;
+    if (on) root.dataset.sgset = '1';
+  }
+  const nb = $('.sgnight-note button'); if (nb) nb.addEventListener('click', () => { store.set('sgnightOff', new Date().toDateString()); night(); count('sgnight-off'); });
+  night(); setInterval(night, 60000);
+
+  /* 6. Event flyer pages: tap a poster for a full-screen flyer with a big countdown. */
+  const fl = document.createElement('dialog'); fl.className = 'flyer'; fl.setAttribute('aria-label', 'Event flyer');
+  fl.innerHTML = '<button class="fl-x" type="button" aria-label="Close flyer">×</button><div class="fl-art"><div class="blur"></div><img alt=""></div><div class="fl-info"></div>';
+  document.body.appendChild(fl);
+  $('.fl-x', fl).addEventListener('click', () => fl.close());
+  fl.addEventListener('close', () => root.classList.remove('noscroll'));
+  let flCard = null, flTimer = null;
+  function flTick() {
+    if (!flCard) return; const ch = $('[data-cd]', flCard), t = ch ? ch.textContent.trim() : '', box = $('.fl-cd', fl); if (!box) return;
+    const m = /(?:(\d+)d\s*)?(\d+)h\s*(\d+)m\s*(\d+)s/.exec(t);
+    box.innerHTML = m ? [['d', m[1] || '0', 'days'], ['h', m[2], 'hrs'], ['m', m[3], 'min'], ['s', m[4], 'sec']].map(([, v, l]) => `<div><b>${String(+v).padStart(2, '0')}</b><span>${l}</span></div>`).join('')
+      : `<div><b>${esc(t || 'Soon')}</b></div>`;
+  }
+  function openFlyer(card, imgSrc) {
+    flCard = card; const title = $('.ftitle', card)?.textContent.trim() || '';
+    $('.fl-art img', fl).src = imgSrc; $('.fl-art img', fl).alt = title + ' poster'; $('.fl-art .blur', fl).style.backgroundImage = `url('${imgSrc}')`;
+    const facts = $$('.facts > div', card).map(d => { const k = $('dt', d)?.textContent.trim(), dd = $('dd', d); const v = dd ? ($('b', dd) ? $('b', dd).textContent.trim() + ($('.addr', dd) ? ', ' + $('.addr', dd).textContent.trim() : '') : dd.textContent.trim()) : '';
+      return `<div><b>${esc(k)}</b> · ${esc(v)}</div>`; }).join('');
+    const ctas = $$('.ctas-left a', card).map(a => `<a class="btn ${a.classList.contains('red') ? 'red' : 'line'}" href="${esc(a.getAttribute('href'))}" target="_blank" rel="noopener">${esc(a.textContent.trim())}</a>`).join('');
+    const closed = !ctas && $('.notice', card) ? `<p>${esc($('.notice', card).textContent)}</p>` : '';
+    $('.fl-info', fl).innerHTML = `<p class="k">${esc($('.chip.hot', card)?.textContent.trim() || '')} · Leeds Singaporean Society</p><h2>${esc(title)}</h2><div class="fl-cd" aria-live="off"></div>
+      <div class="fl-facts">${facts}</div><div class="fl-ctas">${ctas}<a class="btn line" href="#${esc(card.id)}" data-flclose>Full details</a></div>${closed}`;
+    $('[data-flclose]', fl).addEventListener('click', () => fl.close());
+    flTick(); clearInterval(flTimer); flTimer = setInterval(() => fl.open ? flTick() : clearInterval(flTimer), 1000);
+    fl.showModal(); root.classList.add('noscroll'); count('open-flyer-' + (card.id || 'event'));
+  }
+  $$('.events > article.card').forEach(card => {
+    const img = $(':scope > img', card);
+    if (img) { const b = document.createElement('button'); b.type = 'button'; b.className = 'flyer-open'; b.setAttribute('aria-label', 'Open the flyer for ' + ($('.ftitle', card)?.textContent.trim() || 'this event'));
+      img.replaceWith(b); b.appendChild(img); b.addEventListener('click', () => openFlyer(card, img.getAttribute('src'))); return; }
+    const ps = $('.posters', card);
+    if (ps) { const chip = document.createElement('button'); chip.type = 'button'; chip.className = 'chip'; chip.style.cursor = 'pointer'; chip.textContent = '⤢ Flyer';
+      $('.chips', card)?.appendChild(chip); chip.addEventListener('click', () => openFlyer(card, ($('.pframe img.on', ps) || $('.pframe img', ps)).getAttribute('src'))); }
+  });
+
+  /* 7. Moving photo wall under the gallery covers (small thumbnails, pauses on hover). */
+  const covers = $('.albums');
+  if (covers) {
+    const imgs = [...new Set($$('#gallery figure.print img').map(i => i.getAttribute('src')))];
+    if (imgs.length > 6) {
+      const half = Math.ceil(imgs.length / 2), rows = [imgs.slice(0, half), imgs.slice(half)];
+      const fig = src => `<figure><img src="thumbs/${esc(src.replace(/\.[a-z]+$/i, '.jpg'))}" alt="" loading="lazy" decoding="async"></figure>`;
+      const wall = document.createElement('div');
+      wall.innerHTML = `<p class="drift-cap">From the camera roll ✦</p><div class="drift" aria-hidden="true">${rows.map((r, i) => `<div class="row${i ? ' r2' : ''}">${(r.concat(r)).map(fig).join('')}</div>`).join('')}</div>`;
+      covers.after(wall);
+    }
+  }
+
+  /* Shared pop-up for the Play tiles */
+  function playDialog(id, title) {
+    const d = document.createElement('dialog'); d.className = 'quizbox'; d.id = id; d.setAttribute('aria-label', title);
+    d.innerHTML = `<div class="qz-top"><b>${esc(title)}</b><button class="qz-x" type="button" aria-label="Close">×</button></div><div class="qz-body"></div>`;
+    document.body.appendChild(d); $('.qz-x', d).addEventListener('click', () => d.close());
+    d.addEventListener('click', e => { if (e.target === d) d.close(); }); d.addEventListener('close', () => root.classList.remove('noscroll'));
+    return d;
+  }
+  function enableTile(i, open) { const t = $$('.playgrid .ptile')[i]; if (!t) return;
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'ptile'; b.innerHTML = t.innerHTML; t.replaceWith(b);
+    $('.pt-go', b).textContent = 'Play →'; b.addEventListener('click', open); }
+  async function storyCard(lines, file) {   // 1080x1920 story image in the quiz's style
+    const c = document.createElement('canvas'); c.width = 1080; c.height = 1920; const g = c.getContext('2d');
+    g.fillStyle = '#D9343E'; g.fillRect(0, 0, 1080, 1920); g.fillStyle = 'rgba(255,255,255,.08)';
+    for (let i = 0; i < 14; i++) { g.save(); g.translate(540, 960); g.rotate(i / 14 * Math.PI * 2); g.fillRect(-30, 0, 60, 1400); g.restore(); }
+    g.save(); g.translate(540, 920); g.rotate(-.025); g.translate(-540, -920); g.shadowColor = 'rgba(0,0,0,.25)'; g.shadowBlur = 40; g.shadowOffsetY = 18; g.fillStyle = '#F6F6F3'; g.fillRect(90, 300, 900, 1240); g.restore();
+    g.textAlign = 'center'; lines.forEach(([txt, font, col, y]) => { g.fillStyle = col; g.font = font; wrap(g, txt, 540, y, 780); });
+    g.fillStyle = '#5A6B6E'; g.font = '600 36px "Figtree", Arial, sans-serif'; g.fillText('Play at leedssingsoc.github.io', 540, 1440);
+    g.fillStyle = '#fff'; g.font = '800 54px "Figtree", Arial, sans-serif'; g.fillText('@leedssingsoc', 540, 1720);
+    const blob = await new Promise(r => c.toBlob(r, 'image/png')); const f = new File([blob], file, { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [f] })) { try { await navigator.share({ files: [f] }); return; } catch (e) { if (e.name === 'AbortError') return; } }
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = file; document.body.appendChild(a); a.click(); a.remove();
+  }
+  function wrap(g, text, x, y, maxW) { const words = String(text).split(' '); let line = '', lh = parseInt(g.font.match(/(\d+)px/)[1]) * 1.18;
+    const out = []; words.forEach(w => { const t = line ? line + ' ' + w : w; if (g.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t; }); out.push(line);
+    out.forEach((l, i) => g.fillText(l, x, y + i * lh)); }
+
+  /* 2. Singlish-ify: rule-based, just for fun. */
+  const RULES = [
+    [/\bi don'?t know\b/gi, 'dunno'], [/\bi do not know\b/gi, 'dunno'], [/\bwhat are you doing\b/gi, 'you doing what'],
+    [/\bwhere are you\b/gi, 'you where ah'],
+    [/\bcan i\b/gi, 'can I'], [/\bwow\b/gi, 'wah lau'], [/\boh my god\b/gi, 'alamak'], [/\boh no\b/gi, 'alamak'],
+    [/\bso tired\b/gi, 'damn sian'], [/\b(tired|bored)\b/gi, 'sian'], [/\b(delicious|tasty|yummy)\b/gi, 'shiok'], [/\bamazing\b/gi, 'power'],
+    [/\b(very|really|so)\s+/gi, 'damn '], [/\bsorry\b/gi, 'paiseh'], [/\bembarrassing\b/gi, 'paiseh'], [/\breserve\b/gi, 'chope'],
+    [/\bbusybody\b/gi, 'kaypoh'], [/\bnosy\b/gi, 'kaypoh'], [/\bscared to miss out\b/gi, 'kiasu'], [/\bnonsense\b/gi, 'bo liao'],
+    [/\byou didn'?t invite me\b/gi, 'you bo jio'], [/\b(food|eat)\b/gi, 'makan'], [/\blet'?s go\b/gi, 'jom'], [/\bhurry up\b/gi, 'faster lah'],
+    [/\bno way\b/gi, 'cannot lah'], [/\bthat'?s right\b/gi, 'correct what'], [/\bi think so\b/gi, 'I think so lor'], [/\bi want\b/gi, 'I want ah'],
+    [/\bdo you want\b/gi, 'you want or not'], [/\bis it\b/gi, 'is it'], [/\bok(ay)?\b/gi, 'ok lor'], [/\bwhat\?/gi, 'huh?'], [/\bgoing to\b/gi, 'going to'],
+  ];
+  function singlish(txt) {
+    let t = txt.trim(); if (!t) return '';
+    return t.split(/(?<=[.!?])\s+/).map(sent => {
+      let s = sent.replace(/[.!?]+$/, ''), end = (sent.match(/[.!?]+$/) || [''])[0];
+      RULES.forEach(([re, rep]) => { s = s.replace(re, rep); });
+      const q = end.includes('?'), ex = end.includes('!');
+      const hasP = /\b(lah|leh|lor|ah|sia|one|or not|meh)$/i.test(s);
+      if (q && !hasP && !/\bor not\b/i.test(s)) {
+        if (/^(can|could)\s+(you|i|we)\s+/i.test(s)) s = s.replace(/^(can|could)\s+(you|i|we)\s+/i, 'Can ') + ' or not';
+        else if (/\b(what|where|why|how|when|who)\b/i.test(s)) s += ' ah';
+        else s = s.replace(/^(are|is|do|does|did|will|would|have|has)\s+(you|we|they|he|she|it|i)\b\s*/i, '$2 ') + ' or not';
+      }
+      const parts = q ? '?' : ex ? (hasP ? '!' : ' sia!') : hasP ? '.' : [' lah.', ' leh.', ' lor.', ' one.'][Math.abs([...s].reduce((a, c) => a + c.charCodeAt(0), 0)) % 4];
+      s = s.charAt(0).toUpperCase() + s.slice(1);
+      return s + parts;
+    }).join(' ');
+  }
+  const sgd = playDialog('singlishify', 'Singlish-ify');
+  $('.qz-body', sgd).innerHTML = `<p class="qz-step">Type anything in English</p><h3 class="qz-q">Make it sound like home.</h3>
+    <textarea class="sg-in" placeholder="e.g. Are you coming to the event? I am so tired." aria-label="Your sentence"></textarea>
+    <div class="sg-ex">${['Are you coming to Monsta?', 'Sorry, I don\'t know.', 'Wow, this food is so delicious!', 'You didn\'t invite me!', 'Can you reserve a seat?'].map(e => `<button type="button">${esc(e)}</button>`).join('')}</div>
+    <div class="sg-out" aria-live="polite"></div>
+    <div class="sg-acts"><button class="btn red" type="button" data-sg="copy">Copy</button><button class="btn line" type="button" data-sg="share">Share to your story</button></div>
+    <p class="cg-msg">Just for fun. Real Singlish is best learnt at our events 😉</p>`;
+  const sIn = $('.sg-in', sgd), sOut = $('.sg-out', sgd), upd = () => { sOut.textContent = singlish(sIn.value); };
+  sIn.addEventListener('input', upd);
+  $$('.sg-ex button', sgd).forEach(b => b.addEventListener('click', () => { sIn.value = b.textContent; upd(); }));
+  $('[data-sg=copy]', sgd).addEventListener('click', e => { if (!sOut.textContent) return; navigator.clipboard && navigator.clipboard.writeText(sOut.textContent); e.target.textContent = 'Copied lah!'; setTimeout(() => e.target.textContent = 'Copy', 1500); count('singlish-copy'); });
+  $('[data-sg=share]', sgd).addEventListener('click', () => { if (!sOut.textContent) return; count('singlish-share');
+    storyCard([['SINGLISH-IFY', '800 40px "Figtree", Arial, sans-serif', '#B4232D', 420], ['“' + sIn.value.trim() + '”', '600 46px "Figtree", Arial, sans-serif', '#5A6B6E', 560],
+      ['↓', '800 80px "Figtree", Arial, sans-serif', '#D9343E', 860], [sOut.textContent, '700 78px "Caveat", cursive', '#0E2A2F', 1000]], 'singsoc-singlish.png'); });
+  enableTile(1, () => { sgd.showModal(); root.classList.add('noscroll'); sIn.focus(); count('singlish-open'); });
+
+  /* 4. Chope a seat: 30 seconds, tap free tables before the aunties do. */
+  const cg = playDialog('chope', 'Chope a seat');
+  const body = $('.qz-body', cg);
+  let tables = [], score = 0, left = 30, run = null, spawn = null, over = true;
+  function cgIntro() {
+    const best = +store.get('chopeBest') || 0;
+    body.innerHTML = `<p class="qz-step">Hawker centre, 12:30pm</p><h3 class="qz-q">Chope tables before the aunties do.</h3>
+      <p>Tap a table the moment it turns <b style="color:#2f9e55">FREE</b> to chope it with your tissue packet 🧻. Too slow and an aunty 👵 takes it. Tapping an aunty's table costs you a point.</p>
+      ${best ? `<p class="cg-msg">Your best: <b>${best}</b> tables</p>` : ''}<div class="sg-acts"><button class="btn red" type="button" data-go>Start · 30 seconds</button></div>`;
+    $('[data-go]', body).addEventListener('click', cgStart);
+  }
+  function setT(i, state, icon) { const t = tables[i]; t.className = 'cg-t' + (state ? ' ' + state : ''); t.textContent = icon || ''; t.dataset.s = state || ''; }
+  function cgStart() {
+    score = 0; left = 30; over = false; count('chope-start');
+    body.innerHTML = `<div class="cg-hud"><span>Choped <b data-sc>0</b></span><span>⏱ <b data-tm>30</b></span></div><div class="cg-grid"></div><p class="cg-msg" data-msg>Go go go!</p>`;
+    const grid = $('.cg-grid', body); tables = [];
+    for (let i = 0; i < 16; i++) { const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Table ' + (i + 1)); grid.appendChild(b); tables.push(b); setT(i, '', '');
+      b.addEventListener('pointerdown', e => { e.preventDefault(); tap(i); }); }
+    const tick = () => { left--; $('[data-tm]', body).textContent = left; if (left <= 0) cgEnd(); };
+    run = setInterval(tick, 1000); nextSpawn();
+  }
+  function nextSpawn() { if (over) return; const elapsed = 30 - left; spawn = setTimeout(() => {
+      const empty = tables.map((t, i) => t.dataset.s ? -1 : i).filter(i => i > -1); if (empty.length) { const i = empty[Math.random() * empty.length | 0]; setT(i, 'free', '🪑');
+        const wait = Math.max(650, 1400 - elapsed * 22); setTimeout(() => { if (!over && tables[i].dataset.s === 'free') { setT(i, 'aunty', '👵'); setTimeout(() => { if (tables[i].dataset.s === 'aunty') setT(i, '', ''); }, 1500); } }, wait); }
+      nextSpawn(); }, Math.max(330, 800 - elapsed * 14) + Math.random() * 300); }
+  function tap(i) { if (over) return; const s = tables[i].dataset.s, msg = $('[data-msg]', body);
+    if (s === 'free') { score++; setT(i, 'mine', '🧻'); msg.textContent = ['Chope!', 'Shiok!', 'Steady lah!', 'Power!'][score % 4]; setTimeout(() => { if (tables[i].dataset.s === 'mine') setT(i, '', ''); }, 2600); }
+    else if (s === 'aunty') { score = Math.max(0, score - 1); msg.textContent = 'Wah, aunty already there leh!'; }
+    $('[data-sc]', body).textContent = score; }
+  function cgEnd() {
+    over = true; clearInterval(run); clearTimeout(spawn);
+    const best = Math.max(score, +store.get('chopeBest') || 0); store.set('chopeBest', best); count('chope-score-' + Math.min(score, 40));
+    const rank = score >= 22 ? ['🏆', 'Chope champion', 'The aunties fear you.'] : score >= 15 ? ['🧻', 'Tissue packet pro', 'Your family would be proud.'] : score >= 8 ? ['🍜', 'Lunchtime regular', 'Not bad lah, keep practising.'] : ['🥲', 'Takeaway again', 'The aunties won this round.'];
+    body.innerHTML = `<div class="qz-res qz-anim"><div class="big">${rank[0]}</div><p class="you">You choped</p><h3>${score} tables</h3><p class="tag">${rank[1]}</p><p class="d">${rank[2]}${best > score ? ` Your best is ${best}.` : score ? ' New best!' : ''}</p>
+      <div class="acts"><button class="btn red" type="button" data-share>Share to your story</button></div><button class="again" type="button" data-again>Play again ↺</button></div>`;
+    $('[data-again]', body).addEventListener('click', cgStart);
+    $('[data-share]', body).addEventListener('click', () => { count('chope-share'); storyCard([['CHOPE A SEAT', '800 40px "Figtree", Arial, sans-serif', '#B4232D', 420],
+      [rank[0], '260px "Noto Color Emoji","Apple Color Emoji",sans-serif', '#000', 760], ['I choped', '700 44px "Figtree", Arial, sans-serif', '#5A6B6E', 900],
+      [score + ' tables', '800 120px "Bricolage Grotesque", Arial, sans-serif', '#0E2A2F', 1040], [rank[1], '700 64px "Caveat", cursive', '#B4232D', 1170]], 'singsoc-chope.png'); });
+  }
+  cg.addEventListener('close', () => { over = true; clearInterval(run); clearTimeout(spawn); });
+  enableTile(2, () => { cgIntro(); cg.showModal(); root.classList.add('noscroll'); count('chope-open'); });
+
+  /* 3. Partners map (Leaflet + OpenStreetMap tiles), loaded only when someone opens it. */
+  const GEO = { bluesakura: [53.80218, -1.54259], halfsugar: [53.79637, -1.54174], lafiesta: [53.8018, -1.54422], makiramen: [53.7976, -1.54602], memento: [53.79869, -1.54274],
+    mrtea: [53.79771, -1.54304], regency: [53.80085, -1.53966], viettasty: [53.79863, -1.54524], zaap: [53.80027, -1.54036], zanasian: [53.79887, -1.54115], beatone: [53.79839, -1.54821], monsta: [53.79892, -1.55366] };
+  const list = $('ul.sponsors'), filt = $('.spfilter');
+  if (list && filt) {
+    const sw = document.createElement('div'); sw.className = 'spview'; sw.setAttribute('role', 'group'); sw.setAttribute('aria-label', 'View partners as');
+    sw.innerHTML = '<button type="button" aria-pressed="true" data-v="list">☰ List</button><button type="button" aria-pressed="false" data-v="map">🗺 Map</button>';
+    filt.appendChild(sw);
+    const mapEl = document.createElement('div'); mapEl.className = 'spmap'; mapEl.hidden = true; list.before(mapEl);
+    let map = null, markers = [];
+    const loadLeaflet = () => new Promise((res, rej) => { if (window.L) return res();
+      const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css'; document.head.appendChild(l);
+      const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js'; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+    function refresh() { if (!map) return; markers.forEach(({ m, li }) => { if (li.hidden) m.remove(); else m.addTo(map); }); }
+    async function showMap() {
+      list.hidden = true; mapEl.hidden = false; count('partners-map');
+      if (!map) { await loadLeaflet();
+        map = L.map(mapEl, { scrollWheelZoom: false, tap: true }).setView([53.7993, -1.5440], 15);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
+        $$(':scope > li', list).forEach(li => { const img = $('img', li); const key = img && (img.getAttribute('src').match(/logo-([a-z]+)\./) || [])[1]; const ll = GEO[key]; if (!ll) return;
+          const name = $('b', li)?.textContent.trim(), type = $('.type', li)?.textContent.trim(), deal = $('.deal strong', li)?.textContent.trim() || '', dir = $('.links a', li)?.getAttribute('href');
+          const icon = L.divIcon({ className: '', html: `<div class="pin"><img src="${esc(img.getAttribute('src'))}" alt=""></div>`, iconSize: [38, 38], iconAnchor: [19, 19], popupAnchor: [0, -20] });
+          const m = L.marker(ll, { icon, title: name }).bindPopup(`<div class="pop"><b>${esc(name)}</b><small>${esc(type)}</small>${deal ? `<span class="deal">${esc(deal)}</span>` : ''}${dir ? `<a href="${esc(dir)}" target="_blank" rel="noopener">Directions →</a>` : ''}</div>`);
+          markers.push({ m, li }); });
+        const g = L.featureGroup(markers.map(x => x.m)); map.fitBounds(g.getBounds().pad(.15)); }
+      refresh(); setTimeout(() => map.invalidateSize(), 50);
+    }
+    function showList() { list.hidden = false; mapEl.hidden = true; }
+    $$('button', sw).forEach(b => b.addEventListener('click', () => { $$('button', sw).forEach(x => x.setAttribute('aria-pressed', x === b)); b.dataset.v === 'map' ? showMap().catch(showList) : showList(); }));
+    $$('button', filt).forEach(b => { if (!b.closest('.spview')) b.addEventListener('click', () => setTimeout(refresh, 0)); });
+  }
 })();
 </script>
 <script data-goatcounter="https://leedssingsoc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>

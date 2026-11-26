@@ -193,6 +193,19 @@ keep every dish reachable and roughly balanced), result links to the next event 
 (Web Share on phones, download elsewhere). Counts quiz-open / quiz-result-<dish> / quiz-share-<dish> in GoatCounter. "Singlish-ify"
 and "Chope a seat" tiles are placeholders marked Coming soon. Nothing is stored or sent.
 
+## Batch 2 features (Jarryl, 26 Nov 2026)
+Script just before GoatCounter (after the quiz). All built from normal markup:
+- Singapore night mode: 7pm–7am Singapore time sets data-theme="dark" + html.sgnight (note under the clocks with
+  "Switch back", remembered for the day in localStorage). Note: SG night = roughly 11am–11pm UK time.
+- Event flyers: tapping an event poster (or "⤢ Flyer" chip on cards with the two-poster slideshow) opens a full-screen
+  flyer with a split-flap countdown, the facts and the card's buttons.
+- Moving photo wall "From the camera roll" under the gallery covers, using thumbs/<name>.jpg (340px tall). When adding
+  gallery photos, also make a thumbnail in thumbs/.
+- Play tiles: Singlish-ify (rule-based RULES list, copy + story card) and Chope a seat (30 s game, best score kept in
+  this browser). Both share the quiz dialog style and story-card maker.
+- Partners: List/Map switch; map loads Leaflet (cdnjs) + OpenStreetMap tiles only when opened. Pin positions in GEO
+  (keyed by logo file name). New sponsor = add its coordinates to GEO.
+
 ## Daily site check (since 26 Oct 2026)
 A claude.ai scheduled task, `leedssingsoc-site-check`, runs every day at 08:36 UK time. It checks the live site
 (new commits, broken images/links, page errors on desktop and phone, out-of-date events or sponsor deals, and
