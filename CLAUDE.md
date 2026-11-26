@@ -208,6 +208,9 @@ Script just before GoatCounter (after the quiz). All built from normal markup:
   the output carry a subtitle (<ruby>) with the written form from SCRIPT (Han characters / Tamil script, only well-attested
   ones) and the English meaning. and Chope a seat (30 s game, best score kept in
   this browser). Both share the quiz dialog style and story-card maker.
+- Singlish-ify LEX list (27 Nov 2026): everyday English -> Singlish usage (tq, borrow me, open the light, spoil, pancit, comot, cher, towkay, ponteng, mug...)
+  runs right after HOKKIEN, before the copula drop. Topic-first questions ("this one how much ah?", "the event what time ah?"). Statements now get a
+  particle by default (requests ah, "i ..." leh, else lah). Test sentences in a scratch run before publishing; the 8 voiced examples must still match VOICES.
 - Partners: List/Map switch; map loads Leaflet (cdnjs) + OpenStreetMap tiles only when opened. Pin positions in GEO
   (keyed by logo file name). New sponsor = add its coordinates to GEO.
 
