@@ -516,6 +516,86 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
   *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
 }
+/* ===== UX upgrade (Jarryl, 26 Nov 2026) ===== */
+/* 2. Anchor jumps land below the sticky menu */
+section[id], article[id], header[id]{scroll-margin-top:72px}
+/* 1. Gallery as album covers; tap opens the album in a full-screen sheet */
+.albums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+@media (max-width:960px){.albums{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.albums{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
+.acover{all:unset;box-sizing:border-box;cursor:pointer;display:block;background:#fff;padding:8px 8px 12px;box-shadow:0 1px 2px rgba(0,0,0,.08),0 10px 24px rgba(14,42,47,.12);position:relative;transition:transform .2s}
+.acover:nth-child(odd){transform:rotate(-1deg)}.acover:nth-child(even){transform:rotate(.8deg)}
+.acover:hover,.acover:focus-visible{transform:rotate(0) translateY(-3px)}
+.acover:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.acover .ph{display:block;aspect-ratio:4/5;background:#e9ecea center/cover no-repeat}
+.acover .t{display:block;margin-top:10px;font-family:var(--display);font-weight:800;font-size:16px;line-height:1.15;color:#0E2A2F}
+.acover .m{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-top:4px;font-size:12.5px;color:#5A6B6E}
+.acover .m .hand{font-family:var(--hand);font-size:19px;color:var(--red-ink)}
+.acover .play{position:absolute;left:16px;top:16px;width:34px;height:34px;border-radius:50%;background:rgba(14,42,47,.72);display:grid;place-items:center}
+.acover .play::after{content:"";border-left:11px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.acover .viral{position:absolute;right:14px;top:14px;display:inline-flex;align-items:center;gap:6px;font:800 10px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--red);padding:6px 8px;border-radius:999px}
+.acover .viral i{width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 1.4s ease-in-out infinite}
+.album-store{display:none}
+dialog.sheet{border:0;padding:0;margin:auto;width:min(1100px,100vw);max-width:100vw;height:min(92vh,100%);max-height:100dvh;background:var(--paper);color:var(--ink);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+dialog.sheet::backdrop{background:rgba(8,20,23,.6);backdrop-filter:blur(3px)}
+dialog.sheet[open]{display:flex;flex-direction:column;animation:sheet-in .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes sheet-in{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@media (max-width:640px){dialog.sheet{width:100vw;height:100dvh;border-radius:0;margin:0}}
+.sheet-top{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--paper)}
+.sheet-top h3{font-size:20px;line-height:1.15;margin:0;flex:1;min-width:0}
+.sheet-top .hand{font-family:var(--hand);color:var(--red-ink);font-size:20px;margin-left:6px}
+.sheet-x{all:unset;cursor:pointer;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:var(--surface);border:1px solid var(--line);flex:none}
+.sheet-body{flex:1;overflow:auto;padding:20px 16px 28px;overscroll-behavior:contain}
+.sheet-body .album{margin:0}.sheet-body .album-title{display:none}
+.sheet-nav{display:flex;justify-content:space-between;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--paper)}
+.sheet-nav button{all:unset;cursor:pointer;font-weight:700;font-size:14px;color:var(--red-ink);padding:8px 4px}
+.sheet-nav button[disabled]{opacity:.3;cursor:default}
+html.noscroll{overflow:hidden}
+/* 3. Sticky bottom bar on phones */
+.nextbar{display:none}
+@media (max-width:760px){
+  .nextbar{display:flex;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:60;gap:8px;align-items:stretch;
+    background:var(--band);color:var(--on-band);border-radius:14px;padding:8px;box-shadow:0 10px 30px rgba(0,0,0,.25);transform:translateY(140%);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+  .nextbar.show{transform:none}
+  .nextbar a{text-decoration:none;color:inherit}
+  .nextbar .nb-ev{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:2px 6px}
+  .nextbar .nb-ev small{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#FFC72C}
+  .nextbar .nb-ev b{font-size:14px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nextbar .nb-ev span{font-size:12px;opacity:.8;font-variant-numeric:tabular-nums}
+  .nextbar .nb-join{flex:none;display:grid;place-items:center;background:var(--red);color:#fff;font-weight:800;font-size:14px;border-radius:10px;padding:0 16px}
+  footer{padding-bottom:96px}
+}
+/* 4. Next event in the hero */
+.nextup{display:flex;align-items:center;gap:12px;margin-top:18px;padding:10px 14px 10px 10px;border:1px solid var(--line);border-radius:12px;background:var(--surface);text-decoration:none;color:inherit;max-width:440px;transition:border-color .2s,transform .2s}
+.nextup:hover{border-color:var(--red);transform:translateY(-1px)}
+.nextup img{width:48px;height:60px;object-fit:cover;border-radius:6px;flex:none}
+.nextup .nu-t{min-width:0;flex:1}
+.nextup small{display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red-ink)}
+.nextup b{display:block;font-size:15px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nextup span{display:block;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.nextup .go{font-weight:800;color:var(--red-ink);flex:none}
+/* 5. Add to calendar */
+.calwrap{position:relative;display:inline-block;margin-top:2px}
+.calbtn{all:unset;cursor:pointer;font-size:14px;font-weight:700;color:var(--red-ink);padding:6px 0}
+.calbtn:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:4px}
+.calmenu{position:absolute;left:0;top:100%;z-index:20;min-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.15);padding:6px;display:none}
+.calwrap.open .calmenu{display:block}
+.calmenu a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--ink);font-weight:600;font-size:14px}
+.calmenu a:hover{background:var(--paper)}
+/* 6. "Already happened": latest 3, rest behind See all */
+.past.short .row.more-row{display:none}
+.pastmore{all:unset;cursor:pointer;margin-top:14px;font-weight:700;color:var(--red-ink);font-size:15px}
+/* 7. Committee cards: quote and fun facts behind a tap */
+.member .says,.member .about{display:none}
+.member.open .says{display:block}.member.open .about{display:block}
+.mtoggle{all:unset;cursor:pointer;margin-top:10px;font-size:14px;font-weight:700;color:var(--red-ink)}
+.mtoggle:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:4px}
+/* 8. Sponsor filters */
+.spfilter{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.spfilter button{all:unset;cursor:pointer;font-size:14px;font-weight:700;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.spfilter button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.spfilter button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){dialog.sheet[open]{animation:none}.nextbar{transition:none}.acover .viral i{animation:none}}
 </style>
 
 <nav class="nav" aria-label="Main">
@@ -1564,6 +1644,197 @@ html.fx .seen .sector b{animation:gp-name .85s cubic-bezier(.12,.9,.25,1) .12s f
     window.addEventListener('load', function () {
       document.querySelectorAll('section[id]').forEach(function (sec) { io.observe(sec); });
     });
+  }
+})();
+</script>
+<script>
+/* UX upgrade (Jarryl, 26 Nov 2026): gallery album covers, accurate menu jumps, phone bottom bar, next event in the hero,
+   add-to-calendar, shorter "Already happened", tap-to-open committee cards and sponsor filters. */
+(function () {
+  const $ = (s, r) => (r || document).querySelector(s), $$ = (s, r) => [...(r || document).querySelectorAll(s)];
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  /* 2. Menu jumps: smooth-scroll, then keep correcting for ~2.5 s while photos load and push content down. */
+  let jumpTimer = null;
+  function jumpTo(el) {
+    clearInterval(jumpTimer);
+    const off = () => el.getBoundingClientRect().top - 72;
+    el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    let n = 0, stop = () => clearInterval(jumpTimer);
+    ['wheel', 'touchstart', 'keydown'].forEach(t => addEventListener(t, stop, { once: true, passive: true }));
+    jumpTimer = setInterval(() => { if (++n > 25) return stop(); if (n > 6 && Math.abs(off()) > 4) scrollBy({ top: off(), behavior: 'auto' }); }, 100);
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]'); if (!a) return;
+    const id = a.getAttribute('href').slice(1); const el = id && document.getElementById(id);
+    if (!el) return;
+    if (a.dataset.album) return;
+    e.preventDefault(); if (sheet && sheet.open) closeSheet();
+    jumpTo(el); history.replaceState(null, '', '#' + id);
+    const m = $('.nav ul.open'); if (m) m.classList.remove('open');
+  });
+  if (location.hash.length > 1) { const el = document.getElementById(location.hash.slice(1)); if (el) setTimeout(() => jumpTo(el), 300); }
+
+  /* 1. Gallery: one cover per album; tapping opens the album in a sheet. Albums are still written the usual way. */
+  const gwrap = $('#gallery .wrap'), albums = $$('#gallery .album');
+  let sheet = null, cur = -1, home = new Map();
+  if (gwrap && albums.length) {
+    const grid = document.createElement('div'); grid.className = 'albums';
+    const store = document.createElement('div'); store.className = 'album-store';
+    albums[0].before(grid); grid.after(store);
+    if (albums[0].classList.contains('rise')) { grid.classList.add('rise'); grid.style.setProperty('--d', albums[0].style.getPropertyValue('--d') || '0ms'); }
+    albums.forEach((al, i) => {
+      // Album content lives in the pop-up sheet, outside the section fly-in, so drop the fly-in classes from it.
+      $$('.rise', al).concat([al]).forEach(x => { x.classList.toggle('rise', false); x.classList.toggle('seen', false); x.style.setProperty('--d', '0ms'); });
+      const title = $('.album-title h3', al)?.textContent.trim() || 'Album', date = $('.album-title .hand', al)?.textContent.trim() || '';
+      const img = $('figure.print img', al), vid = $('video', al);
+      const cover = img ? img.getAttribute('src') : vid ? vid.getAttribute('poster') : '';
+      const nP = $$('figure.print', al).length, nV = $$('video', al).length;
+      const count = [nP ? nP + (nP > 1 ? ' photos' : ' photo') : '', nV ? nV + (nV > 1 ? ' videos' : ' video') : ''].filter(Boolean).join(' · ');
+      const b = document.createElement('button'); b.className = 'acover'; b.type = 'button';
+      b.setAttribute('aria-label', 'Open album: ' + title + (date ? ', ' + date : ''));
+      b.innerHTML = `<span class="ph" style="background-image:url('${esc(cover)}')"></span>` + (!img && vid ? '<span class="play" aria-hidden="true"></span>' : '') +
+        ($('.viral', al) ? '<span class="viral"><i></i>Viral</span>' : '') +
+        `<span class="t">${esc(title)}</span><span class="m"><span class="hand">${esc(date)}</span><span>${esc(count)}</span></span>`;
+      b.addEventListener('click', () => openSheet(i));
+      grid.appendChild(b); store.appendChild(al); al.dataset.date = date;
+    });
+    const sub = $('#gallery .head > p'); if (sub) sub.textContent = 'Tap an album to see the photos and videos.';
+    sheet = document.createElement('dialog'); sheet.className = 'sheet';
+    sheet.innerHTML = '<div class="sheet-top"><h3></h3><button class="sheet-x" type="button" aria-label="Close album">×</button></div><div class="sheet-body"></div>' +
+      '<div class="sheet-nav"><button type="button" data-d="-1">← Newer album</button><button type="button" data-d="1">Older album →</button></div>';
+    document.body.appendChild(sheet);
+    sheet.querySelector('.sheet-x').addEventListener('click', closeSheet);
+    sheet.addEventListener('click', e => { if (e.target === sheet) closeSheet(); });
+    sheet.addEventListener('close', () => { putBack(); document.documentElement.classList.remove('noscroll'); });
+    $$('.sheet-nav button', sheet).forEach(b => b.addEventListener('click', () => openSheet(cur + +b.dataset.d)));
+    // "See the photos/video" links in Already happened open the matching album (matched by date).
+    $$('.past a[href="#gallery"]').forEach(a => {
+      const when = a.closest('.row')?.querySelector('.when')?.textContent.trim();
+      const i = albums.findIndex(al => al.dataset.date === when);
+      if (i > -1) { a.dataset.album = i; a.addEventListener('click', e => { e.preventDefault(); openSheet(i); }); }
+    });
+  }
+  function putBack() { if (cur > -1) { $('.album-store').appendChild(albums[cur]); $$('video', albums[cur]).forEach(v => v.pause()); } }
+  function openSheet(i) {
+    if (i < 0 || i >= albums.length) return;
+    putBack(); cur = i; const al = albums[i];
+    sheet.querySelector('.sheet-top h3').innerHTML = esc($('.album-title h3', al)?.textContent.trim() || '') + `<span class="hand">${esc(al.dataset.date || '')}</span>`;
+    const body = sheet.querySelector('.sheet-body'); body.appendChild(al); body.scrollTop = 0;
+    const [nb, ob] = $$('.sheet-nav button', sheet); nb.disabled = i === 0; ob.disabled = i === albums.length - 1;
+    if (!sheet.open) { sheet.showModal(); document.documentElement.classList.add('noscroll'); }
+    if (window.goatcounter && goatcounter.count) goatcounter.count({ path: 'open-album-' + (al.dataset.date || i).toString().toLowerCase().replace(/\s+/g, '-'), event: true });
+  }
+  function closeSheet() { if (sheet && sheet.open) sheet.close(); }
+
+  /* Next upcoming event (soonest visible card that isn't an "opens on" card). */
+  const nextCard = () => $$('.events > article.card').find(c => !c.hidden && !c.hasAttribute('data-keep-open'));
+  const cdText = c => { const ch = c && $('[data-cd]', c); return ch ? ch.textContent.trim() : ''; };
+
+  /* 4. Next event in the hero */
+  const ctas = $('.hero .ctas');
+  let nu = null;
+  if (ctas) { nu = document.createElement('a'); nu.className = 'nextup'; nu.hidden = true; ctas.after(nu); }
+  /* 3. Phone bottom bar */
+  const bar = document.createElement('div'); bar.className = 'nextbar'; bar.setAttribute('role', 'navigation'); bar.setAttribute('aria-label', 'Quick links');
+  bar.innerHTML = '<a class="nb-ev" href="#events"><small>Next event</small><b></b><span></span></a><a class="nb-join" href="#join">Join</a>';
+  document.body.appendChild(bar);
+  let lastId = '';
+  function updateNext() {
+    const c = nextCard(); const ev = $('.nb-ev', bar);
+    if (!c) { if (nu) nu.hidden = true; ev.style.display = 'none'; return; }
+    ev.style.display = '';
+    const t = $('.ftitle', c)?.textContent.trim() || '', d = $('.chip.hot', c)?.textContent.trim() || '', cd = cdText(c);
+    if (c.id !== lastId) {
+      lastId = c.id; const href = '#' + (c.id || 'events'); ev.setAttribute('href', href); $('b', ev).textContent = t;
+      if (nu) { nu.setAttribute('href', href); const im = $(':scope > img, .posters img', c);
+        nu.innerHTML = (im ? `<img src="${esc(im.getAttribute('src'))}" alt="">` : '') + `<span class="nu-t"><small>Next up · ${esc(d)}</small><b>${esc(t)}</b><span></span></span><span class="go">→</span>`; nu.hidden = false; }
+    }
+    $('span', ev).textContent = d + (cd ? ' · ' + cd : '');
+    if (nu) { const s = $('.nu-t > span', nu); if (s) s.textContent = cd; }
+  }
+  updateNext(); setInterval(updateNext, 1000);
+  if ('IntersectionObserver' in window) {
+    const vis = new Map(); const hero = $('.hero .ctas'), join = $('#join');
+    const io = new IntersectionObserver(es => { es.forEach(e => vis.set(e.target, e.isIntersecting)); bar.classList.toggle('show', !vis.get(hero) && !vis.get(join)); });
+    [hero, join].filter(Boolean).forEach(el => io.observe(el));
+  } else bar.classList.add('show');
+
+  /* 5. Add to calendar (Google, or an .ics file for Apple/Outlook). Times are Leeds time. */
+  const tm = s => { const m = /(\d{1,2})(?:[.:](\d{2}))?\s*(am|pm)/i.exec(s || ''); if (!m) return null; let h = +m[1] % 12; if (/pm/i.test(m[3])) h += 12; return h * 60 + (+m[2] || 0); };
+  const allTimes = s => (String(s || '').match(/\d{1,2}(?:[.:]\d{2})?\s*(?:am|pm)/gi) || []).map(tm);
+  function londonUTC(date, mins) { // Leeds local time -> UTC Date
+    const [y, mo, d] = date.split('-').map(Number); let guess = Date.UTC(y, mo - 1, d, 0, mins);
+    const p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).formatToParts(new Date(guess));
+    const g = k => +p.find(x => x.type === k).value; const shown = Date.UTC(g('year'), g('month') - 1, g('day'), g('hour') % 24, g('minute'));
+    return new Date(guess - (shown - guess));
+  }
+  const z = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  $$('.events > article.card').forEach(c => {
+    if (c.hasAttribute('data-keep-open')) return;
+    const chip = $('[data-cd]', c); if (!chip) return;
+    const date = chip.dataset.cd; const whenDD = $$('.facts dt', c).find(dt => /when/i.test(dt.textContent))?.nextElementSibling?.textContent || '';
+    let ts = allTimes(chip.dataset.time); const wt = allTimes(whenDD);
+    let start = ts[0] ?? wt[0] ?? 12 * 60; let end = ts[1] ?? (wt.length > 1 && wt[0] === start ? wt[1] : null);
+    const s = londonUTC(date, start); let e = end != null ? londonUTC(date, end) : new Date(s.getTime() + 2 * 3600e3); if (e <= s) e = new Date(e.getTime() + 864e5);
+    const title = $('.ftitle', c)?.textContent.trim() || 'SingSoc event';
+    const vb = $('.venue b', c)?.textContent.trim() || '', va = $('.venue .addr', c)?.textContent.trim() || '';
+    const where = [vb, va.replace(/^Meeting point · /, '')].filter(Boolean).join(', ');
+    const desc = ($('.fbody > p', c)?.textContent.trim() || '') + '\n\nDetails and tickets: https://leedssingsoc.github.io/#' + (c.id || 'events');
+    const g = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + z(s) + '/' + z(e) +
+      '&details=' + encodeURIComponent(desc) + '&location=' + encodeURIComponent(where);
+    const icsEsc = t => t.replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/[,;]/g, m => '\\' + m);
+    const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Leeds SingSoc//EN', 'BEGIN:VEVENT', 'UID:' + (c.id || date) + '@leedssingsoc.github.io',
+      'DTSTAMP:' + z(new Date()), 'DTSTART:' + z(s), 'DTEND:' + z(e), 'SUMMARY:' + icsEsc(title), 'LOCATION:' + icsEsc(where), 'DESCRIPTION:' + icsEsc(desc), 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    const w = document.createElement('div'); w.className = 'calwrap';
+    w.innerHTML = '<button class="calbtn" type="button" aria-expanded="false">📅 Add to calendar</button><div class="calmenu" role="menu">' +
+      `<a role="menuitem" href="${esc(g)}" target="_blank" rel="noopener">Google Calendar</a>` +
+      `<a role="menuitem" href="data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}" download="${esc((c.id || 'singsoc-event') + '.ics')}">Apple / Outlook (.ics file)</a></div>`;
+    const btn = $('.calbtn', w); btn.addEventListener('click', ev => { ev.stopPropagation(); const o = w.classList.toggle('open'); btn.setAttribute('aria-expanded', o); });
+    document.addEventListener('click', () => { w.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); });
+    const facts = $('.facts', c); if (facts) facts.after(w);
+  });
+
+  /* 6. Already happened: newest 3, the rest behind "See all". */
+  const past = $('.past');
+  if (past) {
+    const more = document.createElement('button'); more.className = 'pastmore'; more.type = 'button'; past.appendChild(more);
+    let open = false;
+    const apply = () => {
+      const rows = $$(':scope > .row', past).filter(r => !r.hidden);
+      rows.forEach((r, i) => r.classList.toggle('more-row', i >= 3));
+      past.classList.toggle('short', !open); more.hidden = rows.length <= 3;
+      more.textContent = open ? 'Show fewer ↑' : `See all ${rows.length} past events ↓`;
+    };
+    more.addEventListener('click', () => { open = !open; apply(); });
+    apply(); setInterval(apply, 60000);
+  }
+
+  /* 7. Committee cards: quote and fun facts open on tap (the reel above still shows everyone). */
+  $$('.team .member').forEach(m => {
+    if (!$('.says, .about', m)) return;
+    const name = $('h3', m)?.textContent.trim() || '';
+    const b = document.createElement('button'); b.className = 'mtoggle'; b.type = 'button'; b.setAttribute('aria-expanded', 'false');
+    b.textContent = `More about ${name} ↓`;
+    b.addEventListener('click', () => { const o = m.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Show less ↑' : `More about ${name} ↓`; });
+    ($('.course', m) || $('h3', m)).after(b);
+  });
+
+  /* 8. Sponsor filters */
+  const list = $('ul.sponsors');
+  if (list) {
+    const cat = li => { const t = ($('b', li)?.textContent + ' ' + $('.type', li)?.textContent).toLowerCase();
+      const c = []; if (/club|cocktail|bar\b|nights?/.test(t)) c.push('night'); if (/tea|coffee|drink|cocktail/.test(t)) c.push('drinks');
+      if (/restaurant|food|ramen|sushi|tapas|noodle|thai|viet|malaysian|cantonese|japanese|street food|all-you-can-eat/.test(t)) c.push('food'); return c; };
+    const items = $$(':scope > li', list); items.forEach(li => li.dataset.cat = cat(li).join(' '));
+    const f = document.createElement('div'); f.className = 'spfilter'; f.setAttribute('role', 'group'); f.setAttribute('aria-label', 'Filter partners');
+    [['all', 'All'], ['food', '🍜 Food'], ['drinks', '🧋 Drinks'], ['night', '🌙 Nightlife']].forEach(([k, l]) => {
+      const n = k === 'all' ? items.length : items.filter(li => li.dataset.cat.split(' ').includes(k)).length;
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = `${l} (${n})`; b.setAttribute('aria-pressed', k === 'all');
+      b.addEventListener('click', () => { $$('button', f).forEach(x => x.setAttribute('aria-pressed', x === b)); items.forEach(li => li.hidden = k !== 'all' && !li.dataset.cat.split(' ').includes(k)); });
+      f.appendChild(b);
+    });
+    list.before(f);
   }
 })();
 </script>
