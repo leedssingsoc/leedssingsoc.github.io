@@ -2376,7 +2376,7 @@ dialog.flyer.multi .fl-nav{display:grid}
   function annotate(out) {
     let h = esc(out); const keys = Object.keys(ORIGIN).sort((a, b) => b.length - a.length);
     const re = new RegExp('\\b(' + keys.map(k => k.replace(/ /g, '\\s')).join('|') + ')\\b', 'g');
-    return h.replace(re, m => { const k = m.toLowerCase(); const o = ORIGIN[k]; if (!o) return m;
+    return h.replace(re, m => { const k = m.toLowerCase(); const o = ORIGIN[k]; if (!o || o[0] === 'texting') return m;
       if (HZ.has(k)) return `<ruby class="dz hz" lang="zh-Hant">${esc(SCRIPT[k])}<rt>${esc(k)} · ${esc(o[1])}</rt></ruby>`;
       return `<ruby class="dz">${m}<rt>${SCRIPT[k] ? esc(SCRIPT[k]) + ' · ' : ''}${esc(o[1].split(',')[0])}</rt></ruby>`; });
   }
