@@ -2243,7 +2243,7 @@ dialog.flyer[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr
       DIALECT.forEach(([re, to]) => { s = s.replace(re, to); });
       PHRASES.forEach(([re, to]) => { s = s.replace(re, to); });
       if (ex) s = s.replace(/\bdamn (?=\w)/, 'sibei ');
-      s = s.replace(/\bdamn damn\b/g, 'damn').replace(/\s{2,}/g, ' ').trim();
+      s = s.replace(/\bdun damn\b/g, 'dun so').replace(/\bdamn damn\b/g, 'damn').replace(/\s{2,}/g, ' ').trim();
       if (q) return s + '?';
       // one particle, chosen by mood (or none)
       const has = /\b(lah|leh|lor|sia|meh|hor|ah|one|liao|alr)$/.test(s);
