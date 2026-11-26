@@ -694,6 +694,7 @@ dialog.flyer[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr
 .sg-ex{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .sg-ex button{all:unset;cursor:pointer;font-size:13px;font-weight:700;padding:7px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
 .sg-acts{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.sg-orig{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.sg-orig span{font-size:12.5px;padding:5px 9px;border-radius:8px;background:var(--surface);border:1px solid var(--line);color:var(--muted)}.sg-orig b{color:var(--ink);margin-right:4px}
 .cg-hud{display:flex;justify-content:space-between;align-items:center;font-weight:800;margin-bottom:12px}
 .cg-hud b{font:800 28px/1 var(--display);color:var(--red-ink);font-variant-numeric:tabular-nums}
 .cg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;user-select:none;-webkit-user-select:none;touch-action:manipulation}
@@ -2179,18 +2180,35 @@ dialog.flyer[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr
      unsure -> leh, push/suggest -> lah, seeking agreement -> hor. Many sentences get no particle at all.
      Texting style: lowercase, alr, cfm, dun, dowan, bro. Sources: Wikipedia "Singlish" and "Singlish vocabulary". */
   const W = (re, to) => [re, to];
+  const DIALECT = [
+    W(/\b(take ?away|to go|pack (it|food|the food)( back)?)\b/g, 'tapau'), W(/\b(crazy|insane|nuts)\b/g, 'siao'), W(/\b(pretty|beautiful|good-looking)\b/g, 'swee'),
+    W(/\b(busybody|nosy|nosey)\b/g, 'kaypoh'), W(/\b(scared|afraid)\b/g, 'kiasi'), W(/\b(competitive|scared to lose out|scared of missing out|fomo)\b/g, 'kiasu'),
+    W(/\b(angry|annoyed|upset|pissed)\b/g, 'buay song'), W(/\b(frustrated|stressed)\b/g, 'pek chek'), W(/\bunlucky\b/g, 'suay'), W(/\blucky\b/g, 'heng'),
+    W(/\b(craving)\b/g, 'gian'), W(/\b(go party|go partying|go clubbing|party)\b/g, 'go chiong'), W(/\b(have coffee|get coffee|grab coffee|go for coffee)\b/g, 'lim kopi'),
+    W(/\b(is |are )?(all gone|used up|sold out)\b/g, 'habis liao'), W(/\bbuddy\b|\bmy friend\b/g, 'macha'), W(/\b(ugh|oh man|aiya)\b/g, 'aiyo'),
+    W(/\b(hometown|village)\b/g, 'kampung'), W(/\b(one of us|our own people)\b/g, 'kakinang'), W(/\b(silly|dumb)\b/g, 'gong'), W(/\bno money\b|\bbroke\b/g, 'no lui'),
+    W(/\bdelicious\b/g, 'ho jiak'), W(/\b(very|really|so) (good|nice|fun)\b/g, 'sibei $2'),
+  ];
+  const ORIGIN = { sibei: ['Hokkien', 'very'], tapau: ['Cantonese', 'takeaway'], siao: ['Hokkien', 'crazy'], swee: ['Hokkien', 'pretty'], kaypoh: ['Hokkien', 'busybody'],
+    kiasi: ['Hokkien', 'scared'], kiasu: ['Hokkien', 'scared to lose out'], 'buay song': ['Hokkien', 'not happy'], 'pek chek': ['Hokkien', 'frustrated'], heng: ['Hokkien', 'lucky'],
+    suay: ['Hokkien', 'unlucky'], gian: ['Hokkien', 'craving'], chiong: ['Hokkien', 'go hard'], 'lim kopi': ['Hokkien', 'drink coffee'], habis: ['Malay', 'finished'],
+    macha: ['Tamil', 'buddy'], aiyo: ['Tamil / Malay', 'oh dear'], kampung: ['Malay', 'village'], kakinang: ['Teochew', 'one of us'], gong: ['Hokkien', 'silly'],
+    lui: ['Hokkien', 'money'], 'ho jiak': ['Hokkien', 'delicious'], makan: ['Malay', 'eat, food'], jom: ['Malay', 'let’s go'], lepak: ['Malay', 'chill'], shiok: ['Malay', 'satisfying'],
+    'buay tahan': ['Hokkien + Malay', 'can’t stand it'], jialat: ['Hokkien', 'terrible'], sian: ['Hokkien', 'bored, tired'], paiseh: ['Hokkien', 'sorry, awkward'],
+    'bo jio': ['Hokkien', 'didn’t invite me'], walao: ['Hokkien', 'oh my god'], alamak: ['Malay', 'oh no'], atas: ['Malay', 'fancy'], liao: ['Hokkien', 'already, done'] };
+  function origins(out) { return Object.keys(ORIGIN).filter(k => new RegExp('\\b' + k + '\\b').test(out)).slice(0, 6); }
   const PHRASES = [
     W(/\bwhat the hell\b|\bwhat the heck\b|\bomg\b|\boh my god\b/g, 'walao'), W(/\boh no\b|\boh dear\b/g, 'alamak'), W(/\bwow\b/g, 'wah'),
     W(/\bof course\b|\bobviously\b|\bduh\b/g, 'abuden'), W(/\bi don'?t know\b|\bi do not know\b|\bno idea\b/g, 'dunno'),
     W(/\bi don'?t want\b|\bi do not want\b/g, 'i dowan'), W(/\bdon'?t\b|\bdo not\b/g, 'dun'), W(/\bcan'?t\b|\bcannot\b|\bcan not\b/g, 'cannot'),
     W(/\bwon'?t\b/g, 'wun'), W(/\bdidn'?t invite me\b|\bdid not invite me\b|\bleft me out\b/g, 'bo jio'), W(/\bi can'?t stand (it|this)\b|\bi cannot stand (it|this)\b/g, 'buay tahan'),
     W(/\bhang out\b|\bchill out\b|\bchill\b|\brelax\b/g, 'lepak'), W(/\b(so |very |really )?(bored|boring|tired|fed up)\b/g, 'damn sian'),
-    W(/\b(delicious|tasty|yummy)\b/g, 'shiok'), W(/\b(terrible|awful|a disaster|so bad|really bad)\b/g, 'jialat'), W(/\b(fancy|posh|bougie)\b/g, 'atas'),
+    W(/\b(tasty|yummy)\b/g, 'shiok'), W(/\b(terrible|awful|a disaster|so bad|really bad)\b/g, 'jialat'), W(/\b(fancy|posh|bougie)\b/g, 'atas'),
     W(/\b(sorry|embarrassing|awkward)\b/g, 'paiseh'), W(/\b(confused|clueless)\b/g, 'blur'), W(/\b(amazing|awesome|great)\b/g, 'steady'),
     W(/\b(definitely|for sure|100%)\b/g, 'cfm'), W(/\breserve\b|\bsave (a|me a) (seat|table)\b/g, m => /seat|table/.test(m) ? 'chope ' + (m.includes('me') ? 'me a ' : 'a ') + m.split(' ').pop() : 'chope'),
     W(/\blike (this|that)\b/g, 'liddat'), W(/\b(very|really|so)\b(?= \w)/g, 'damn'), W(/\b(have to|need to|must)\b/g, 'need to'),
     W(/\b(eat|eating|food)\b/g, m => m === 'eating' ? 'makan-ing' : 'makan'), W(/\bdude\b|\bmate\b|\bman\b(?=[,!?. ]|$)/g, 'bro'), W(/\bhey\b|\boi\b/g, 'eh'),
-    W(/\blet'?s go\b/g, 'jom'), W(/\bhurry( up)?\b/g, 'faster'), W(/\bvery expensive\b|\bexpensive\b/g, 'ex'), W(/\balready\b/g, 'alr'),
+    W(/\blet'?s go\b/g, 'jom'), W(/\blet'?s\b/g, 'jom'), W(/\bdun be (damn |so )?/g, 'dun $1'), W(/\bhurry( up)?\b/g, 'faster'), W(/\bvery expensive\b|\bexpensive\b/g, 'ex'), W(/\balready\b/g, 'alr'),
   ];
   function singlish(txt) {
     const t = txt.trim(); if (!t) return '';
@@ -2222,7 +2240,9 @@ dialog.flyer[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr
       s = s.replace(/\b(i|you|we|they|he|she) (finished|ate|went|did|left|arrived|came|paid|booked|bought|sent)\b/g, (m, a, v) => {
         const base = { finished: 'finish', ate: 'makan', went: 'go', did: 'do', left: 'leave', arrived: 'reach', came: 'come', paid: 'pay', booked: 'book', bought: 'buy', sent: 'send' }[v];
         return `${a} ${base} alr`; });
+      DIALECT.forEach(([re, to]) => { s = s.replace(re, to); });
       PHRASES.forEach(([re, to]) => { s = s.replace(re, to); });
+      if (ex) s = s.replace(/\bdamn (?=\w)/, 'sibei ');
       s = s.replace(/\bdamn damn\b/g, 'damn').replace(/\s{2,}/g, ' ').trim();
       if (q) return s + '?';
       // one particle, chosen by mood (or none)
@@ -2240,11 +2260,12 @@ dialog.flyer[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr
   const sgd = playDialog('singlishify', 'Singlish-ify');
   $('.qz-body', sgd).innerHTML = `<p class="qz-step">Type anything in English</p><h3 class="qz-q">Make it sound like home.</h3>
     <textarea class="sg-in" placeholder="e.g. Are you coming to the event? I am so tired." aria-label="Your sentence"></textarea>
-    <div class="sg-ex">${['Are you coming to Monsta?', 'I am so tired of exams.', 'Wow, this food is so delicious!', 'You didn\'t invite me!', 'Can you save me a seat?', 'Really?', 'Is it true?'].map(e => `<button type="button">${esc(e)}</button>`).join('')}</div>
-    <div class="sg-out" aria-live="polite"></div>
+    <div class="sg-ex">${['Are you coming to Monsta?', 'I am so tired of exams.', 'Wow, this food is so delicious!', 'You didn\'t invite me!', 'Can you take away for me?', 'Really?', 'The cake is all gone, so unlucky.', 'Let\'s go party, it will be so fun!'].map(e => `<button type="button">${esc(e)}</button>`).join('')}</div>
+    <div class="sg-out" aria-live="polite"></div><div class="sg-orig"></div>
     <div class="sg-acts"><button class="btn red" type="button" data-sg="copy">Copy</button><button class="btn line" type="button" data-sg="share">Share to your story</button></div>
     <p class="cg-msg">Just for fun. Real Singlish is best learnt at our events 😉</p>`;
-  const sIn = $('.sg-in', sgd), sOut = $('.sg-out', sgd), upd = () => { sOut.textContent = singlish(sIn.value); };
+  const sIn = $('.sg-in', sgd), sOut = $('.sg-out', sgd), sOr = $('.sg-orig', sgd), upd = () => { const o = singlish(sIn.value); sOut.textContent = o;
+    sOr.innerHTML = origins(o).map(k => `<span><b>${esc(k)}</b> ${esc(ORIGIN[k][0])} · ${esc(ORIGIN[k][1])}</span>`).join(''); };
   sIn.addEventListener('input', upd);
   $$('.sg-ex button', sgd).forEach(b => b.addEventListener('click', () => { sIn.value = b.textContent; upd(); }));
   $('[data-sg=copy]', sgd).addEventListener('click', e => { if (!sOut.textContent) return; navigator.clipboard && navigator.clipboard.writeText(sOut.textContent); e.target.textContent = 'Copied lah!'; setTimeout(() => e.target.textContent = 'Copy', 1500); count('singlish-copy'); });

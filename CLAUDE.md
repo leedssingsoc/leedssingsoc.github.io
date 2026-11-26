@@ -202,7 +202,8 @@ Script just before GoatCounter (after the quiz). All built from normal markup:
   flyer with a split-flap countdown, the facts and the card's buttons.
 - Moving photo wall "From the camera roll" under the gallery covers, using thumbs/<name>.jpg (340px tall). When adding
   gallery photos, also make a thumbnail in thumbs/.
-- Play tiles: Singlish-ify (rule-based RULES list, copy + story card) and Chope a seat (30 s game, best score kept in
+- Play tiles: Singlish-ify (grammar-based: zero copula, got, alr, or not/issit/meh, ONE mood particle; DIALECT list adds Hokkien/
+  Cantonese/Teochew/Malay/Tamil words, ORIGIN shows each word's source under the result; no vulgar words; copy + story card) and Chope a seat (30 s game, best score kept in
   this browser). Both share the quiz dialog style and story-card maker.
 - Partners: List/Map switch; map loads Leaflet (cdnjs) + OpenStreetMap tiles only when opened. Pin positions in GEO
   (keyed by logo file name). New sponsor = add its coordinates to GEO.
