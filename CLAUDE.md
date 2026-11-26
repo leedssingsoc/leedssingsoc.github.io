@@ -216,7 +216,7 @@ Script just before GoatCounter (after the quiz). All built from normal markup:
   Supported by" strip of overlapping round logos above the facts. Logos live in soc/ (240px PNG, circular); Leeds = logo-sq.png.
   Optional `data-with=...` = participating societies (label "With"). Monsta nights (Jarryl, 27 Nov 2026): hosts are ALWAYS
   Monsta Leeds + BCSoc; Leeds SingSoc goes in data-with (we're a participant, not a host).
-  No logo yet: `~XY=Name` shows a teal initials badge (BCSoc is `~BC` until we get its logo).
+  No logo yet: `~XY=Name` shows a teal initials badge.
 - Flyers show ALL pages: the poster, any `.posters` slideshow images, plus `data-pages="a.jpg|b.jpg"` on the card
   (arrows, dots, swipe, arrow keys). When Jarryl sends extra pages of an event (itinerary, menu...), add them there.
 
