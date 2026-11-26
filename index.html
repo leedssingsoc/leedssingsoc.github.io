@@ -767,6 +767,7 @@ dialog.flyer.multi .fl-nav{display:grid}
 .collab .cn{font-size:12.5px;color:var(--muted);line-height:1.3;max-width:300px}
 .collab .sup .org{width:34px;height:34px}
 .collab a.org-a{text-decoration:none;color:inherit}.collab .orgs a.org-a{display:block;margin-left:-9px}.collab .orgs a.org-a:first-child{margin-left:0}.collab .orgs a.org-a .org{margin-left:0}.collab .cn a.org-a{text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:2px}.collab .cn a.org-a:hover{color:var(--red-ink)}
+.tr-voice{margin:0;padding:0 14px 4px;font-size:12px;font-weight:700;color:var(--red-ink)}.tr-voice:empty{display:none}
 </style>
 
 <nav class="nav" aria-label="Main">
@@ -2441,6 +2442,20 @@ dialog.flyer.multi .fl-nav{display:grid}
   sIn.addEventListener('input', upd);
   $('.tr-swap', sgd).addEventListener('click', () => { const out = sgPlain; setDir(dir === 'en' ? 'sg' : 'en'); sIn.value = out; upd(); count('singlish-swap'); });
   $('[data-sg=clear]', sgd).addEventListener('click', () => { sIn.value = ''; upd(); sIn.focus(); });
+  // Real Singaporean voices recorded by the committee (voice/lineN.mp3). Played when the translation matches a recorded
+  // line; anything else falls back to the device's voice. Add a line: { text: '<exact Singlish output>', file: 'voice/lineN.mp3', by: '' }.
+  const VOICES = [
+    { text: 'you coming to monsta or not?', file: 'voice/line1.mp3', by: '' },
+  ];
+  const vkey = t => t.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const voiceFor = t => VOICES.find(v => vkey(v.text) === vkey(t));
+  let vAudio = null;
+  const vCredit = document.createElement('p'); vCredit.className = 'tr-voice'; $('.tr-pane.out', sgd).appendChild(vCredit);
+  const showCredit = () => { const v = dir === 'en' && voiceFor(sgPlain); vCredit.innerHTML = v ? `🎙 Real voice${v.by ? ' · voiced by ' + esc(v.by) : ''}` : ''; };
+  sIn.addEventListener('input', showCredit); $$('.sg-ex', sgd).forEach(x => x.addEventListener('click', () => setTimeout(showCredit, 0)));
+  $('[data-sg=speak]', sgd).addEventListener('click', e => { const v = dir === 'en' && voiceFor(sgPlain); if (!v) return;
+    e.stopImmediatePropagation(); if (window.speechSynthesis) speechSynthesis.cancel(); if (vAudio) vAudio.pause();
+    vAudio = new Audio(v.file); vAudio.play().catch(() => {}); count('singlish-voice-' + v.file.replace(/\D/g, '')); });
   $('[data-sg=speak]', sgd).addEventListener('click', () => { if (!sgPlain || !window.speechSynthesis) return; speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(sgPlain); const vs = speechSynthesis.getVoices(); const v = vs.find(x => /en[-_]SG/i.test(x.lang) && /natural|online/i.test(x.name)) || vs.find(x => /en[-_]SG/i.test(x.lang) || /singapore|luna|wayne/i.test(x.name)) || vs.find(x => /en[-_](MY|IN)/i.test(x.lang)) || vs.find(x => /en[-_](GB|AU)/i.test(x.lang)); if (v) u.voice = v; u.rate = 1.05; speechSynthesis.speak(u); count('singlish-speak'); });
   $('[data-sg=copy]', sgd).addEventListener('click', e => { if (!sgPlain) return; navigator.clipboard && navigator.clipboard.writeText(sgPlain); const b = e.currentTarget; b.textContent = '✓'; setTimeout(() => b.textContent = '⧉', 1400); count('singlish-copy'); });
