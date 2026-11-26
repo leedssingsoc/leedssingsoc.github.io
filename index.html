@@ -2346,7 +2346,7 @@ dialog.flyer.multi .fl-nav{display:grid}
     W(/\blet'?s go for\b/g, 'jom go'), W(/\blet'?s go\b/g, 'jom'), W(/\blet'?s\b/g, 'jom'), W(/\bdun be (damn |so )?/g, 'dun $1'), W(/\bhurry( up)?\b/g, 'faster'), W(/\bvery expensive\b|\bexpensive\b/g, 'ex'), W(/\balready\b/g, 'alr'),
   ];
   // Exact lines Jarryl chose (they match his voice recordings); checked before the rules.
-  const EXACT = { 'wow this food is so delicious': 'wah this food damn good sia', 'sounds great lets go it will be fun': 'solid lah bro, lets go lets go, it will be fun', 'im broke so lucky i didnt go to this event': 'wa bo lui, heng i never go for this event sia' };
+  const EXACT = { 'wow this food is so delicious': 'wah this food damn good sia', 'sounds great lets go it will be fun': 'solid lah bro, lets go lets go, it will be fun', 'oh my god help im broke how can i go to this event': 'walao eh help lah, wa bo lui leh, how to go for this event' };
   function singlish(txt) {
     const t = txt.trim(); if (!t) return '';
     const ek = t.toLowerCase().replace(/[^a-z0-9 ]+/g, '').replace(/\s+/g, ' ').trim(); if (EXACT[ek]) return EXACT[ek];
@@ -2427,8 +2427,8 @@ dialog.flyer.multi .fl-nav{display:grid}
     <p class="tr-h">Try one</p>
     <div class="sg-ex"></div>
     <p class="cg-msg">Just for fun. Real Singlish is best learnt at our events 😉</p>`;
-  const EX = { en: ['Are you coming to Monsta?', 'I am so tired of exams.', 'Wow, this food is so delicious!', 'You didn\'t invite me!', 'Can you take away for me?', 'I\'m broke, so lucky I didn\'t go to this event!', 'Have you eaten?', 'Sounds great, let\'s go, it will be fun!'],
-               sg: ['wa bo lui, heng i never go for this event sia', 'you coming or not?', 'walao, the queue damn long sia', 'jom lim kopi, macha', 'tapau for me can or not?', 'this one sibei ho jiak', 'paiseh, dunno leh', 'you bo jio!'] };
+  const EX = { en: ['Are you coming to Monsta?', 'I am so tired of exams.', 'Wow, this food is so delicious!', 'You didn\'t invite me!', 'Can you take away for me?', 'Oh my god, help! I\'m broke, how can I go to this event?', 'Have you eaten?', 'Sounds great, let\'s go, it will be fun!'],
+               sg: ['walao eh help lah, wa bo lui leh, how to go for this event', 'you coming or not?', 'walao, the queue damn long sia', 'jom lim kopi, macha', 'tapau for me can or not?', 'this one sibei ho jiak', 'paiseh, dunno leh', 'you bo jio!'] };
   const sIn = $('.sg-in', sgd), sOut = $('.sg-out', sgd), sOr = $('.sg-orig', sgd), sN = $('.tr-n', sgd), exBox = $('.sg-ex', sgd);
   function upd() {
     const o = dir === 'en' ? singlish(sIn.value) : english(sIn.value); sgPlain = o; sOut.innerHTML = dir === 'en' ? annotate(o) : esc(o); sN.textContent = sIn.value.length + ' / 300';
