@@ -2442,7 +2442,7 @@ dialog.flyer.multi .fl-nav{display:grid}
   $('.tr-swap', sgd).addEventListener('click', () => { const out = sgPlain; setDir(dir === 'en' ? 'sg' : 'en'); sIn.value = out; upd(); count('singlish-swap'); });
   $('[data-sg=clear]', sgd).addEventListener('click', () => { sIn.value = ''; upd(); sIn.focus(); });
   $('[data-sg=speak]', sgd).addEventListener('click', () => { if (!sgPlain || !window.speechSynthesis) return; speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(sgPlain); const vs = speechSynthesis.getVoices(); const v = vs.find(x => /en[-_]SG/i.test(x.lang)) || vs.find(x => /en[-_](GB|AU|IN)/i.test(x.lang)); if (v) u.voice = v; u.rate = 1.05; speechSynthesis.speak(u); count('singlish-speak'); });
+    const u = new SpeechSynthesisUtterance(sgPlain); const vs = speechSynthesis.getVoices(); const v = vs.find(x => /en[-_]SG/i.test(x.lang) && /natural|online/i.test(x.name)) || vs.find(x => /en[-_]SG/i.test(x.lang) || /singapore|luna|wayne/i.test(x.name)) || vs.find(x => /en[-_](MY|IN)/i.test(x.lang)) || vs.find(x => /en[-_](GB|AU)/i.test(x.lang)); if (v) u.voice = v; u.rate = 1.05; speechSynthesis.speak(u); count('singlish-speak'); });
   $('[data-sg=copy]', sgd).addEventListener('click', e => { if (!sgPlain) return; navigator.clipboard && navigator.clipboard.writeText(sgPlain); const b = e.currentTarget; b.textContent = '✓'; setTimeout(() => b.textContent = '⧉', 1400); count('singlish-copy'); });
   $('[data-sg=share]', sgd).addEventListener('click', () => { if (!sgPlain) return; count('singlish-share');
     storyCard([['SINGLISH-IFY', '800 40px "Figtree", Arial, sans-serif', '#B4232D', 420], ['“' + sIn.value.trim() + '”', '600 46px "Figtree", Arial, sans-serif', '#5A6B6E', 560],
