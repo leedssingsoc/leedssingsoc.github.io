@@ -2465,7 +2465,7 @@ dialog.flyer.multi .fl-nav{display:grid}
   sIn.addEventListener('input', showCredit); $$('.sg-ex', sgd).forEach(x => x.addEventListener('click', () => setTimeout(showCredit, 0)));
   $('[data-sg=speak]', sgd).addEventListener('click', e => { const v = dir === 'en' && voiceFor(sgPlain); if (!v) return;
     e.stopImmediatePropagation(); if (window.speechSynthesis) speechSynthesis.cancel(); if (vAudio) vAudio.pause();
-    vAudio = new Audio(v.file); vAudio.play().catch(() => {}); count('singlish-voice-' + v.file.replace(/\D/g, '')); });
+    vAudio = new Audio(v.file + '?v=2'); vAudio.play().catch(() => {}); count('singlish-voice-' + v.file.replace(/\D/g, '')); });
   $('[data-sg=speak]', sgd).addEventListener('click', () => { if (!sgPlain || !window.speechSynthesis) return; speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(sgPlain); const vs = speechSynthesis.getVoices(); const v = vs.find(x => /en[-_]SG/i.test(x.lang) && /natural|online/i.test(x.name)) || vs.find(x => /en[-_]SG/i.test(x.lang) || /singapore|luna|wayne/i.test(x.name)) || vs.find(x => /en[-_](MY|IN)/i.test(x.lang)) || vs.find(x => /en[-_](GB|AU)/i.test(x.lang)); if (v) u.voice = v; u.rate = 1.05; speechSynthesis.speak(u); count('singlish-speak'); });
   $('[data-sg=copy]', sgd).addEventListener('click', e => { if (!sgPlain) return; navigator.clipboard && navigator.clipboard.writeText(sgPlain); const b = e.currentTarget; b.textContent = '✓'; setTimeout(() => b.textContent = '⧉', 1400); count('singlish-copy'); });
