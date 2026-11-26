@@ -195,8 +195,8 @@ and "Chope a seat" are live too (see Batch 2). Nothing is stored or sent.
 
 ## Batch 2 features (Jarryl, 26 Nov 2026)
 Script just before GoatCounter (after the quiz). All built from normal markup:
-- Night mode: 7pm–7am LEEDS time (Jarryl changed it from Singapore time, 26 Nov 2026) sets data-theme="dark" + html.sgnight
-  (note under the clocks with "Switch back", remembered for the day in localStorage).
+- Night mode and the phone dark-mode colours were REMOVED (Jarryl, 27 Nov 2026: "it looks bad, it should be the bright colours").
+  The site is always the bright light theme, on every device and at any time. Don't add dark themes back.
 - Community board / flight buddies (ideas 8–9): Jarryl decided not to do them (26 Nov 2026).
 - Event flyers: tapping an event poster (or "⤢ Flyer" chip on cards with the two-poster slideshow) opens a full-screen
   flyer with a split-flap countdown, the facts and the card's buttons.
