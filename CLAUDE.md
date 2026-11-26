@@ -203,7 +203,10 @@ Script just before GoatCounter (after the quiz). All built from normal markup:
 - Moving photo wall "From the camera roll" under the gallery covers, using thumbs/<name>.jpg (340px tall). When adding
   gallery photos, also make a thumbnail in thumbs/.
 - Play tiles: Singlish-ify (grammar-based: zero copula, got, alr, or not/issit/meh, ONE mood particle; DIALECT list adds Hokkien/
-  Cantonese/Teochew/Malay/Tamil words, ORIGIN shows each word's source under the result; no vulgar words; copy + story card) and Chope a seat (30 s game, best score kept in
+  Cantonese/Teochew/Malay/Tamil words, ORIGIN shows each word's source under the result; no vulgar words; copy + story card). Translator-app layout (Jarryl,
+  27 Nov 2026): English ⇄ Singlish panes with swap (reverse uses english()/BACK), clear, listen, copy, share. Dialect words in
+  the output carry a subtitle (<ruby>) with the written form from SCRIPT (Han characters / Tamil script, only well-attested
+  ones) and the English meaning. and Chope a seat (30 s game, best score kept in
   this browser). Both share the quiz dialog style and story-card maker.
 - Partners: List/Map switch; map loads Leaflet (cdnjs) + OpenStreetMap tiles only when opened. Pin positions in GEO
   (keyed by logo file name). New sponsor = add its coordinates to GEO.

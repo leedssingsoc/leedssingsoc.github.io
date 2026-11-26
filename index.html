@@ -715,6 +715,34 @@ dialog.flyer[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr
 .spmap .leaflet-popup-content{margin:12px 14px;font-family:var(--body)}
 .spmap .pop b{display:block;font-size:15px}.spmap .pop small{color:#5A6B6E}.spmap .pop .deal{display:block;color:#B4232D;font-weight:800;margin:4px 0}
 .spmap .pop a{font-weight:700;color:#B4232D}
+
+/* Singlish-ify as a translator app */
+dialog.quizbox.sgt{width:min(860px,100vw)}
+.tr-bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin-bottom:12px}
+.tr-l{font-weight:800;font-size:15px;text-align:center;padding:10px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.tr-bar .tr-l:last-child{color:var(--red-ink)}
+.tr-swap{all:unset;cursor:pointer;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:20px;background:var(--ink);color:var(--paper);transition:transform .3s}
+.tr-swap:hover{transform:rotate(180deg)}
+.qz-body>*{flex-shrink:0}
+.tr-panes{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface)}
+@media (max-width:640px){.tr-panes{grid-template-columns:1fr}.tr-pane.in{border-right:0!important;border-bottom:1px solid var(--line)}}
+.tr-pane{display:flex;flex-direction:column;min-height:170px}
+.tr-pane.in{border-right:1px solid var(--line)}
+.tr-pane .sg-in{border:0;border-radius:0;min-height:130px;flex:1;resize:none;background:transparent;font-size:20px}
+.tr-pane.out{background:var(--paper)}
+.tr-pane .sg-out{flex:1;margin:0;border-radius:0;background:transparent;color:var(--ink);font-family:var(--hand);font-size:clamp(24px,5vw,30px);padding:14px;min-height:0}
+.tr-foot{display:flex;align-items:center;justify-content:flex-end;gap:6px;padding:6px 8px;color:var(--muted);font-size:12.5px}
+.tr-foot .tr-n{margin-right:auto;padding-left:6px}
+.tr-ic{all:unset;cursor:pointer;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:17px;color:var(--ink)}
+.tr-ic:hover{background:var(--line)}
+.tr-h{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:16px 0 0}
+.sgt .sg-orig{margin-top:12px}
+
+.tr-pane .sg-out{line-height:2.1}
+ruby.dz{ruby-position:under;color:var(--red-ink);margin:0 .3em}
+ruby.dz rt{white-space:nowrap}
+ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;padding-top:2px}
+.sg-orig i{font-style:normal;font-weight:700;color:var(--red-ink);margin:0 4px 0 2px}
 </style>
 
 <nav class="nav" aria-label="Main">
@@ -2196,6 +2224,16 @@ dialog.flyer[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr
     lui: ['Hokkien', 'money'], 'ho jiak': ['Hokkien', 'delicious'], makan: ['Malay', 'eat, food'], jom: ['Malay', 'let’s go'], lepak: ['Malay', 'chill'], shiok: ['Malay', 'satisfying'],
     'buay tahan': ['Hokkien + Malay', 'can’t stand it'], jialat: ['Hokkien', 'terrible'], sian: ['Hokkien', 'bored, tired'], paiseh: ['Hokkien', 'sorry, awkward'],
     'bo jio': ['Hokkien', 'didn’t invite me'], walao: ['Hokkien', 'oh my god'], alamak: ['Malay', 'oh no'], atas: ['Malay', 'fancy'], liao: ['Hokkien', 'already, done'] };
+  const SCRIPT = { sibei: '死父', tapau: '打包', siao: '痟', swee: '媠', kaypoh: '家婆', kiasi: '驚死', kiasu: '驚輸', 'buay song': '袂爽',
+    heng: '興', suay: '衰', gian: '癮', chiong: '衝', 'lim kopi': '啉 kopi', gong: '戇', lui: '鐳', 'ho jiak': '好食', kakinang: '家己人',
+    jialat: '食力', paiseh: '歹勢', 'bo jio': '無招', 'buay tahan': '袂 tahan', liao: '了', macha: 'மச்சான்', aiyo: 'ஐயோ' };
+  // Put the written form + English meaning under each dialect word in the translation, like subtitles.
+  function annotate(out) {
+    let h = esc(out); const keys = Object.keys(ORIGIN).sort((a, b) => b.length - a.length);
+    const re = new RegExp('\\b(' + keys.map(k => k.replace(/ /g, '\\s')).join('|') + ')\\b', 'g');
+    return h.replace(re, m => { const k = m.toLowerCase(); const o = ORIGIN[k]; if (!o) return m;
+      return `<ruby class="dz">${m}<rt>${SCRIPT[k] ? esc(SCRIPT[k]) + ' · ' : ''}${esc(o[1].split(',')[0])}</rt></ruby>`; });
+  }
   function origins(out) { return Object.keys(ORIGIN).filter(k => new RegExp('\\b' + k + '\\b').test(out)).slice(0, 6); }
   const PHRASES = [
     W(/\bwhat the hell\b|\bwhat the heck\b|\bomg\b|\boh my god\b/g, 'walao'), W(/\boh no\b|\boh dear\b/g, 'alamak'), W(/\bwow\b/g, 'wah'),
@@ -2258,20 +2296,57 @@ dialog.flyer[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr
     }).join(' ');
   }
   const sgd = playDialog('singlishify', 'Singlish-ify');
-  $('.qz-body', sgd).innerHTML = `<p class="qz-step">Type anything in English</p><h3 class="qz-q">Make it sound like home.</h3>
-    <textarea class="sg-in" placeholder="e.g. Are you coming to the event? I am so tired." aria-label="Your sentence"></textarea>
-    <div class="sg-ex">${['Are you coming to Monsta?', 'I am so tired of exams.', 'Wow, this food is so delicious!', 'You didn\'t invite me!', 'Can you take away for me?', 'Really?', 'The cake is all gone, so unlucky.', 'Let\'s go party, it will be so fun!'].map(e => `<button type="button">${esc(e)}</button>`).join('')}</div>
-    <div class="sg-out" aria-live="polite"></div><div class="sg-orig"></div>
-    <div class="sg-acts"><button class="btn red" type="button" data-sg="copy">Copy</button><button class="btn line" type="button" data-sg="share">Share to your story</button></div>
+  sgd.classList.add('sgt');
+  // Singlish -> English (reverse): dialect/slang words back to English, particles dropped, "or not?" questions restored.
+  const BACK = [[/\bor not\?/g, '?'], [/\bissit\?/g, ', is it?'], [/\bmeh\?/g, '?'], [/\b(can or not)\?/g, ', can?'],
+    [/\s*\b(lah|leh|lor|sia|hor|meh)\b(?=[\s.!?,]|$)/g, ''], [/\s*\b(one|ah)\b(?=[\s.!?,]*$)/g, ''], [/\balr\b|\bliao\b/g, 'already'], [/\bgot\b/g, 'have'], [/\bdun\b/g, "don't"], [/\bdowan\b/g, "don't want"],
+    [/\bdunno\b/g, "don't know"], [/\bcfm\b/g, 'definitely'], [/\bdamn\b|\bsibei\b/g, 'very'], [/\bwah\b/g, 'wow'], [/\bwalao\b/g, 'oh my god'], [/\babuden\b/g, 'obviously'],
+    [/\bbo jio\b/g, "didn't invite me"], [/\bbuay tahan\b/g, "can't stand it"], [/\bliddat\b/g, 'like that'], [/\bchope\b/g, 'reserve'], [/\bbro\b/g, 'mate'], [/\beh\b/g, 'hey'],
+    [/\bex\b/g, 'expensive'], [/\bsteady\b/g, 'great'], [/\bblur\b/g, 'confused'], [/\bfaster\b/g, 'hurry up'], [/\bcannot\b/g, "can't"]];
+  function english(txt) {
+    let s = ' ' + txt.trim().toLowerCase() + ' ';
+    s = s.replace(/^\s*(\w+(?: \w+)*?) can or not\?\s*$/, ' can you $1? ').replace(/^\s*you (.+?) or not\?\s*$/, ' are you $1? ');
+    Object.keys(ORIGIN).sort((a, b) => b.length - a.length).forEach(k => { s = s.replace(new RegExp('\\b' + k + '\\b', 'g'), ORIGIN[k][1].split(',')[0].trim()); });
+    BACK.forEach(([re, to]) => { s = s.replace(re, to); });
+    return s.replace(/\s+([?.!,])/g, '$1').replace(/\s{2,}/g, ' ').trim().replace(/^./, c => c.toUpperCase());
+  }
+  let dir = 'en', sgPlain = '';   // 'en' = English -> Singlish, 'sg' = Singlish -> English
+  $('.qz-body', sgd).innerHTML = `
+    <div class="tr-bar"><span class="tr-l" data-a>English</span><button class="tr-swap" type="button" aria-label="Swap languages">⇄</button><span class="tr-l" data-b>Singlish</span></div>
+    <div class="tr-panes">
+      <div class="tr-pane in"><textarea class="sg-in" maxlength="300" placeholder="Type something…" aria-label="Text to translate"></textarea>
+        <div class="tr-foot"><span class="tr-n">0 / 300</span><button class="tr-ic" type="button" data-sg="clear" aria-label="Clear">✕</button></div></div>
+      <div class="tr-pane out"><div class="sg-out" aria-live="polite"></div>
+        <div class="tr-foot"><button class="tr-ic" type="button" data-sg="speak" aria-label="Listen">🔊</button><button class="tr-ic" type="button" data-sg="copy" aria-label="Copy">⧉</button><button class="tr-ic" type="button" data-sg="share" aria-label="Share to your story">↗</button></div></div>
+    </div>
+    <div class="sg-orig"></div>
+    <p class="tr-h">Try one</p>
+    <div class="sg-ex"></div>
     <p class="cg-msg">Just for fun. Real Singlish is best learnt at our events 😉</p>`;
-  const sIn = $('.sg-in', sgd), sOut = $('.sg-out', sgd), sOr = $('.sg-orig', sgd), upd = () => { const o = singlish(sIn.value); sOut.textContent = o;
-    sOr.innerHTML = origins(o).map(k => `<span><b>${esc(k)}</b> ${esc(ORIGIN[k][0])} · ${esc(ORIGIN[k][1])}</span>`).join(''); };
+  const EX = { en: ['Are you coming to Monsta?', 'I am so tired of exams.', 'Wow, this food is so delicious!', 'You didn\'t invite me!', 'Can you take away for me?', 'The cake is all gone, so unlucky.', 'Let\'s go party, it will be so fun!'],
+               sg: ['you coming or not?', 'walao, the queue damn long sia', 'jom lim kopi, macha', 'tapau for me can or not?', 'this one sibei ho jiak', 'paiseh, dunno leh', 'you bo jio!'] };
+  const sIn = $('.sg-in', sgd), sOut = $('.sg-out', sgd), sOr = $('.sg-orig', sgd), sN = $('.tr-n', sgd), exBox = $('.sg-ex', sgd);
+  function upd() {
+    const o = dir === 'en' ? singlish(sIn.value) : english(sIn.value); sgPlain = o; sOut.innerHTML = dir === 'en' ? annotate(o) : esc(o); sN.textContent = sIn.value.length + ' / 300';
+    const src = dir === 'en' ? o : sIn.value.toLowerCase();
+    sOr.innerHTML = origins(src).map(k => `<span><b>${esc(k)}</b>${SCRIPT[k] ? `<i lang="${/[\u0B80-\u0BFF]/.test(SCRIPT[k]) ? 'ta' : 'zh-Hant'}">${esc(SCRIPT[k])}</i>` : ''} ${esc(ORIGIN[k][0])} · ${esc(ORIGIN[k][1])}</span>`).join('');
+  }
+  function setDir(d) {
+    dir = d; $('[data-a]', sgd).textContent = d === 'en' ? 'English' : 'Singlish'; $('[data-b]', sgd).textContent = d === 'en' ? 'Singlish' : 'English';
+    sgd.classList.toggle('rev', d === 'sg'); sIn.placeholder = d === 'en' ? 'Type something in English…' : 'Type some Singlish…';
+    exBox.innerHTML = EX[d].map(e => `<button type="button">${esc(e)}</button>`).join('');
+    $$('button', exBox).forEach(b => b.addEventListener('click', () => { sIn.value = b.textContent; upd(); }));
+  }
+  setDir('en');
   sIn.addEventListener('input', upd);
-  $$('.sg-ex button', sgd).forEach(b => b.addEventListener('click', () => { sIn.value = b.textContent; upd(); }));
-  $('[data-sg=copy]', sgd).addEventListener('click', e => { if (!sOut.textContent) return; navigator.clipboard && navigator.clipboard.writeText(sOut.textContent); e.target.textContent = 'Copied lah!'; setTimeout(() => e.target.textContent = 'Copy', 1500); count('singlish-copy'); });
-  $('[data-sg=share]', sgd).addEventListener('click', () => { if (!sOut.textContent) return; count('singlish-share');
+  $('.tr-swap', sgd).addEventListener('click', () => { const out = sgPlain; setDir(dir === 'en' ? 'sg' : 'en'); sIn.value = out; upd(); count('singlish-swap'); });
+  $('[data-sg=clear]', sgd).addEventListener('click', () => { sIn.value = ''; upd(); sIn.focus(); });
+  $('[data-sg=speak]', sgd).addEventListener('click', () => { if (!sgPlain || !window.speechSynthesis) return; speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(sgPlain); const vs = speechSynthesis.getVoices(); const v = vs.find(x => /en[-_]SG/i.test(x.lang)) || vs.find(x => /en[-_](GB|AU|IN)/i.test(x.lang)); if (v) u.voice = v; u.rate = 1.05; speechSynthesis.speak(u); count('singlish-speak'); });
+  $('[data-sg=copy]', sgd).addEventListener('click', e => { if (!sgPlain) return; navigator.clipboard && navigator.clipboard.writeText(sgPlain); const b = e.currentTarget; b.textContent = '✓'; setTimeout(() => b.textContent = '⧉', 1400); count('singlish-copy'); });
+  $('[data-sg=share]', sgd).addEventListener('click', () => { if (!sgPlain) return; count('singlish-share');
     storyCard([['SINGLISH-IFY', '800 40px "Figtree", Arial, sans-serif', '#B4232D', 420], ['“' + sIn.value.trim() + '”', '600 46px "Figtree", Arial, sans-serif', '#5A6B6E', 560],
-      ['↓', '800 80px "Figtree", Arial, sans-serif', '#D9343E', 860], [sOut.textContent, '700 78px "Caveat", cursive', '#0E2A2F', 1000]], 'singsoc-singlish.png'); });
+      ['↓', '800 80px "Figtree", Arial, sans-serif', '#D9343E', 860], [sgPlain, '700 78px "Caveat", cursive', '#0E2A2F', 1000]], 'singsoc-singlish.png'); });
   enableTile(1, () => { sgd.showModal(); root.classList.add('noscroll'); sIn.focus(); count('singlish-open'); });
 
   /* 4. Chope a seat: 30 seconds, tap free tables before the aunties do. */
