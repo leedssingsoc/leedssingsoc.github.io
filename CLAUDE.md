@@ -186,6 +186,13 @@ committee cards and sponsors the usual way:
 - Committee: quote and fun facts behind "More about <name>".
 - Sponsors: filter chips Food / Drinks / Nightlife, assigned from each sponsor's name and type line.
 
+## Play section (Jarryl, 26 Nov 2026)
+ (between Gallery and Committee, "Play" in the menu) holds little games as tiles. Live: "Which hawker dish are you?"
+quiz (, script before GoatCounter): 5 questions, 10 dishes (scores per answer in , results in ; ties random,
+keep every dish reachable and roughly balanced), result links to the next event and "Share to your story" makes a 1080x1920 PNG
+(Web Share on phones, download elsewhere). Counts quiz-open / quiz-result-<dish> / quiz-share-<dish> in GoatCounter. "Singlish-ify"
+and "Chope a seat" tiles are placeholders marked Coming soon. Nothing is stored or sent.
+
 ## Daily site check (since 26 Oct 2026)
 A claude.ai scheduled task, `leedssingsoc-site-check`, runs every day at 08:36 UK time. It checks the live site
 (new commits, broken images/links, page errors on desktop and phone, out-of-date events or sponsor deals, and

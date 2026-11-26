@@ -596,6 +596,54 @@ html.noscroll{overflow:hidden}
 .spfilter button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .spfilter button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 @media (prefers-reduced-motion: reduce){dialog.sheet[open]{animation:none}.nextbar{transition:none}.acover .viral i{animation:none}}
+
+/* ===== Play: hawker quiz  ===== */
+.playgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:760px){.playgrid{grid-template-columns:1fr;gap:12px}}
+.ptile{all:unset;box-sizing:border-box;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto;column-gap:14px;align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;position:relative;transition:transform .2s,border-color .2s}
+.ptile:not(.soon):hover,.ptile:focus-visible{transform:translateY(-3px);border-color:var(--red)}
+.ptile:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.ptile .pt-art{grid-row:1/4;font-size:40px;width:64px;height:64px;display:grid;place-items:center;border-radius:14px;background:var(--paper);box-shadow:inset 0 0 0 1px var(--line)}
+.ptile .pt-t{font-family:var(--display);font-weight:800;font-size:18px;line-height:1.15}
+.ptile .pt-m{font-size:13.5px;color:var(--muted)}
+.ptile .pt-go{font-size:14px;font-weight:800;color:var(--red-ink);margin-top:2px}
+.ptile.soon{cursor:default;opacity:.55}.ptile.soon .pt-go{color:var(--muted)}
+dialog.quizbox{border:0;padding:0;margin:auto;width:min(520px,100vw);max-width:100vw;height:min(760px,100%);max-height:100dvh;border-radius:18px;overflow:hidden;
+  background:var(--paper);color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+dialog.quizbox::backdrop{background:rgba(8,20,23,.6);backdrop-filter:blur(3px)}
+dialog.quizbox[open]{display:flex;flex-direction:column;animation:sheet-in .28s cubic-bezier(.2,.8,.2,1)}
+@media (max-width:640px){dialog.quizbox{width:100vw;height:100dvh;border-radius:0;margin:0}}
+.qz-top{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.qz-top b{flex:1;font-family:var(--display);font-size:17px}
+.qz-x{all:unset;cursor:pointer;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:var(--surface);border:1px solid var(--line)}
+.qz-body{flex:1;overflow:auto;padding:22px 20px 28px;display:flex;flex-direction:column}
+.qz-prog{display:flex;gap:6px;margin-bottom:22px}
+.qz-prog i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.qz-prog i.on{background:var(--red)}
+.qz-q{font-family:var(--display);font-weight:800;font-size:clamp(22px,6vw,28px);line-height:1.15;margin:0 0 18px}
+.qz-step{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red-ink);margin:0 0 6px}
+.qz-opts{display:grid;gap:10px}
+.qz-opt{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:12px;background:var(--surface);border:1.5px solid var(--line);font-weight:600;font-size:16px;line-height:1.3;transition:border-color .15s,transform .15s}
+.qz-opt:hover,.qz-opt:focus-visible{border-color:var(--red);transform:translateX(3px)}
+.qz-opt .e{font-size:24px;flex:none}
+.qz-anim{animation:qz-in .32s cubic-bezier(.2,.8,.2,1)}
+@keyframes qz-in{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+.qz-res{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.qz-res .big{font-size:84px;line-height:1;margin:6px 0 4px;animation:qz-pop .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes qz-pop{from{transform:scale(.2) rotate(-20deg);opacity:0}to{transform:none;opacity:1}}
+.qz-res .you{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red-ink)}
+.qz-res h3{font-family:var(--display);font-size:clamp(30px,8vw,40px);line-height:1.05;margin:0}
+.qz-res .tag{font-family:var(--hand);font-size:24px;color:var(--red-ink);margin:2px 0 6px}
+.qz-res p.d{max-width:38ch;color:var(--muted);margin:0 0 6px}
+.qz-res .traits{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:4px 0 14px}
+.qz-res .traits span{font-size:13px;font-weight:700;padding:5px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.qz-res .acts{display:grid;gap:10px;width:100%;max-width:340px}
+.qz-res .acts .btn{justify-content:center;text-align:center}
+.qz-res .again{all:unset;cursor:pointer;font-weight:700;color:var(--red-ink);margin-top:6px}
+.qz-res .eat{margin-top:16px;font-size:14px;color:var(--muted)}
+.qz-res .eat a{color:var(--red-ink);font-weight:700}
+@media (prefers-reduced-motion: reduce){.qz-anim,.qz-res .big,dialog.quizbox[open]{animation:none}}
 </style>
 
 <nav class="nav" aria-label="Main">
@@ -604,7 +652,7 @@ html.noscroll{overflow:hidden}
     <ul id="menu">
       <li><a href="#events">Events</a></li>
       <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#committee">Committee</a></li>
+      <li><a href="#play">Play</a></li><li><a href="#committee">Committee</a></li>
       <li><a href="#sponsors">Sponsors</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
@@ -1038,6 +1086,40 @@ html.noscroll{overflow:hidden}
     </div>
   </section>
 
+  <section class="block" id="play">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="label">Play</p><h2>Take a break lah.</h2></div>
+        <p>Little games from home. Share your result and tag @leedssingsoc.</p>
+      </div>
+      <div class="playgrid">
+        <button class="ptile" type="button" data-open="quiz">
+          <span class="pt-art" aria-hidden="true">🍜</span>
+          <span class="pt-t">Which hawker dish are you?</span>
+          <span class="pt-m">5 questions · 1 minute</span>
+          <span class="pt-go">Play →</span>
+        </button>
+        <div class="ptile soon" aria-disabled="true">
+          <span class="pt-art" aria-hidden="true">🗣️</span>
+          <span class="pt-t">Singlish-ify</span>
+          <span class="pt-m">Turn any sentence into Singlish</span>
+          <span class="pt-go">Coming soon</span>
+        </div>
+        <div class="ptile soon" aria-disabled="true">
+          <span class="pt-art" aria-hidden="true">🪑</span>
+          <span class="pt-t">Chope a seat</span>
+          <span class="pt-m">Beat the aunties to a table</span>
+          <span class="pt-go">Coming soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <dialog class="quizbox" id="quiz" aria-label="Which hawker dish are you?">
+    <div class="qz-top"><b>Which hawker dish are you?</b><button class="qz-x" type="button" aria-label="Close">×</button></div>
+    <div class="qz-body"></div>
+  </dialog>
+
   <section class="block" id="committee">
     <div class="wrap">
       <div class="head">
@@ -1450,7 +1532,7 @@ html.noscroll{overflow:hidden}
     }
     const groups = '.events, .past, .sponsors, .team, .faq, .wall, .prints-row';
     const secs = [...document.querySelectorAll('section.block, section.join')];
-    const names = { about: 'About', events: 'Events', gallery: 'Gallery', committee: 'The team', sponsors: 'Partners', faq: 'FAQ', join: 'Join us' };
+    const names = { about: 'About', events: 'Events', gallery: 'Gallery', play: 'Play', committee: 'The team', sponsors: 'Partners', faq: 'FAQ', join: 'Join us' };
     secs.forEach(sec => {
       sec.insertAdjacentHTML('afterbegin', '<div class="sector" aria-hidden="true"><i></i><b></b></div>');
       sec.querySelector('.sector b').textContent = names[sec.id] || '';
@@ -1836,6 +1918,89 @@ html.noscroll{overflow:hidden}
     });
     list.before(f);
   }
+})();
+</script>
+<script>
+/* "Which hawker dish are you?" quiz. 5 questions, each answer scores dishes; highest wins.
+   Result card can be saved/shared as a 1080x1920 Instagram-story image. Nothing is stored or sent. */
+(function () {
+  const box = document.getElementById('quiz'); if (!box) return;
+  const body = box.querySelector('.qz-body');
+  const D = {
+    chickenrice: { e: '🍗', n: 'Chicken Rice', tag: 'Steady, everyone’s favourite.', d: 'Reliable, comforting and loved by literally everyone. You’re the friend who remembers birthdays and always knows where to eat.', t: ['Dependable', 'Wholesome', 'Group chat mum/dad'] },
+    laksa:       { e: '🍜', n: 'Laksa', tag: 'Spicy and a bit extra.', d: 'Rich, bold and impossible to ignore. You bring the energy, the drama and the best stories from last night.', t: ['Bold', 'Main character', 'Always hyped'] },
+    ckt:         { e: '🔥', n: 'Char Kway Teow', tag: 'Wok hei and chaos.', d: 'Fast, smoky and a little unpredictable. Plans change around you, but they’re always better for it.', t: ['Spontaneous', 'Fun', 'Last-minute plans'] },
+    kaya:        { e: '🍞', n: 'Kaya Toast', tag: 'Soft, sweet, a morning person.', d: 'Cosy and gentle, with a kopi in hand. You’re everyone’s calm place and you make the best playlists.', t: ['Chill', 'Kind', 'Kopi addict'] },
+    satay:       { e: '🍢', n: 'Satay', tag: 'Made for sharing.', d: 'You’re the social glue: you get everyone together, order for the table and somehow know the whole room.', t: ['Social', 'Generous', 'Knows everyone'] },
+    chillicrab:  { e: '🦀', n: 'Chilli Crab', tag: 'Fancy, messy, iconic.', d: 'Big occasions are your thing. A little high maintenance, totally worth it, and nobody leaves without a photo.', t: ['Iconic', 'Celebratory', 'Worth the mess'] },
+    nasilemak:   { e: '🍛', n: 'Nasi Lemak', tag: 'A bit of everything, all good.', d: 'Balanced, versatile and good at any hour. You get along with every friend group and always say yes to supper.', t: ['All-rounder', 'Easy-going', 'Supper buddy'] },
+    prata:       { e: '🫓', n: 'Roti Prata', tag: 'Flips with the flow.', d: 'Crispy outside, soft inside. You’re a night owl who turns a quick catch-up into a 3am deep talk.', t: ['Night owl', 'Deep talks', 'Soft-hearted'] },
+    hokkienmee:  { e: '🍤', n: 'Hokkien Mee', tag: 'Low-key legend.', d: 'Underrated until people try you, then they’re hooked. Quietly funny, always worth the wait.', t: ['Underrated', 'Witty', 'Loyal'] },
+    icekachang:  { e: '🍧', n: 'Ice Kachang', tag: 'Colourful and a little chaotic.', d: 'Sweet, bright and full of surprises. You bring the colour, the snacks and the random ideas everyone ends up loving.', t: ['Creative', 'Cheerful', 'Sugar rush'] },
+  };
+  const Q = [
+    { q: 'It’s Friday night in Leeds. You’re…', a: [['🎉', 'Out at Monsta till 4am', { laksa: 2, ckt: 1, prata: 1 }], ['🍲', 'Hosting a hotpot for the whole floor', { satay: 2, chillicrab: 1 }], ['🛋️', 'In bed with a K-drama and Maggi', { kaya: 2, prata: 1, hokkienmee: 1 }], ['🤷', 'Whatever the group chat decides', { chickenrice: 1, nasilemak: 2, ckt: 1 }]] },
+    { q: 'Pick your drink.', a: [['☕', 'Kopi O kosong', { kaya: 2, hokkienmee: 1 }], ['🧋', 'Bubble tea, 50% sugar', { icekachang: 2, satay: 1 }], ['🥤', 'Milo dinosaur', { ckt: 2, laksa: 1 }], ['🍹', 'Something fancy with an umbrella', { chillicrab: 2 }]] },
+    { q: 'What do you miss most about home?', a: [['🌴', 'The weather (Leeds, please)', { icekachang: 2, nasilemak: 1 }], ['🛍️', 'Hawker centres at 2am', { prata: 2, ckt: 1, hokkienmee: 1 }], ['👨‍👩‍👧', 'Family dinners', { chickenrice: 2, hokkienmee: 2 }], ['🗣️', 'Speaking Singlish freely', { laksa: 2, satay: 1 }]] },
+    { q: 'Your role in the group project?', a: [['📋', 'Made the plan, did the slides', { chickenrice: 2 }], ['🎤', 'Presented with full confidence', { laksa: 1, chillicrab: 2 }], ['⏰', 'Pulled it off the night before', { ckt: 2, prata: 1 }], ['🍪', 'Brought snacks, kept morale up', { satay: 1, icekachang: 2 }]] },
+    { q: 'Pick a Singlish word.', a: [['😤', 'Shiok', { laksa: 1, chillicrab: 1, hokkienmee: 1 }], ['🙃', 'Paiseh', { kaya: 2, hokkienmee: 2 }], ['🪑', 'Chope', { chickenrice: 1, nasilemak: 2 }], ['😴', 'Bo jio!', { satay: 2, prata: 2 }]] },
+  ];
+  let step = 0, score = {};
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const count = name => { if (window.goatcounter && goatcounter.count) goatcounter.count({ path: name, event: true }); };
+  function render() {
+    if (step >= Q.length) return result();
+    const q = Q[step];
+    body.innerHTML = `<div class="qz-prog">${Q.map((_, i) => `<i class="${i <= step ? 'on' : ''}"></i>`).join('')}</div>
+      <div class="qz-anim"><p class="qz-step">Question ${step + 1} of ${Q.length}</p><h3 class="qz-q">${esc(q.q)}</h3>
+      <div class="qz-opts">${q.a.map((o, i) => `<button class="qz-opt" type="button" data-i="${i}"><span class="e">${o[0]}</span>${esc(o[1])}</button>`).join('')}</div></div>`;
+    body.querySelectorAll('.qz-opt').forEach(b => b.addEventListener('click', () => {
+      Object.entries(q.a[+b.dataset.i][2]).forEach(([k, v]) => score[k] = (score[k] || 0) + v); step++; render(); }));
+  }
+  let winner = null;
+  function result() {
+    const order = Object.keys(D);  // ties are broken at random
+    const top = Math.max(...order.map(k => score[k] || 0)); const tied = order.filter(k => (score[k] || 0) === top); winner = tied[Math.floor(Math.random() * tied.length)];
+    const r = D[winner]; count('quiz-result-' + winner);
+    const next = [...document.querySelectorAll('.events > article.card')].find(c => !c.hidden && !c.hasAttribute('data-keep-open'));
+    const nt = next && next.querySelector('.ftitle');
+    body.innerHTML = `<div class="qz-res qz-anim"><div class="big">${r.e}</div><p class="you">You are</p><h3>${esc(r.n)}</h3><p class="tag">${esc(r.tag)}</p>
+      <p class="d">${esc(r.d)}</p><div class="traits">${r.t.map(t => `<span>${esc(t)}</span>`).join('')}</div>
+      <div class="acts"><button class="btn red" type="button" id="qz-share">Share to your story</button></div>
+      <button class="again" type="button">Play again ↺</button>
+      ${next ? `<p class="eat">Hungry now? Come eat the real thing with us: <a href="#${esc(next.id)}">${esc(nt ? nt.textContent : 'next event')} →</a></p>` : ''}</div>`;
+    body.querySelector('.again').addEventListener('click', start);
+    body.querySelector('#qz-share').addEventListener('click', share);
+    const a = body.querySelector('.eat a'); if (a) a.addEventListener('click', () => box.close());
+  }
+  function card() {
+    const r = D[winner], c = document.createElement('canvas'); c.width = 1080; c.height = 1920; const g = c.getContext('2d');
+    g.fillStyle = '#D9343E'; g.fillRect(0, 0, 1080, 1920);
+    g.fillStyle = 'rgba(255,255,255,.08)'; for (let i = 0; i < 14; i++) { g.save(); g.translate(540, 960); g.rotate(i / 14 * Math.PI * 2); g.fillRect(-30, 0, 60, 1400); g.restore(); }
+    g.fillStyle = '#F6F6F3'; const x = 90, y = 300, w = 900, h = 1240; g.save(); g.translate(540, 920); g.rotate(-.025); g.translate(-540, -920);
+    g.shadowColor = 'rgba(0,0,0,.25)'; g.shadowBlur = 40; g.shadowOffsetY = 18; g.fillRect(x, y, w, h); g.restore();
+    g.textAlign = 'center'; g.fillStyle = '#B4232D'; g.font = '800 40px "Figtree", Arial, sans-serif'; g.fillText('WHICH HAWKER DISH ARE YOU?', 540, 420);
+    g.font = '300px "Noto Color Emoji", "Apple Color Emoji", sans-serif'; g.fillText(r.e, 540, 800);
+    g.fillStyle = '#5A6B6E'; g.font = '700 44px "Figtree", Arial, sans-serif'; g.fillText('I’m', 540, 920);
+    g.fillStyle = '#0E2A2F'; g.font = '800 120px "Bricolage Grotesque", Arial, sans-serif'; g.fillText(r.n, 540, 1050);
+    g.fillStyle = '#B4232D'; g.font = '700 64px "Caveat", cursive'; g.fillText(r.tag, 540, 1160);
+    g.fillStyle = '#0E2A2F'; g.font = '600 38px "Figtree", Arial, sans-serif'; g.fillText(r.t.join('  ·  '), 540, 1270);
+    g.fillStyle = '#5A6B6E'; g.font = '600 36px "Figtree", Arial, sans-serif'; g.fillText('Find yours at leedssingsoc.github.io', 540, 1440);
+    g.fillStyle = '#fff'; g.font = '800 54px "Figtree", Arial, sans-serif'; g.fillText('@leedssingsoc', 540, 1720);
+    return new Promise(res => c.toBlob(res, 'image/png'));
+  }
+  async function share() {
+    count('quiz-share-' + winner);
+    const blob = await card(); const file = new File([blob], `singsoc-${winner}.png`, { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], text: `I'm ${D[winner].n}! Which hawker dish are you? @leedssingsoc` }); return; } catch (e) { if (e.name === 'AbortError') return; } }
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = file.name; document.body.appendChild(a); a.click(); a.remove();
+  }
+  function start() { step = 0; score = {}; winner = null; render(); }
+  document.querySelectorAll('[data-open="quiz"]').forEach(b => b.addEventListener('click', () => { start(); box.showModal(); document.documentElement.classList.add('noscroll'); count('quiz-open'); }));
+  box.querySelector('.qz-x').addEventListener('click', () => box.close());
+  box.addEventListener('click', e => { if (e.target === box) box.close(); });
+  box.addEventListener('close', () => document.documentElement.classList.remove('noscroll'));
+  window.__quiz = { D, card: () => card(), setWinner: k => { winner = k; } };
 })();
 </script>
 <script data-goatcounter="https://leedssingsoc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
