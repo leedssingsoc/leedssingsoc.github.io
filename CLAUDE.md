@@ -187,8 +187,8 @@ committee cards and sponsors the usual way:
 - Sponsors: filter chips Food / Drinks / Nightlife, assigned from each sponsor's name and type line.
 
 ## Play section (Jarryl, 26 Nov 2026)
- (between Gallery and Committee, "Play" in the menu) holds little games as tiles. Live: "Which hawker dish are you?"
-quiz (, script before GoatCounter): 5 questions, 10 dishes (scores per answer in , results in ; ties random,
+`#play` (between Gallery and Committee, "Play" in the menu) holds little games as tiles. Live: "Which hawker dish are you?"
+quiz (`dialog#quiz`, script before GoatCounter): 5 questions, 10 dishes (scores per answer in `Q`, results in `D`; ties random,
 keep every dish reachable and roughly balanced), result links to the next event and "Share to your story" makes a 1080x1920 PNG
 (Web Share on phones, download elsewhere). Counts quiz-open / quiz-result-<dish> / quiz-share-<dish> in GoatCounter. "Singlish-ify"
 and "Chope a seat" tiles are placeholders marked Coming soon. Nothing is stored or sent.
