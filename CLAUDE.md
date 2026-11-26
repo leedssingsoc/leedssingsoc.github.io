@@ -212,8 +212,10 @@ Script just before GoatCounter (after the quiz). All built from normal markup:
   (keyed by logo file name). New sponsor = add its coordinates to GEO.
 
 ## Collab logos + multi-page flyers (Jarryl, 27 Nov 2026)
-- Collab cards: `data-hosts="file=Name|file=Name"` (and optional `data-support=...`) on the <article> builds a "Hosted by /
+- Collab cards: `data-hosts="file=Name=link|file=Name=link"` (link = their Instagram, or website e.g. SGN; logo AND name are clickable) (and optional `data-support=...`) on the <article> builds a "Hosted by /
   Supported by" strip of overlapping round logos above the facts. Logos live in soc/ (240px PNG, circular); Leeds = logo-sq.png.
+  Optional `data-with=...` = participating societies (label "With"). Monsta nights (Jarryl, 27 Nov 2026): hosts are ALWAYS
+  Monsta Leeds + BCSoc; Leeds SingSoc goes in data-with (we're a participant, not a host).
   No logo yet: `~XY=Name` shows a teal initials badge (BCSoc is `~BC` until we get its logo).
 - Flyers show ALL pages: the poster, any `.posters` slideshow images, plus `data-pages="a.jpg|b.jpg"` on the card
   (arrows, dots, swipe, arrow keys). When Jarryl sends extra pages of an event (itinerary, menu...), add them there.
