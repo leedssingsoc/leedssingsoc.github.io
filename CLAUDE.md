@@ -211,6 +211,9 @@ Script just before GoatCounter (after the quiz). All built from normal markup:
 - Singlish-ify LEX list (27 Nov 2026): everyday English -> Singlish usage (tq, borrow me, open the light, spoil, pancit, comot, cher, towkay, ponteng, mug...)
   runs right after HOKKIEN, before the copula drop. Topic-first questions ("this one how much ah?", "the event what time ah?"). Statements now get a
   particle by default (requests ah, "i ..." leh, else lah). Test sentences in a scratch run before publishing; the 8 voiced examples must still match VOICES.
+  LEX2 (27 Nov 2026): more Singlish-English (reach, wait ah, me also, ya lor, dun liddat, no mood, what happen, go gym). Dialect words go in ONLY
+  where they fit the context (Jarryl: no cap, just the right word in the right place): e.g. no 'wa ai' for 'I want', 'food' stays food (makan = eat),
+  lepak only for hang out/chill out, kiasi only for 'so scared'/coward, tolong only as a plea on its own, agak agak only for 'just estimate'.
 - Partners: List/Map switch; map loads Leaflet (cdnjs) + OpenStreetMap tiles only when opened. Pin positions in GEO
   (keyed by logo file name). New sponsor = add its coordinates to GEO.
 

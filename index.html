@@ -2274,8 +2274,8 @@ dialog.flyer.multi .fl-nav{display:grid}
     W(/\b(i have no money|i got no money|i'?m broke|i am broke|i no money|i'?m poor)\b/g, 'wa bo lui'),
     W(/\b(i'?m (so )?dead|i am (so )?dead|i'?m doomed|i am doomed|i'?m finished|i am finished)\b/g, 'wa si liao'),
     W(/\b(i don'?t care|i do not care)\b/g, 'wa bo chap'), W(/\b(no choice|nothing we can do|nothing i can do)\b/g, 'bo pian'),
-    W(/\bno need\b/g, 'm sai'), W(/\b(pointless|nonsense|so random)\b/g, 'bo liao'), W(/\b(so )?shameless\b/g, 'bo bin'),
-    W(/\bi want\b(?! to)/g, 'wa ai'), W(/\b(i don'?t understand|i do not understand)\b/g, 'wa tia bo'),
+    W(/\b(pointless|nonsense|so random)\b/g, 'bo liao'), W(/\b(so )?shameless\b/g, 'bo bin'),
+    W(/\b(i don'?t understand|i do not understand)\b/g, 'wa tia bo'),
   ];
   // Everyday English -> Singlish usage (27 Nov 2026): common words people type, Singlish verb habits, texting forms.
   const LEX = [
@@ -2300,28 +2300,47 @@ dialog.flyer.multi .fl-nav{display:grid}
     W(/\b(forgot)\b/g, 'forget'), W(/\b(scolded) (me|him|her|us|them)\b/g, 'scold $2'), W(/\bi can do (it|that)\b/g, 'can one'),
     W(/\b(i )?(don'?t|do not) have (it|that|any|one)\b/g, 'dun have'), W(/^yes\b|^yeah\b|^yep\b/g, 'ya'), W(/^(okay|alright|sure)\b/g, 'ok'),
     W(/\b(take|bring|buy|got|need|wan) (a|an) (?!lot\b|bit\b|few\b)/g, '$1 '), W(/\btake photo of\b/g, 'take photo for'),
-    W(/\ba lot of\b/g, 'damn a lot of'), W(/\bup to you\b/g, 'up to you lor'),
+    W(/\b(so many|so much)\b/g, 'damn a lot of'), W(/\bup to you\b/g, 'up to you lor'),
+  ];
+  const LEX2 = [
+    W(/\b(i'?ve|i have) arrived\b|\b(i'?m|i am) here\b/g, 'i reach alr'), W(/\b(arrive|arrived|get there|got there|get here|got here)\b/g, 'reach'),
+    W(/\b(i'?m|i am) coming\b/g, 'i coming'), W(/\b(i'?m|i am) going now\b|\b(i'?m|i am) going\b(?! to)/g, 'i go liao'),
+    W(/\b(wait|hold on|hang on)( a (moment|second|sec|minute|min|bit))?\b(?! for)/g, 'wait ah'), W(/\bplease\b/g, 'pls'),
+    W(/\bme too\b|\bsame here\b/g, 'me also'), W(/\b(i agree|that'?s true|true that|so true)\b/g, 'ya lor'), W(/\bwhat'?s up\b/g, 'wassup'),
+    W(/\b(it )?(doesn'?t|does not) matter\b/g, 'nvm'), W(/\b(i'?m|i am) not in the mood\b|\bi don'?t feel like it\b/g, 'no mood'),
+    W(/\blet me think\b/g, 'let me think first'), W(/\b(don'?t|do not) do that\b|\bstop it\b/g, 'dun liddat'),
+    W(/\b(what happened|what'?s wrong|what is wrong)\b/g, 'what happen'), W(/\b(annoying|irritating)\b/g, 'irritating'),
+    W(/\b(extremely|super|totally)\b(?= \w)/g, 'damn'), W(/\ba little bit\b|\ba little\b/g, 'a bit'), W(/\bokay\b/g, 'ok'),
+    W(/\bgo(ing)? to the (toilet|gym|library|mall|canteen|office|airport|hospital|doctor|supermarket|cinema)\b/g, 'go$1 $2'),
+    W(/\b(i|you|we|they|he|she) (can|could) (\w+) (it|that) for (me|you|us)\b/g, '$1 $2 $3 for $5'),
+    W(/\b(out of stock|none left|nothing left)\b/g, 'habis liao'), W(/\b(i'?m|i am) (not sure|unsure)\b/g, 'not sure leh'),
+    W(/\b(i'?m|i am) (busy)\b/g, 'i busy'), W(/\bvery cheap\b|\bso cheap\b/g, 'damn cheap'), W(/\bwhat a waste\b|\bsuch a waste\b/g, 'so wasted'),
+    W(/\b(see|catch) you (later|soon)\b/g, 'see you'), W(/\b(goodbye|bye bye)\b/g, 'bye'), W(/\b(hurry( up)?|quick)(,?) /g, 'faster$3 '),
+    W(/\bhow come\b/g, 'how come'), W(/\bis it\?$/g, 'issit'), W(/\b(sleepy)\b/g, 'sleepy'), W(/\b(lazy)\b/g, 'lazy'),
+    W(/\b(kids|children)\b/g, 'kids'), W(/\b(go out|going out|went out)\b/g, 'go out'), W(/\bit'?s (so |very )?late\b/g, 'damn late alr'),
+    W(/\b(boring)\b/g, 'sian'), W(/\b(i'?m|i am) (so |very )?sad\b/g, 'i damn sad'), W(/\b(heartbroken)\b/g, 'heart pain'),
+    W(/\bthe best\b/g, 'the best one'), W(/\b(chatty|talks? too much|talkative)\b/g, 'talk until cannot stop'),
   ];
   const DIALECT = [
     W(/\b(nervous|anxious|panicky|panicking)\b/g, 'kancheong'), W(/\b(complicated|too deep|hard to understand)\b/g, 'cheem'), W(/\b(accurate|spot on|on point)\b/g, 'zhun'),
     W(/\b(red packets?|hongbao)\b/g, 'ang pao'), W(/\b(avoid|dodge|stay away from)\b/g, 'siam'), W(/\b(stingy|cheapskate|tight-fisted)\b/g, 'kiam siap'),
-    W(/\b(well done|nice one|all good|all settled)\b/g, 'ho say'), W(/\b(happy|satisfied|so good)\b/g, 'song'), W(/\binvite\b/g, 'jio'),
+    W(/\b(well done|nice one|all good|all settled)\b/g, 'ho say'), W(/\b(satisfied|so satisfying)\b/g, 'song'), W(/\binvite\b/g, 'jio'),
     W(/\b(coffee shop|food court)\b/g, 'kopitiam'), W(/\b(dim sum|brunch)\b/g, 'yum cha'), W(/\b(troublesome|such a hassle|a hassle|annoying to do)\b/g, 'mafan'),
     W(/\b(grandpa|grandfather)\b/g, 'ah gong'), W(/\b(grandma|grandmother)\b/g, 'ah ma'), W(/\b(little brother|lil bro)\b/g, 'thambi'),
     W(/\b(got|was|were|get|getting) (scolded|caught|fined|punished|blamed|tricked)\b/g, 'kena $2'), W(/\b(good deal|good opportunity|great deal)\b/g, 'lobang'),
-    W(/\b(sabotaged|sabotage|pranked|prank)\b/g, 'sabo'), W(/\b(estimate|roughly|eyeball it)\b/g, 'agak agak'), W(/\bstop (disturbing|bothering|annoying)\b/g, 'dun kacau'), W(/\b(disturbing|disturb|bother|bothering)\b/g, 'kacau'),
-    W(/\b(please help me|help me|please help)\b/g, 'tolong'), W(/\b(whenever you like|as you like|anyhow)\b/g, 'suka suka'), W(/\b(darling|babe|sweetheart)\b/g, 'sayang'),
-    W(/\b(easy|simple)\b/g, 'senang'), W(/\b(difficult|so hard)\b/g, 'susah'), W(/\b(faint|pass out|passed out|fainted)\b/g, 'pengsan'),
+    W(/\b(sabotaged|sabotage|pranked|prank)\b/g, 'sabo'), W(/\b(just estimate|estimate (it|lah)|eyeball it|go by feel)\b/g, 'agak agak'), W(/\bstop (disturbing|bothering|annoying)\b/g, 'dun kacau'), W(/\b(disturbing|disturb|bother|bothering)\b/g, 'kacau'),
+    W(/^(please help( me)?|help me please|someone help( me)?)$/g, 'tolong'), W(/\b(whenever you like|as you like|anyhow)\b/g, 'suka suka'), W(/\b(darling|babe|sweetheart)\b/g, 'sayang'),
+    W(/\b(was |is )?(so easy|very easy)\b/g, 'damn senang'), W(/\b(was |is )?(so difficult|very difficult|so hard)\b/g, 'damn susah'), W(/\b(faint|pass out|passed out|fainted)\b/g, 'pengsan'),
     W(/\b(run away|ran away|escape|bolt)\b/g, 'cabut'), W(/\b(mixed up|a mix of everything|all mixed)\b/g, 'rojak'), W(/\b(food buddy|eating buddy|food kaki)\b/g, 'makan kaki'),
     W(/\b(go for a walk|take a stroll|walk around|wander around)\b/g, 'jalan jalan'), W(/\bquickly\b/g, 'chop chop'), W(/\b(reverse|back up the car)\b/g, 'gostan'),
     W(/\bsecurity guard\b|\bguard\b/g, 'jaga'), W(/\b(westerners?|white people|caucasians?)\b/g, 'ang moh'),
     W(/\b(take ?away|pack (it|food|the food)( back)?)\b/g, 'tapau'), W(/\b(crazy|insane|nuts)\b/g, 'siao'), W(/\b(pretty|beautiful|good-looking)\b/g, 'swee'),
-    W(/\b(busybody|nosy|nosey)\b/g, 'kaypoh'), W(/\b(scared|afraid)\b/g, 'kiasi'), W(/\b(competitive|scared to lose out|scared of missing out|fomo)\b/g, 'kiasu'),
-    W(/\b(angry|annoyed|upset|pissed)\b/g, 'buay song'), W(/\b(frustrated|stressed)\b/g, 'pek chek'), W(/\bunlucky\b/g, 'suay'), W(/\blucky\b/g, 'heng'),
+    W(/\b(busybody|nosy|nosey)\b/g, 'kaypoh'), W(/\b(so scared|too scared|scared to die|chicken out|chickened out|coward)\b/g, 'kiasi'), W(/\b(competitive|scared to lose out|scared of missing out|fomo)\b/g, 'kiasu'),
+    W(/\b(angry|annoyed|pissed off|pissed)\b/g, 'buay song'), W(/\b(frustrated|stressed)\b/g, 'pek chek'), W(/\bunlucky\b/g, 'suay'), W(/\blucky\b/g, 'heng'),
     W(/\b(craving)\b/g, 'gian'), W(/\b(go party|go partying|go clubbing|party)\b/g, 'go chiong'), W(/\b(have coffee|get coffee|grab coffee|go for coffee)\b/g, 'lim kopi'),
-    W(/\b(is |are )?(all gone|used up|sold out)\b/g, 'habis liao'), W(/\bbuddy\b|\bmy friend\b/g, 'macha'), W(/\b(ugh|oh man|aiya)\b/g, 'aiyo'),
+    W(/\b(is |are )?(all gone|used up|sold out)\b/g, 'habis liao'), W(/\b(hey buddy|my buddy)\b/g, 'macha'), W(/\b(ugh|oh man|aiya)\b/g, 'aiyo'),
     W(/\b(hometown|village)\b/g, 'kampung'), W(/\b(one of us|our own people)\b/g, 'kakinang'), W(/\b(silly|dumb)\b/g, 'gong'), W(/\bno money\b|\bbroke\b/g, 'no lui'),
-    W(/\bdelicious\b/g, 'ho jiak'), W(/\b(very|really|so) (good|nice|fun)\b/g, 'sibei $2'),
+    W(/\bdelicious\b/g, 'ho jiak'), W(/\b(very|really|so) (good|nice|fun)\b/g, 'damn $2'),
   ];
   const ORIGIN = { solid: ['Singlish', 'awesome'], onz: ['Singlish', 'I’m in, let’s do it'], 'ho seh bo': ['Hokkien', 'how are you'], 'bo tai ji': ['Hokkien', 'no big deal'], zao: ['Hokkien', 'leave'], 'pang seh': ['Hokkien', 'stood up'],
     'bo hiao': ['Hokkien', 'don’t know how to'], 'eat snake': ['Singlish (from Hokkien)', 'slack off'], 'chut pattern': ['Hokkien + English', 'make excuses'], action: ['Singlish', 'show off'],
@@ -2345,7 +2364,7 @@ dialog.flyer.multi .fl-nav{display:grid}
     kelong: ['Malay', 'cheat, rigged'], tekan: ['Malay', 'bully'], nakal: ['Malay', 'naughty'], yaya: ['Singlish', 'arrogant'], ponteng: ['Malay', 'skip class'], mugging: ['Singlish', 'studying hard'],
     mug: ['Singlish', 'study hard'], mugger: ['Singlish', 'nerd'], 'bluff me': ['Singlish', 'lie to me'], bluffer: ['Singlish', 'liar'], mata: ['Malay', 'police'], towkay: ['Hokkien', 'boss'],
     cher: ['Singlish', 'teacher'], 'can one': ['Singlish', 'I can do it'], 'dun have': ['Singlish', 'don’t have'], 'go back': ['Singlish', 'go home'], 'raining liao': ['Singlish', 'it’s raining'],
-    'go sleep': ['Singlish', 'go to sleep'], walao: ['Hokkien', 'oh my god'], alamak: ['Malay', 'oh no'], atas: ['Malay', 'fancy'], liao: ['Hokkien', 'already, done'] };
+    'go sleep': ['Singlish', 'go to sleep'], pls: ['texting', 'please'], wassup: ['texting', 'what’s up'], 'no mood': ['Singlish', 'not in the mood'], 'what happen': ['Singlish', 'what happened'], 'heart pain': ['Singlish', 'heartbroken'], walao: ['Hokkien', 'oh my god'], alamak: ['Malay', 'oh no'], atas: ['Malay', 'fancy'], liao: ['Hokkien', 'already, done'] };
   const SCRIPT = { 'ho seh bo': '好勢無', 'bo tai ji': '無代誌', zao: '走', 'pang seh': '放生', 'bo hiao': '無曉', 'eat snake': '食蛇', 'chut pattern': '出 pattern',
     kancheong: '緊張', cheem: '深', zhun: '準', 'ang pao': '紅包', siam: '閃', 'kiam siap': '鹹澀', 'ho say': '好勢', song: '爽', jio: '招', kopitiam: '咖啡店',
     'yum cha': '飲茶', mafan: '麻煩', 'ah gong': '阿公', 'ah ma': '阿嬤', thambi: 'தம்பி', 'ang moh': '紅毛', 'wa bo lui': '我無鐳', 'wa si liao': '我死了', 'wa bo chap': '我無插', 'bo pian': '無變', 'm sai': '毋使', 'bo liao': '無聊', 'bo bin': '無面',
@@ -2368,12 +2387,12 @@ dialog.flyer.multi .fl-nav{display:grid}
     W(/\bof course\b|\bobviously\b|\bduh\b/g, 'abuden'), W(/\bi don'?t know\b|\bi do not know\b|\bno idea\b/g, 'dunno'),
     W(/\bi don'?t want\b|\bi do not want\b/g, 'i dowan'), W(/\bdon'?t\b|\bdo not\b/g, 'dun'), W(/\bcan'?t\b|\bcannot\b|\bcan not\b/g, 'cannot'),
     W(/\bwon'?t\b/g, 'wun'), W(/\bdidn'?t invite me\b|\bdid not invite me\b|\bleft me out\b/g, 'bo jio'), W(/\bi can'?t stand (it|this)\b|\bi cannot stand (it|this)\b/g, 'buay tahan'),
-    W(/\bhang out\b|\bchill out\b|\bchill\b|\brelax\b/g, 'lepak'), W(/\b(so |very |really )?(bored|boring|tired|fed up)\b/g, 'damn sian'),
+    W(/\b(hang out|hanging out|chill out|chilling|lounge around)\b/g, 'lepak'), W(/\b(so |very |really )?(bored|boring|tired|fed up)\b/g, 'damn sian'),
     W(/\b(tasty|yummy)\b/g, 'shiok'), W(/\b(terrible|awful|a disaster|so bad|really bad)\b/g, 'jialat'), W(/\b(fancy|posh|bougie)\b/g, 'atas'),
-    W(/\b(sorry|embarrassing|awkward)\b/g, 'paiseh'), W(/\b(confused|clueless)\b/g, 'blur'), W(/\b(amazing|awesome|great)\b/g, 'steady'),
+    W(/^sorry\b|\b(so sorry|sorry ah|embarrassing|awkward)\b/g, 'paiseh'), W(/\b(confused|clueless)\b/g, 'blur'), W(/\b(amazing|awesome|great)\b/g, 'steady'),
     W(/\b(definitely|for sure|100%)\b/g, 'cfm'), W(/\breserve\b|\bsave (a|me a) (seat|table)\b/g, m => /seat|table/.test(m) ? 'chope ' + (m.includes('me') ? 'me a ' : 'a ') + m.split(' ').pop() : 'chope'),
     W(/\blike (this|that)\b/g, 'liddat'), W(/\b(very|really|so)\b(?= \w)/g, 'damn'), W(/\b(have to|need to|must)\b/g, 'need to'),
-    W(/\b(eat|eating|food)\b/g, m => m === 'eating' ? 'makan-ing' : 'makan'), W(/\bdude\b|\bmate\b|\bman\b(?=[,!?. ]|$)/g, 'bro'), W(/\bhey\b|\boi\b/g, 'eh'),
+    W(/\b(eat|eating)\b/g, m => m === 'eating' ? 'makan-ing' : 'makan'), W(/\bdude\b|\bmate\b|\bman\b(?=[,!?. ]|$)/g, 'bro'), W(/\bhey\b|\boi\b/g, 'eh'),
     W(/\blet'?s go for\b/g, 'jom go'), W(/\blet'?s go\b/g, 'jom'), W(/\blet'?s\b/g, 'jom'), W(/\bdun be (damn |so )?/g, 'dun $1'), W(/\bhurry( up)?\b/g, 'faster'), W(/\bvery expensive\b|\bexpensive\b/g, 'ex'), W(/\balready\b/g, 'alr'),
   ];
   // Exact lines Jarryl chose (they match his voice recordings); checked before the rules.
@@ -2402,6 +2421,10 @@ dialog.flyer.multi .fl-nav{display:grid}
           s = s.replace(/^have you (\w+)(.*)$/, (m, v, r) => 'you ' + (B[v] || v.replace(/ed$/, '')) + r + ' alr') + ' or not'; qDone = true; }
         else if (/^what are you doing\b/.test(s)) { s = s.replace(/^what are you doing/, 'you doing what'); qDone = true; }
         else if (/^where are you\b/.test(s)) { s = s.replace(/^where are you/, 'you where') + ' ah'; qDone = true; }
+        else if (/^what$/.test(s)) return 'huh?';
+        else if (/^(is|are) there (any )?(.+)$/.test(s)) { s = s.replace(/^(is|are) there (any )?(.+)$/, 'got $3') + ' or not'; qDone = true; }
+        else if (/^(what|where) (do|did|does|will|are|is) (you|we|they|he|she|i) (\w+)/.test(s) && !/^(what|where) \w+ \w+ (doing|now)$/.test(s)) {
+          const B = { going: 'going', eating: 'eating', doing: 'doing' }; s = s.replace(/^(what|where) (\w+) (\w+) (\w+)(.*)$/, (m, w, aux, who, v, r) => /^ to /.test(r) ? `${who} ${B[v] || v}${r} ${w}` : `${who} ${B[v] || v} ${w}${r}`) + ' ah'; qDone = true; }
         else if (/^why (are|is|do|did) (you|we|they|he|she|it|i) so\b/.test(s)) { s = s.replace(/^why \w+ (\w+) so\b/, 'why $1 zzso') + ' one'; qDone = true; }
         else if (/^(what|where|why|how|when|who|which)\b/.test(s)) { s = s.replace(/^(\w+) (are|is|do|does|did) (you|we|they|he|she|it|i)\b/, '$3 $1'); s += ' ah'; qDone = true; }
         else if (/^(can|could) (you|i|we)\b/.test(s)) { s = s.replace(/^(can|could) (you|i|we)\s*/, '') + ' can or not'; qDone = true; }
@@ -2414,6 +2437,7 @@ dialog.flyer.multi .fl-nav{display:grid}
       s = s.replace(/\balready (finished|ate|went|did|left|arrived|came|paid|booked|bought|sent)\b/g, '$1');
       HOKKIEN.forEach(([re, to]) => { s = s.replace(re, to); });
       LEX.forEach(([re, to]) => { s = s.replace(re, to); });
+      LEX2.forEach(([re, to]) => { s = s.replace(re, to); });
       s = s.replace(/\b(i|you|he|she|we|they) (didn'?t|did not)\b/g, '$1 never');
       // grammar: there is/are -> got; I have (not "have to") -> I got; drop is/are/am
       s = s.replace(/\bthere (is|are|was|were)\b/g, 'got').replace(/\b(i|you|we|they) have (?!to\b|been\b|\w+ed\b)/g, '$1 got ').replace(/\b(he|she) has (?!to\b|been\b)/g, '$1 got ');
@@ -2429,10 +2453,10 @@ dialog.flyer.multi .fl-nav{display:grid}
       if (q) return s + '?';
       // one particle, chosen by mood (or none)
       if (/^(morning|afternoon|evening|night|hello|hi|hey|bye|see you|happy)\b/.test(s)) return s + (ex ? '!' : '');
-      const has = /\b(lah|leh|lor|sia|meh|hor|ah|one|liao|alr)$/.test(s);
+      const has = /\b(lah|leh|lor|sia|meh|hor|ah|one|liao|alr|also|first|wassup)$/.test(s);
       if (has) return s + (ex ? '!' : '');
       if (/(^|, )(jom|faster|dun)\b[^,]*$/.test(s)) return s + (ex ? ' lah!' : ' lah');
-      if (/\b(sian|jialat|buay tahan|walao|cannot tahan|bo jio|need to)\b/.test(s) && !/sian$/.test(s)) return s + (ex ? ' sia!' : ' sia');
+      if (/\b(sian|jialat|buay tahan|walao|cannot tahan|bo jio)\b/.test(s) && !/sian$/.test(s)) return s + (ex ? ' sia!' : ' sia');
       if (/sian$/.test(s)) return s + (ex ? '!' : ' sia');
       if (/\b(dunno|maybe|i think|not sure|i guess)\b/.test(s)) return s + ' leh';
       if (/^(jom|faster|come|go|let'?s|just|dun|eh)\b/.test(s) || /, (jom|faster|dun|come|go)\b[^,]*$/.test(s)) return s + (ex ? ' lah!' : ' lah');
@@ -2451,7 +2475,7 @@ dialog.flyer.multi .fl-nav{display:grid}
     [/\s*\b(lah|leh|lor|sia|hor|meh)\b(?=[\s.!?,]|$)/g, ''], [/\s*\b(one|ah)\b(?=[\s.!?,]*$)/g, ''], [/\balr\b|\bliao\b/g, 'already'], [/\bgot\b/g, 'have'], [/\bdun\b/g, "don't"], [/\bdowan\b/g, "don't want"],
     [/\bdunno\b/g, "don't know"], [/\bcfm\b/g, 'definitely'], [/\bdamn\b|\bsibei\b/g, 'very'], [/\bwah\b/g, 'wow'], [/\bwalao\b/g, 'oh my god'], [/\babuden\b/g, 'obviously'],
     [/\bbo jio\b/g, "didn't invite me"], [/\bbuay tahan\b/g, "can't stand it"], [/\bliddat\b/g, 'like that'], [/\bchope\b/g, 'reserve'], [/\bbro\b/g, 'mate'], [/\beh\b/g, 'hey'],
-    [/\bex\b/g, 'expensive'], [/\bsteady\b/g, 'great'], [/\bblur\b/g, 'confused'], [/\bfaster\b/g, 'hurry up'], [/\bcannot\b/g, "can't"], [/\bnever\b/g, "didn't"], [/\bpack\b/g, 'crowded'], [/\bbf\b/g, 'boyfriend'], [/\bgf\b/g, 'girlfriend'], [/\bya\b/g, 'yes'], [/\balr\b/g, 'already']];
+    [/\bex\b/g, 'expensive'], [/\bsteady\b/g, 'great'], [/\bblur\b/g, 'confused'], [/\bfaster\b/g, 'hurry up'], [/\bcannot\b/g, "can't"], [/\bnever\b/g, "didn't"], [/\bpack\b/g, 'crowded'], [/\bbf\b/g, 'boyfriend'], [/\bgf\b/g, 'girlfriend'], [/\bya\b/g, 'yes'], [/\breach\b/g, 'arrive'], [/\bme also\b/g, 'me too'], [/\bdun liddat\b/g, "don't do that"], [/\birritating\b/g, 'annoying'], [/\balr\b/g, 'already']];
   function english(txt) {
     let s = ' ' + txt.trim().toLowerCase() + ' ';
     s = s.replace(/^\s*(\w+(?: \w+)*?) can or not\?\s*$/, ' can you $1? ').replace(/^\s*you (.+?) or not\?\s*$/, ' are you $1? ');
