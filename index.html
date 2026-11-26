@@ -2346,7 +2346,7 @@ dialog.flyer.multi .fl-nav{display:grid}
     W(/\blet'?s go for\b/g, 'jom go'), W(/\blet'?s go\b/g, 'jom'), W(/\blet'?s\b/g, 'jom'), W(/\bdun be (damn |so )?/g, 'dun $1'), W(/\bhurry( up)?\b/g, 'faster'), W(/\bvery expensive\b|\bexpensive\b/g, 'ex'), W(/\balready\b/g, 'alr'),
   ];
   // Exact lines Jarryl chose (they match his voice recordings); checked before the rules.
-  const EXACT = { 'wow this food is so delicious': 'wah this food damn good sia', 'lets go party it will be so fun': 'onz, lets go, it will be fun' };
+  const EXACT = { 'wow this food is so delicious': 'wah this food damn good sia', 'lets go party it will be so fun': 'onz, lets go, it will be fun', 'im broke so lucky i didnt go to this event': 'wa bo lui, heng i never go for this event sia' };
   function singlish(txt) {
     const t = txt.trim(); if (!t) return '';
     const ek = t.toLowerCase().replace(/[^a-z0-9 ]+/g, '').replace(/\s+/g, ' ').trim(); if (EXACT[ek]) return EXACT[ek];
