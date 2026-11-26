@@ -211,6 +211,13 @@ Script just before GoatCounter (after the quiz). All built from normal markup:
 - Partners: List/Map switch; map loads Leaflet (cdnjs) + OpenStreetMap tiles only when opened. Pin positions in GEO
   (keyed by logo file name). New sponsor = add its coordinates to GEO.
 
+## Collab logos + multi-page flyers (Jarryl, 27 Nov 2026)
+- Collab cards: `data-hosts="file=Name|file=Name"` (and optional `data-support=...`) on the <article> builds a "Hosted by /
+  Supported by" strip of overlapping round logos above the facts. Logos live in soc/ (240px PNG, circular); Leeds = logo-sq.png.
+  No logo yet: `~XY=Name` shows a teal initials badge (BCSoc is `~BC` until we get its logo).
+- Flyers show ALL pages: the poster, any `.posters` slideshow images, plus `data-pages="a.jpg|b.jpg"` on the card
+  (arrows, dots, swipe, arrow keys). When Jarryl sends extra pages of an event (itinerary, menu...), add them there.
+
 ## Daily site check (since 26 Oct 2026)
 A claude.ai scheduled task, `leedssingsoc-site-check`, runs every day at 08:36 UK time. It checks the live site
 (new commits, broken images/links, page errors on desktop and phone, out-of-date events or sponsor deals, and

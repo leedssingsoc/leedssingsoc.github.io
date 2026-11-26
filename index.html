@@ -651,7 +651,7 @@ dialog.quizbox[open]{display:flex;flex-direction:column;animation:sheet-in .28s 
 html.sgnight .sgnight-note{display:block}
 .sgnight-note button{all:unset;cursor:pointer;text-decoration:underline;margin-left:6px;color:#fff}
 /* Flyer pages */
-.flyer-open{all:unset;cursor:pointer;display:block;position:relative;border-radius:8px}
+.flyer-open{all:unset;cursor:pointer;display:block;position:relative;border-radius:8px;align-self:start;line-height:0}
 .flyer-open:focus-visible{outline:3px solid var(--red);outline-offset:3px}
 .flyer-open::after{content:"⤢ Open flyer";position:absolute;right:8px;bottom:8px;font:700 12px/1 var(--body);color:#fff;background:rgba(14,42,47,.78);padding:6px 9px;border-radius:999px}
 dialog.flyer{border:0;padding:0;margin:0;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;background:#0B1C1F;color:#EEF3F2;overflow:hidden}
@@ -743,6 +743,29 @@ ruby.dz{ruby-position:under;color:var(--red-ink);margin:0 .3em}
 ruby.dz rt{white-space:nowrap}
 ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;padding-top:2px}
 .sg-orig i{font-style:normal;font-weight:700;color:var(--red-ink);margin:0 4px 0 2px}
+
+ruby.dz.hz{font-family:"Noto Serif TC","PingFang TC","Microsoft JhengHei",serif;font-weight:700;font-size:.92em}
+
+/* multi-page flyer */
+.fl-nav{all:unset;cursor:pointer;position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;display:none;place-items:center;font-size:30px;line-height:1;color:#fff;background:rgba(0,0,0,.45);z-index:2}
+.fl-nav.prev{left:14px}.fl-nav.next{right:14px}
+dialog.flyer.multi .fl-nav{display:grid}
+.fl-dots{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:center;gap:7px;z-index:2}
+.fl-dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4)}.fl-dots i.on{background:#FFC72C;width:22px;border-radius:4px}
+.fl-art img.turn{animation:flturn .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes flturn{from{opacity:0;transform:rotate(-1.5deg) translateX(30px)}to{opacity:1;transform:rotate(-1.5deg)}}
+/* collab logos on event cards */
+.collab{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--paper);border:1px dashed var(--line)}
+.collab .cg{display:grid;grid-template-columns:auto auto;grid-template-rows:auto auto;column-gap:10px;align-items:center}
+.collab .ck{grid-column:1/3;font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.collab .orgs{display:flex}
+.collab .org{width:40px;height:40px;border-radius:50%;background:#fff;border:2px solid var(--surface);box-shadow:0 2px 6px rgba(0,0,0,.14);display:grid;place-items:center;overflow:hidden;margin-left:-9px;transition:transform .2s;position:relative}
+.collab .org:first-child{margin-left:0}
+.collab .org:hover{transform:translateY(-3px) scale(1.08);z-index:2}
+.collab .org img{width:100%;height:100%;object-fit:contain}
+.collab .org.txt{background:var(--ink);color:#fff;font:800 12px/1 var(--display)}
+.collab .cn{font-size:12.5px;color:var(--muted);line-height:1.3;max-width:300px}
+.collab .sup .org{width:34px;height:34px}
 </style>
 
 <nav class="nav" aria-label="Main">
@@ -962,7 +985,7 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
           </div>
         </article>
 
-        <article class="card feature" id="leeds-christmas" data-until="2026-12-05">
+        <article class="card feature" id="leeds-christmas" data-until="2026-12-05" data-hosts="soc/sheffield.png=Sheffield SingSoc|logo-sq.png=Leeds SingSoc|soc/york.png=York SingSoc|soc/durham.png=Durham SingSoc" data-support="soc/sgn.png=Singapore Global Network">
           <img src="leeds-christmas-poster.jpg" alt="A Leeds Christmas poster: SingSocs present, 5th December, 12pm to 7pm. Lunch, explore Leeds, Christmas market. Price for lunch only: member £9, non-member £12. Limited slots. Hosted by Sheffield, Leeds, York and Durham Singapore societies, supported by Singapore Global Network.">
           <div class="fbody">
             <div class="chips"><span class="chip hot">Sat 5 Dec</span><span class="chip" data-cd="2026-12-05" data-time="12pm">Leeds</span></div>
@@ -1000,7 +1023,7 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
           </div>
         </article>
 
-        <article class="card feature" id="monsta-wonderland" data-until="2026-12-06">
+        <article class="card feature" id="monsta-wonderland" data-until="2026-12-06" data-hosts="logo-monsta.png=Monsta Leeds|~BC=BCSoc Leeds|logo-sq.png=Leeds SingSoc">
           <div class="posters" data-posters>
             <div class="pframe" title="Tap for the other room">
               <img class="on" src="monsta-kpop-wonderland-poster.jpg" data-desc="&lt;b&gt;Main room · KPOP Wonderland&lt;/b&gt; DJ Indy, DJ Sol and a special guest DJ from the USA. K-pop, throwbacks, hip-hop, OPM and EDM all night, 11pm – 4am." alt="Main room poster: Monsta Leeds x BCSoc presents KPOP Wonderland: Sunday 6 December 2026, 11pm to 4am, Warehouse Nightclub. Advanced £10, second release £12, final release £15, door £20. Dress code Christmas, blue or white.">
@@ -2129,7 +2152,7 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
 
   /* 6. Event flyer pages: tap a poster for a full-screen flyer with a big countdown. */
   const fl = document.createElement('dialog'); fl.className = 'flyer'; fl.setAttribute('aria-label', 'Event flyer');
-  fl.innerHTML = '<button class="fl-x" type="button" aria-label="Close flyer">×</button><div class="fl-art"><div class="blur"></div><img alt=""></div><div class="fl-info"></div>';
+  fl.innerHTML = '<button class="fl-x" type="button" aria-label="Close flyer">×</button><div class="fl-art"><div class="blur"></div><img alt=""><button class="fl-nav prev" type="button" aria-label="Previous page">‹</button><button class="fl-nav next" type="button" aria-label="Next page">›</button><div class="fl-dots"></div></div><div class="fl-info"></div>';
   document.body.appendChild(fl);
   $('.fl-x', fl).addEventListener('click', () => fl.close());
   fl.addEventListener('close', () => root.classList.remove('noscroll'));
@@ -2140,9 +2163,25 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
     box.innerHTML = m ? [['d', m[1] || '0', 'days'], ['h', m[2], 'hrs'], ['m', m[3], 'min'], ['s', m[4], 'sec']].map(([, v, l]) => `<div><b>${String(+v).padStart(2, '0')}</b><span>${l}</span></div>`).join('')
       : `<div><b>${esc(t || 'Soon')}</b></div>`;
   }
+  let flPages = [], flIdx = 0;
+  function flShow(i) {
+    if (!flPages.length) return; flIdx = (i + flPages.length) % flPages.length; const src = flPages[flIdx], im = $('.fl-art img', fl);
+    im.classList.remove('turn'); void im.offsetWidth; im.classList.add('turn'); im.src = src; $('.fl-art .blur', fl).style.backgroundImage = `url('${src}')`;
+    $$('.fl-dots i', fl).forEach((d, k) => d.classList.toggle('on', k === flIdx));
+  }
+  $('.fl-nav.prev', fl).addEventListener('click', () => flShow(flIdx - 1)); $('.fl-nav.next', fl).addEventListener('click', () => flShow(flIdx + 1));
+  { let x0 = null; const a = $('.fl-art', fl); a.addEventListener('touchstart', e => x0 = e.touches[0].clientX, { passive: true });
+    a.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) flShow(flIdx + (dx < 0 ? 1 : -1)); }); }
+  fl.addEventListener('keydown', e => { if (e.key === 'ArrowRight') flShow(flIdx + 1); if (e.key === 'ArrowLeft') flShow(flIdx - 1); });
+  function pagesOf(card, first) {
+    const list = [first]; const ps = $('.posters', card); if (ps) $$('.pframe img', ps).forEach(i => list.push(i.getAttribute('src')));
+    (card.dataset.pages || '').split('|').map(x => x.trim()).filter(Boolean).forEach(x => list.push(x));
+    return [...new Set(list)];
+  }
   function openFlyer(card, imgSrc) {
     flCard = card; const title = $('.ftitle', card)?.textContent.trim() || '';
-    $('.fl-art img', fl).src = imgSrc; $('.fl-art img', fl).alt = title + ' poster'; $('.fl-art .blur', fl).style.backgroundImage = `url('${imgSrc}')`;
+    flPages = pagesOf(card, imgSrc); $('.fl-art img', fl).alt = title + ' poster';
+    $('.fl-dots', fl).innerHTML = flPages.length > 1 ? flPages.map(() => '<i></i>').join('') : ''; fl.classList.toggle('multi', flPages.length > 1); flShow(0);
     const facts = $$('.facts > div', card).map(d => { const k = $('dt', d)?.textContent.trim(), dd = $('dd', d); const v = dd ? ($('b', dd) ? $('b', dd).textContent.trim() + ($('.addr', dd) ? ', ' + $('.addr', dd).textContent.trim() : '') : dd.textContent.trim()) : '';
       return `<div><b>${esc(k)}</b> · ${esc(v)}</div>`; }).join('');
     const ctas = $$('.ctas-left a', card).map(a => `<a class="btn ${a.classList.contains('red') ? 'red' : 'line'}" href="${esc(a.getAttribute('href'))}" target="_blank" rel="noopener">${esc(a.textContent.trim())}</a>`).join('');
@@ -2160,6 +2199,19 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
     const ps = $('.posters', card);
     if (ps) { const chip = document.createElement('button'); chip.type = 'button'; chip.className = 'chip'; chip.style.cursor = 'pointer'; chip.textContent = '⤢ Flyer';
       $('.chips', card)?.appendChild(chip); chip.addEventListener('click', () => openFlyer(card, ($('.pframe img.on', ps) || $('.pframe img', ps)).getAttribute('src'))); }
+  });
+
+  /* Collab events: "Hosted by" logo strip from data-hosts / data-support ("file=Name|file=Name"; no file = initials). */
+  const parseOrgs = v => (v || '').split('|').map(x => x.trim()).filter(Boolean).map(x => { const [f, n] = x.includes('=') ? x.split('=') : ['', x]; return { f: f.trim(), n: n.trim() }; });
+  const orgBadge = o => o.f && o.f[0] === '~' ? `<span class="org txt" title="${esc(o.n)}"><b>${esc(o.f.slice(1))}</b></span>` : o.f ? `<span class="org" title="${esc(o.n)}"><img src="${esc(o.f)}" alt="${esc(o.n)}" loading="lazy"></span>`
+    : `<span class="org txt" title="${esc(o.n)}"><b>${esc(o.n.split(/\s+/).filter(w => /^[A-Z]/.test(w)).map(w => w[0]).join('').slice(0, 3) || o.n.slice(0, 2))}</b></span>`;
+  $$('.events > article.card[data-hosts]').forEach(card => {
+    const hosts = parseOrgs(card.dataset.hosts), sup = parseOrgs(card.dataset.support); if (!hosts.length) return;
+    const box = document.createElement('div'); box.className = 'collab';
+    box.innerHTML = `<div class="cg"><span class="ck">${hosts.length > 1 ? 'Hosted by' : 'With'}</span><div class="orgs">${hosts.map(orgBadge).join('')}</div>
+      <span class="cn">${esc(hosts.map(h => h.n).join(' · '))}</span></div>` +
+      (sup.length ? `<div class="cg sup"><span class="ck">Supported by</span><div class="orgs">${sup.map(orgBadge).join('')}</div><span class="cn">${esc(sup.map(h => h.n).join(' · '))}</span></div>` : '');
+    const facts = $('.facts', card); (facts || $('.fbody', card)).before(box);
   });
 
   /* 7. Moving photo wall under the gallery covers (small thumbnails, pauses on hover). */
@@ -2208,7 +2260,30 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
      unsure -> leh, push/suggest -> lah, seeking agreement -> hor. Many sentences get no particle at all.
      Texting style: lowercase, alr, cfm, dun, dowan, bro. Sources: Wikipedia "Singlish" and "Singlish vocabulary". */
   const W = (re, to) => [re, to];
+  const HOKKIEN = [
+    W(/\b(you )?(didn'?t|did not|never) invite me\b/g, 'bo jio'), W(/\bhow are you( doing)?\b/g, 'ho seh bo'), W(/\b(no big deal|it'?s nothing|no worries|no problem)\b/g, 'bo tai ji'),
+    W(/\b(i'?m leaving|i am leaving|i'?ll go|i will go|i'?m heading off|i'?m off)( first)?\b/g, 'i zao first'), W(/\b(stood me up|ditched me|bailed on me)\b/g, 'pang seh me'),
+    W(/\b(don'?t know how to|do not know how to)\b/g, 'bo hiao'), W(/\b(slack(ing)? off|skiv(e|ing)|lazing around)\b/g, 'eatsnake'),
+    W(/\b(making excuses|so many excuses|full of excuses)\b/g, 'chut pattern'), W(/\b(showing off|show off|show-off)\b/g, 'action'),
+    W(/\b(i have no money|i got no money|i'?m broke|i am broke|i no money|i'?m poor)\b/g, 'wa bo lui'),
+    W(/\b(i'?m (so )?dead|i am (so )?dead|i'?m doomed|i am doomed|i'?m finished|i am finished)\b/g, 'wa si liao'),
+    W(/\b(i don'?t care|i do not care)\b/g, 'wa bo chap'), W(/\b(no choice|nothing we can do|nothing i can do)\b/g, 'bo pian'),
+    W(/\bno need\b/g, 'm sai'), W(/\b(pointless|nonsense|so random)\b/g, 'bo liao'), W(/\b(so )?shameless\b/g, 'bo bin'),
+    W(/\bi want\b(?! to)/g, 'wa ai'), W(/\b(i don'?t understand|i do not understand)\b/g, 'wa tia bo'),
+  ];
   const DIALECT = [
+    W(/\b(nervous|anxious|panicky|panicking)\b/g, 'kancheong'), W(/\b(complicated|too deep|hard to understand)\b/g, 'cheem'), W(/\b(accurate|spot on|on point)\b/g, 'zhun'),
+    W(/\b(red packets?|hongbao)\b/g, 'ang pao'), W(/\b(avoid|dodge|stay away from)\b/g, 'siam'), W(/\b(stingy|cheapskate|tight-fisted)\b/g, 'kiam siap'),
+    W(/\b(well done|nice one|all good|all settled)\b/g, 'ho say'), W(/\b(happy|satisfied|so good)\b/g, 'song'), W(/\binvite\b/g, 'jio'),
+    W(/\b(coffee shop|food court)\b/g, 'kopitiam'), W(/\b(dim sum|brunch)\b/g, 'yum cha'), W(/\b(troublesome|such a hassle|a hassle|annoying to do)\b/g, 'mafan'),
+    W(/\b(grandpa|grandfather)\b/g, 'ah gong'), W(/\b(grandma|grandmother)\b/g, 'ah ma'), W(/\b(little brother|lil bro)\b/g, 'thambi'),
+    W(/\b(got|was|were|get|getting) (scolded|caught|fined|punished|blamed|tricked)\b/g, 'kena $2'), W(/\b(good deal|good opportunity|great deal)\b/g, 'lobang'),
+    W(/\b(sabotaged|sabotage|pranked|prank)\b/g, 'sabo'), W(/\b(estimate|roughly|eyeball it)\b/g, 'agak agak'), W(/\b(disturb|bother|bothering)\b/g, 'kacau'),
+    W(/\b(help me|please help)\b/g, 'tolong'), W(/\b(whenever you like|as you like|anyhow)\b/g, 'suka suka'), W(/\b(darling|babe|sweetheart)\b/g, 'sayang'),
+    W(/\b(easy|simple)\b/g, 'senang'), W(/\b(difficult|so hard)\b/g, 'susah'), W(/\b(faint|pass out|passed out|fainted)\b/g, 'pengsan'),
+    W(/\b(run away|ran away|escape|bolt)\b/g, 'cabut'), W(/\b(mixed up|a mix of everything|all mixed)\b/g, 'rojak'), W(/\b(food buddy|eating buddy|food kaki)\b/g, 'makan kaki'),
+    W(/\b(go for a walk|take a stroll|walk around|wander around)\b/g, 'jalan jalan'), W(/\bquickly\b/g, 'chop chop'), W(/\b(reverse|back up the car)\b/g, 'gostan'),
+    W(/\bsecurity guard\b|\bguard\b/g, 'jaga'), W(/\b(westerners?|white people|caucasians?)\b/g, 'ang moh'),
     W(/\b(take ?away|to go|pack (it|food|the food)( back)?)\b/g, 'tapau'), W(/\b(crazy|insane|nuts)\b/g, 'siao'), W(/\b(pretty|beautiful|good-looking)\b/g, 'swee'),
     W(/\b(busybody|nosy|nosey)\b/g, 'kaypoh'), W(/\b(scared|afraid)\b/g, 'kiasi'), W(/\b(competitive|scared to lose out|scared of missing out|fomo)\b/g, 'kiasu'),
     W(/\b(angry|annoyed|upset|pissed)\b/g, 'buay song'), W(/\b(frustrated|stressed)\b/g, 'pek chek'), W(/\bunlucky\b/g, 'suay'), W(/\blucky\b/g, 'heng'),
@@ -2217,24 +2292,40 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
     W(/\b(hometown|village)\b/g, 'kampung'), W(/\b(one of us|our own people)\b/g, 'kakinang'), W(/\b(silly|dumb)\b/g, 'gong'), W(/\bno money\b|\bbroke\b/g, 'no lui'),
     W(/\bdelicious\b/g, 'ho jiak'), W(/\b(very|really|so) (good|nice|fun)\b/g, 'sibei $2'),
   ];
-  const ORIGIN = { sibei: ['Hokkien', 'very'], tapau: ['Cantonese', 'takeaway'], siao: ['Hokkien', 'crazy'], swee: ['Hokkien', 'pretty'], kaypoh: ['Hokkien', 'busybody'],
+  const ORIGIN = { 'ho seh bo': ['Hokkien', 'how are you'], 'bo tai ji': ['Hokkien', 'no big deal'], zao: ['Hokkien', 'leave'], 'pang seh': ['Hokkien', 'stood up'],
+    'bo hiao': ['Hokkien', 'don’t know how to'], 'eat snake': ['Singlish (from Hokkien)', 'slack off'], 'chut pattern': ['Hokkien + English', 'make excuses'], action: ['Singlish', 'show off'],
+    kancheong: ['Cantonese', 'nervous'], cheem: ['Hokkien', 'complicated'], zhun: ['Hokkien', 'accurate'], 'ang pao': ['Hokkien', 'red packet'], siam: ['Hokkien', 'avoid'],
+    'kiam siap': ['Hokkien', 'stingy'], 'ho say': ['Hokkien', 'all good'], song: ['Hokkien', 'happy'], jio: ['Hokkien', 'invite'], kopitiam: ['Hokkien + Malay', 'coffee shop'],
+    'yum cha': ['Cantonese', 'dim sum'], mafan: ['Mandarin', 'troublesome'], 'ah gong': ['Hokkien / Teochew', 'grandpa'], 'ah ma': ['Hokkien / Teochew', 'grandma'], thambi: ['Tamil', 'little brother'],
+    kena: ['Malay', 'got (hit by)'], lobang: ['Malay', 'good deal'], sabo: ['Singlish', 'sabotage'], 'agak agak': ['Malay', 'roughly'], kacau: ['Malay', 'disturb'], tolong: ['Malay', 'help'],
+    'suka suka': ['Malay', 'as you like'], sayang: ['Malay', 'darling'], senang: ['Malay', 'easy'], susah: ['Malay', 'difficult'], pengsan: ['Malay', 'faint'], cabut: ['Malay', 'run away'],
+    rojak: ['Malay', 'mixed up'], 'makan kaki': ['Malay', 'food buddy'], 'jalan jalan': ['Malay', 'stroll'], 'chop chop': ['Singlish', 'quickly'], gostan: ['Singlish (go astern)', 'reverse'],
+    jaga: ['Malay', 'guard'], 'ang moh': ['Hokkien', 'westerner'], 'wa bo lui': ['Hokkien', 'I’m broke'], 'wa si liao': ['Hokkien', 'I’m dead'], 'wa bo chap': ['Hokkien', 'I don’t care'],
+    'bo pian': ['Hokkien', 'no choice'], 'm sai': ['Hokkien', 'no need'], 'bo liao': ['Hokkien', 'pointless'], 'bo bin': ['Hokkien', 'shameless'],
+    'wa ai': ['Hokkien', 'I want'], 'wa tia bo': ['Hokkien', 'I don’t understand'], 'jiak ba buay': ['Hokkien', 'have you eaten?'], sibei: ['Hokkien', 'very'], tapau: ['Cantonese', 'takeaway'], siao: ['Hokkien', 'crazy'], swee: ['Hokkien', 'pretty'], kaypoh: ['Hokkien', 'busybody'],
     kiasi: ['Hokkien', 'scared'], kiasu: ['Hokkien', 'scared to lose out'], 'buay song': ['Hokkien', 'not happy'], 'pek chek': ['Hokkien', 'frustrated'], heng: ['Hokkien', 'lucky'],
     suay: ['Hokkien', 'unlucky'], gian: ['Hokkien', 'craving'], chiong: ['Hokkien', 'go hard'], 'lim kopi': ['Hokkien', 'drink coffee'], habis: ['Malay', 'finished'],
     macha: ['Tamil', 'buddy'], aiyo: ['Tamil / Malay', 'oh dear'], kampung: ['Malay', 'village'], kakinang: ['Teochew', 'one of us'], gong: ['Hokkien', 'silly'],
     lui: ['Hokkien', 'money'], 'ho jiak': ['Hokkien', 'delicious'], makan: ['Malay', 'eat, food'], jom: ['Malay', 'let’s go'], lepak: ['Malay', 'chill'], shiok: ['Malay', 'satisfying'],
     'buay tahan': ['Hokkien + Malay', 'can’t stand it'], jialat: ['Hokkien', 'terrible'], sian: ['Hokkien', 'bored, tired'], paiseh: ['Hokkien', 'sorry, awkward'],
     'bo jio': ['Hokkien', 'didn’t invite me'], walao: ['Hokkien', 'oh my god'], alamak: ['Malay', 'oh no'], atas: ['Malay', 'fancy'], liao: ['Hokkien', 'already, done'] };
-  const SCRIPT = { sibei: '死父', tapau: '打包', siao: '痟', swee: '媠', kaypoh: '家婆', kiasi: '驚死', kiasu: '驚輸', 'buay song': '袂爽',
+  const SCRIPT = { 'ho seh bo': '好勢無', 'bo tai ji': '無代誌', zao: '走', 'pang seh': '放生', 'bo hiao': '無曉', 'eat snake': '食蛇', 'chut pattern': '出 pattern',
+    kancheong: '緊張', cheem: '深', zhun: '準', 'ang pao': '紅包', siam: '閃', 'kiam siap': '鹹澀', 'ho say': '好勢', song: '爽', jio: '招', kopitiam: '咖啡店',
+    'yum cha': '飲茶', mafan: '麻煩', 'ah gong': '阿公', 'ah ma': '阿嬤', thambi: 'தம்பி', 'ang moh': '紅毛', 'wa bo lui': '我無鐳', 'wa si liao': '我死了', 'wa bo chap': '我無插', 'bo pian': '無變', 'm sai': '毋使', 'bo liao': '無聊', 'bo bin': '無面',
+    'wa ai': '我愛', 'wa tia bo': '我聽無', 'jiak ba buay': '食飽未', sibei: '死父', tapau: '打包', siao: '痟', swee: '媠', kaypoh: '家婆', kiasi: '驚死', kiasu: '驚輸', 'buay song': '袂爽',
     heng: '興', suay: '衰', gian: '癮', chiong: '衝', 'lim kopi': '啉 kopi', gong: '戇', lui: '鐳', 'ho jiak': '好食', kakinang: '家己人',
     jialat: '食力', paiseh: '歹勢', 'bo jio': '無招', 'buay tahan': '袂 tahan', liao: '了', macha: 'மச்சான்', aiyo: 'ஐயோ' };
   // Put the written form + English meaning under each dialect word in the translation, like subtitles.
+  const HZ = new Set(['ho seh bo', 'bo tai ji', 'bo hiao', 'wa bo lui', 'wa si liao', 'wa bo chap', 'bo pian', 'm sai', 'bo liao', 'bo bin', 'wa ai', 'wa tia bo', 'jiak ba buay']);
   function annotate(out) {
     let h = esc(out); const keys = Object.keys(ORIGIN).sort((a, b) => b.length - a.length);
     const re = new RegExp('\\b(' + keys.map(k => k.replace(/ /g, '\\s')).join('|') + ')\\b', 'g');
     return h.replace(re, m => { const k = m.toLowerCase(); const o = ORIGIN[k]; if (!o) return m;
+      if (HZ.has(k)) return `<ruby class="dz hz" lang="zh-Hant">${esc(SCRIPT[k])}<rt>${esc(k)} · ${esc(o[1])}</rt></ruby>`;
       return `<ruby class="dz">${m}<rt>${SCRIPT[k] ? esc(SCRIPT[k]) + ' · ' : ''}${esc(o[1].split(',')[0])}</rt></ruby>`; });
   }
-  function origins(out) { return Object.keys(ORIGIN).filter(k => new RegExp('\\b' + k + '\\b').test(out)).slice(0, 6); }
+  function origins(out) { const ks = Object.keys(ORIGIN).filter(k => new RegExp('\\b' + k + '\\b').test(out));
+    return ks.filter(k => !ks.some(o => o !== k && o.includes(k))).slice(0, 6); }
   const PHRASES = [
     W(/\bwhat the hell\b|\bwhat the heck\b|\bomg\b|\boh my god\b/g, 'walao'), W(/\boh no\b|\boh dear\b/g, 'alamak'), W(/\bwow\b/g, 'wah'),
     W(/\bof course\b|\bobviously\b|\bduh\b/g, 'abuden'), W(/\bi don'?t know\b|\bi do not know\b|\bno idea\b/g, 'dunno'),
@@ -2246,7 +2337,7 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
     W(/\b(definitely|for sure|100%)\b/g, 'cfm'), W(/\breserve\b|\bsave (a|me a) (seat|table)\b/g, m => /seat|table/.test(m) ? 'chope ' + (m.includes('me') ? 'me a ' : 'a ') + m.split(' ').pop() : 'chope'),
     W(/\blike (this|that)\b/g, 'liddat'), W(/\b(very|really|so)\b(?= \w)/g, 'damn'), W(/\b(have to|need to|must)\b/g, 'need to'),
     W(/\b(eat|eating|food)\b/g, m => m === 'eating' ? 'makan-ing' : 'makan'), W(/\bdude\b|\bmate\b|\bman\b(?=[,!?. ]|$)/g, 'bro'), W(/\bhey\b|\boi\b/g, 'eh'),
-    W(/\blet'?s go\b/g, 'jom'), W(/\blet'?s\b/g, 'jom'), W(/\bdun be (damn |so )?/g, 'dun $1'), W(/\bhurry( up)?\b/g, 'faster'), W(/\bvery expensive\b|\bexpensive\b/g, 'ex'), W(/\balready\b/g, 'alr'),
+    W(/\blet'?s go for\b/g, 'jom go'), W(/\blet'?s go\b/g, 'jom'), W(/\blet'?s\b/g, 'jom'), W(/\bdun be (damn |so )?/g, 'dun $1'), W(/\bhurry( up)?\b/g, 'faster'), W(/\bvery expensive\b|\bexpensive\b/g, 'ex'), W(/\balready\b/g, 'alr'),
   ];
   function singlish(txt) {
     const t = txt.trim(); if (!t) return '';
@@ -2256,6 +2347,8 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
       // questions first (before word swaps change the shape)
       let qDone = false;
       if (q) {
+        if (/^how are you( doing)?$/.test(s)) return 'ho seh bo?';
+        if (/^(have you eaten|have you had (lunch|dinner|breakfast)|did you eat)( yet)?$/.test(s)) return 'jiak ba buay?';
         if (/^(really|seriously|are you sure|you sure)$/.test(s)) return s.replace(/^are you sure$/, 'you sure') + ' meh?';
         else if (/, (are|do|will|can) you\b/.test(s)) { s = s.replace(/, (are|do|will) you (.+)$/, ', you $2 or not').replace(/, can you (.+)$/, ', $1 can or not'); qDone = true; }
         else if (/^is (it|that) (true|real)$/.test(s)) { s = 'real or not'; qDone = true; }
@@ -2271,6 +2364,8 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
       s = s.replace(/^(i|i'?m|i am) (so |very |really )?(tired|bored|sick) of (.+)$/, '$4 damn sian');
       s = s.replace(/\bthere (is|are) no (.+?) left\b/, 'no more $2 liao');
       s = s.replace(/\balready (finished|ate|went|did|left|arrived|came|paid|booked|bought|sent)\b/g, '$1');
+      HOKKIEN.forEach(([re, to]) => { s = s.replace(re, to); });
+      s = s.replace(/\b(i|you|he|she|we|they) (didn'?t|did not)\b/g, '$1 never');
       // grammar: there is/are -> got; I have (not "have to") -> I got; drop is/are/am
       s = s.replace(/\bthere (is|are|was|were)\b/g, 'got').replace(/\b(i|you|we|they) have (?!to\b|been\b|\w+ed\b)/g, '$1 got ').replace(/\b(he|she) has (?!to\b|been\b)/g, '$1 got ');
       s = s.replace(/\b(i'?m|i am|you'?re|you are|we'?re|we are|they'?re|they are|he'?s|she'?s|it'?s|that'?s|this is|that is|he is|she is|it is)\s+/g, m => {
@@ -2281,7 +2376,7 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
       DIALECT.forEach(([re, to]) => { s = s.replace(re, to); });
       PHRASES.forEach(([re, to]) => { s = s.replace(re, to); });
       if (ex) s = s.replace(/\bdamn (?=\w)/, 'sibei ');
-      s = s.replace(/\bdun damn\b/g, 'dun so').replace(/\bdamn damn\b/g, 'damn').replace(/\s{2,}/g, ' ').trim();
+      s = s.replace(/\beatsnake\b/g, 'eat snake').replace(/\bdun damn\b/g, 'dun so').replace(/\bdamn damn\b/g, 'damn').replace(/\s{2,}/g, ' ').trim();
       if (q) return s + '?';
       // one particle, chosen by mood (or none)
       const has = /\b(lah|leh|lor|sia|meh|hor|ah|one|liao|alr)$/.test(s);
@@ -2302,7 +2397,7 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
     [/\s*\b(lah|leh|lor|sia|hor|meh)\b(?=[\s.!?,]|$)/g, ''], [/\s*\b(one|ah)\b(?=[\s.!?,]*$)/g, ''], [/\balr\b|\bliao\b/g, 'already'], [/\bgot\b/g, 'have'], [/\bdun\b/g, "don't"], [/\bdowan\b/g, "don't want"],
     [/\bdunno\b/g, "don't know"], [/\bcfm\b/g, 'definitely'], [/\bdamn\b|\bsibei\b/g, 'very'], [/\bwah\b/g, 'wow'], [/\bwalao\b/g, 'oh my god'], [/\babuden\b/g, 'obviously'],
     [/\bbo jio\b/g, "didn't invite me"], [/\bbuay tahan\b/g, "can't stand it"], [/\bliddat\b/g, 'like that'], [/\bchope\b/g, 'reserve'], [/\bbro\b/g, 'mate'], [/\beh\b/g, 'hey'],
-    [/\bex\b/g, 'expensive'], [/\bsteady\b/g, 'great'], [/\bblur\b/g, 'confused'], [/\bfaster\b/g, 'hurry up'], [/\bcannot\b/g, "can't"]];
+    [/\bex\b/g, 'expensive'], [/\bsteady\b/g, 'great'], [/\bblur\b/g, 'confused'], [/\bfaster\b/g, 'hurry up'], [/\bcannot\b/g, "can't"], [/\bnever\b/g, "didn't"]];
   function english(txt) {
     let s = ' ' + txt.trim().toLowerCase() + ' ';
     s = s.replace(/^\s*(\w+(?: \w+)*?) can or not\?\s*$/, ' can you $1? ').replace(/^\s*you (.+?) or not\?\s*$/, ' are you $1? ');
@@ -2323,8 +2418,8 @@ ruby.dz rt{font:600 11.5px/1.2 var(--body);color:var(--muted);letter-spacing:0;p
     <p class="tr-h">Try one</p>
     <div class="sg-ex"></div>
     <p class="cg-msg">Just for fun. Real Singlish is best learnt at our events 😉</p>`;
-  const EX = { en: ['Are you coming to Monsta?', 'I am so tired of exams.', 'Wow, this food is so delicious!', 'You didn\'t invite me!', 'Can you take away for me?', 'The cake is all gone, so unlucky.', 'Let\'s go party, it will be so fun!'],
-               sg: ['you coming or not?', 'walao, the queue damn long sia', 'jom lim kopi, macha', 'tapau for me can or not?', 'this one sibei ho jiak', 'paiseh, dunno leh', 'you bo jio!'] };
+  const EX = { en: ['Are you coming to Monsta?', 'I am so tired of exams.', 'Wow, this food is so delicious!', 'You didn\'t invite me!', 'Can you take away for me?', 'I\'m broke, so lucky I didn\'t go to this event!', 'Have you eaten?', 'Let\'s go party, it will be so fun!'],
+               sg: ['wa bo lui, heng i never go for this event sia', 'you coming or not?', 'walao, the queue damn long sia', 'jom lim kopi, macha', 'tapau for me can or not?', 'this one sibei ho jiak', 'paiseh, dunno leh', 'you bo jio!'] };
   const sIn = $('.sg-in', sgd), sOut = $('.sg-out', sgd), sOr = $('.sg-orig', sgd), sN = $('.tr-n', sgd), exBox = $('.sg-ex', sgd);
   function upd() {
     const o = dir === 'en' ? singlish(sIn.value) : english(sIn.value); sgPlain = o; sOut.innerHTML = dir === 'en' ? annotate(o) : esc(o); sN.textContent = sIn.value.length + ' / 300';
