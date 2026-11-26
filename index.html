@@ -2446,6 +2446,7 @@ dialog.flyer.multi .fl-nav{display:grid}
   // line; anything else falls back to the device's voice. Add a line: { text: '<exact Singlish output>', file: 'voice/lineN.mp3', by: '' }.
   const VOICES = [
     { text: 'you coming to monsta or not?', file: 'voice/line1.mp3', by: '' },
+    { text: 'exams damn sian sia', file: 'voice/line2.mp3', by: '' },
   ];
   const vkey = t => t.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
   const voiceFor = t => VOICES.find(v => vkey(v.text) === vkey(t));
