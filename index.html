@@ -2173,39 +2173,74 @@ dialog.flyer[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr
     const out = []; words.forEach(w => { const t = line ? line + ' ' + w : w; if (g.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t; }); out.push(line);
     out.forEach((l, i) => g.fillText(l, x, y + i * lh)); }
 
-  /* 2. Singlish-ify: rule-based, just for fun. */
-  const RULES = [
-    [/\bi don'?t know\b/gi, 'dunno'], [/\bi do not know\b/gi, 'dunno'], [/\bwhat are you doing\b/gi, 'you doing what'],
-    [/\bwhere are you\b/gi, 'you where ah'],
-    [/\bcan i\b/gi, 'can I'], [/\bwow\b/gi, 'wah lau'], [/\boh my god\b/gi, 'alamak'], [/\boh no\b/gi, 'alamak'],
-    [/\bso tired\b/gi, 'damn sian'], [/\b(tired|bored)\b/gi, 'sian'], [/\b(delicious|tasty|yummy)\b/gi, 'shiok'], [/\bamazing\b/gi, 'power'],
-    [/\b(very|really|so)\s+/gi, 'damn '], [/\bsorry\b/gi, 'paiseh'], [/\bembarrassing\b/gi, 'paiseh'], [/\breserve\b/gi, 'chope'],
-    [/\bbusybody\b/gi, 'kaypoh'], [/\bnosy\b/gi, 'kaypoh'], [/\bscared to miss out\b/gi, 'kiasu'], [/\bnonsense\b/gi, 'bo liao'],
-    [/\byou didn'?t invite me\b/gi, 'you bo jio'], [/\b(food|eat)\b/gi, 'makan'], [/\blet'?s go\b/gi, 'jom'], [/\bhurry up\b/gi, 'faster lah'],
-    [/\bno way\b/gi, 'cannot lah'], [/\bthat'?s right\b/gi, 'correct what'], [/\bi think so\b/gi, 'I think so lor'], [/\bi want\b/gi, 'I want ah'],
-    [/\bdo you want\b/gi, 'you want or not'], [/\bis it\b/gi, 'is it'], [/\bok(ay)?\b/gi, 'ok lor'], [/\bwhat\?/gi, 'huh?'], [/\bgoing to\b/gi, 'going to'],
+  /* 2. Singlish-ify (rewritten 27 Nov 2026 from Singlish grammar, not just word swaps):
+     drops "is/are/am" (zero copula), "there is" -> "got", "already" -> "alr", yes/no questions -> "... or not?",
+     "is it?" -> "issit?", doubt -> "meh?", and picks ONE particle by mood: complaint/surprise -> sia, resigned -> lor,
+     unsure -> leh, push/suggest -> lah, seeking agreement -> hor. Many sentences get no particle at all.
+     Texting style: lowercase, alr, cfm, dun, dowan, bro. Sources: Wikipedia "Singlish" and "Singlish vocabulary". */
+  const W = (re, to) => [re, to];
+  const PHRASES = [
+    W(/\bwhat the hell\b|\bwhat the heck\b|\bomg\b|\boh my god\b/g, 'walao'), W(/\boh no\b|\boh dear\b/g, 'alamak'), W(/\bwow\b/g, 'wah'),
+    W(/\bof course\b|\bobviously\b|\bduh\b/g, 'abuden'), W(/\bi don'?t know\b|\bi do not know\b|\bno idea\b/g, 'dunno'),
+    W(/\bi don'?t want\b|\bi do not want\b/g, 'i dowan'), W(/\bdon'?t\b|\bdo not\b/g, 'dun'), W(/\bcan'?t\b|\bcannot\b|\bcan not\b/g, 'cannot'),
+    W(/\bwon'?t\b/g, 'wun'), W(/\bdidn'?t invite me\b|\bdid not invite me\b|\bleft me out\b/g, 'bo jio'), W(/\bi can'?t stand (it|this)\b|\bi cannot stand (it|this)\b/g, 'buay tahan'),
+    W(/\bhang out\b|\bchill out\b|\bchill\b|\brelax\b/g, 'lepak'), W(/\b(so |very |really )?(bored|boring|tired|fed up)\b/g, 'damn sian'),
+    W(/\b(delicious|tasty|yummy)\b/g, 'shiok'), W(/\b(terrible|awful|a disaster|so bad|really bad)\b/g, 'jialat'), W(/\b(fancy|posh|bougie)\b/g, 'atas'),
+    W(/\b(sorry|embarrassing|awkward)\b/g, 'paiseh'), W(/\b(confused|clueless)\b/g, 'blur'), W(/\b(amazing|awesome|great)\b/g, 'steady'),
+    W(/\b(definitely|for sure|100%)\b/g, 'cfm'), W(/\breserve\b|\bsave (a|me a) (seat|table)\b/g, m => /seat|table/.test(m) ? 'chope ' + (m.includes('me') ? 'me a ' : 'a ') + m.split(' ').pop() : 'chope'),
+    W(/\blike (this|that)\b/g, 'liddat'), W(/\b(very|really|so)\b(?= \w)/g, 'damn'), W(/\b(have to|need to|must)\b/g, 'need to'),
+    W(/\b(eat|eating|food)\b/g, m => m === 'eating' ? 'makan-ing' : 'makan'), W(/\bdude\b|\bmate\b|\bman\b(?=[,!?. ]|$)/g, 'bro'), W(/\bhey\b|\boi\b/g, 'eh'),
+    W(/\blet'?s go\b/g, 'jom'), W(/\bhurry( up)?\b/g, 'faster'), W(/\bvery expensive\b|\bexpensive\b/g, 'ex'), W(/\balready\b/g, 'alr'),
   ];
   function singlish(txt) {
-    let t = txt.trim(); if (!t) return '';
-    return t.split(/(?<=[.!?])\s+/).map(sent => {
-      let s = sent.replace(/[.!?]+$/, ''), end = (sent.match(/[.!?]+$/) || [''])[0];
-      RULES.forEach(([re, rep]) => { s = s.replace(re, rep); });
+    const t = txt.trim(); if (!t) return '';
+    return t.split(/(?<=[.!?])\s+/).map(raw => {
+      let s = raw.toLowerCase().replace(/[.!?]+$/, '').trim(); const end = (raw.match(/[.!?]+$/) || [''])[0];
       const q = end.includes('?'), ex = end.includes('!');
-      const hasP = /\b(lah|leh|lor|ah|sia|one|or not|meh)$/i.test(s);
-      if (q && !hasP && !/\bor not\b/i.test(s)) {
-        if (/^(can|could)\s+(you|i|we)\s+/i.test(s)) s = s.replace(/^(can|could)\s+(you|i|we)\s+/i, 'Can ') + ' or not';
-        else if (/\b(what|where|why|how|when|who)\b/i.test(s)) s += ' ah';
-        else s = s.replace(/^(are|is|do|does|did|will|would|have|has)\s+(you|we|they|he|she|it|i)\b\s*/i, '$2 ') + ' or not';
+      // questions first (before word swaps change the shape)
+      let qDone = false;
+      if (q) {
+        if (/^(really|seriously|are you sure|you sure)$/.test(s)) return s.replace(/^are you sure$/, 'you sure') + ' meh?';
+        else if (/, (are|do|will|can) you\b/.test(s)) { s = s.replace(/, (are|do|will) you (.+)$/, ', you $2 or not').replace(/, can you (.+)$/, ', $1 can or not'); qDone = true; }
+        else if (/^is (it|that) (true|real)$/.test(s)) { s = 'real or not'; qDone = true; }
+        else if (/^(is|isn'?t) it\b/.test(s)) { s = s.replace(/^(is|isn'?t) it\s*/, '') + (s.replace(/^(is|isn'?t) it\s*/, '') ? ' issit' : 'issit'); qDone = true; }
+        else if (/^what are you doing\b/.test(s)) { s = s.replace(/^what are you doing/, 'you doing what'); qDone = true; }
+        else if (/^where are you\b/.test(s)) { s = s.replace(/^where are you/, 'you where') + ' ah'; qDone = true; }
+        else if (/^(what|where|why|how|when|who|which)\b/.test(s)) { s = s.replace(/^(\w+) (are|is|do|does|did) (you|we|they|he|she|it|i)\b/, '$3 $1'); s += ' ah'; qDone = true; }
+        else if (/^(can|could) (you|i|we)\b/.test(s)) { s = s.replace(/^(can|could) (you|i|we)\s*/, '') + ' can or not'; qDone = true; }
+        else if (/^(do|does) (you|they|we|he|she) have\b/.test(s)) { s = s.replace(/^(do|does) (\w+) have/, '$2 got') + ' or not'; qDone = true; }
+        else if (/^(are|is|do|does|did|will|would|have|has) (you|we|they|he|she|it|i)\b/.test(s)) { s = s.replace(/^(are|is|do|does|did|will|would|have|has) (\w+)\s*/, '$2 ') + ' or not'; qDone = true; }
+        else if (/\bright$/.test(s)) { s = s.replace(/,? right$/, '') + ' hor'; qDone = true; }
       }
-      const parts = q ? '?' : ex ? (hasP ? '!' : ' sia!') : hasP ? '.' : [' lah.', ' leh.', ' lor.', ' one.'][Math.abs([...s].reduce((a, c) => a + c.charCodeAt(0), 0)) % 4];
-      s = s.charAt(0).toUpperCase() + s.slice(1);
-      return s + parts;
+      s = s.replace(/^(i|i'?m|i am) (so |very |really )?(tired|bored|sick) of (.+)$/, '$4 damn sian');
+      s = s.replace(/\bthere (is|are) no (.+?) left\b/, 'no more $2 liao');
+      s = s.replace(/\balready (finished|ate|went|did|left|arrived|came|paid|booked|bought|sent)\b/g, '$1');
+      // grammar: there is/are -> got; I have (not "have to") -> I got; drop is/are/am
+      s = s.replace(/\bthere (is|are|was|were)\b/g, 'got').replace(/\b(i|you|we|they) have (?!to\b|been\b|\w+ed\b)/g, '$1 got ').replace(/\b(he|she) has (?!to\b|been\b)/g, '$1 got ');
+      s = s.replace(/\b(i'?m|i am|you'?re|you are|we'?re|we are|they'?re|they are|he'?s|she'?s|it'?s|that'?s|this is|that is|he is|she is|it is)\s+/g, m => {
+        const sub = m.trim().replace(/'(m|re|s)$/, '').replace(/ (am|are|is)$/, ''); return sub + ' '; }).replace(/\b(is|are)\s+(?=(so|very|really|damn|too|super|quite|late|tired|hungry|full|broke|free|busy|done|\w+ing)\b)/g, '');
+      s = s.replace(/\b(i|you|we|they|he|she) (finished|ate|went|did|left|arrived|came|paid|booked|bought|sent)\b/g, (m, a, v) => {
+        const base = { finished: 'finish', ate: 'makan', went: 'go', did: 'do', left: 'leave', arrived: 'reach', came: 'come', paid: 'pay', booked: 'book', bought: 'buy', sent: 'send' }[v];
+        return `${a} ${base} alr`; });
+      PHRASES.forEach(([re, to]) => { s = s.replace(re, to); });
+      s = s.replace(/\bdamn damn\b/g, 'damn').replace(/\s{2,}/g, ' ').trim();
+      if (q) return s + '?';
+      // one particle, chosen by mood (or none)
+      const has = /\b(lah|leh|lor|sia|meh|hor|ah|one|liao|alr)$/.test(s);
+      if (has) return s + (ex ? '!' : '');
+      if (/\b(sian|jialat|buay tahan|walao|cannot tahan|bo jio|need to)\b/.test(s) && !/sian$/.test(s)) return s + (ex ? ' sia!' : ' sia');
+      if (/sian$/.test(s)) return s + (ex ? '!' : ' sia');
+      if (/\b(dunno|maybe|i think|not sure|i guess)\b/.test(s)) return s + ' leh';
+      if (/^(jom|faster|come|go|let'?s|just|dun|eh)\b/.test(s)) return s + (ex ? ' lah!' : ' lah');
+      if (/\b(nvm|never mind|anyway|whatever|ok|fine|cannot)\b/.test(s)) return s + ' lor';
+      if (ex || /\b(shiok|steady|damn|wah|atas|power)\b/.test(s)) return s + (ex ? ' sia!' : ' sia');
+      return s;
     }).join(' ');
   }
   const sgd = playDialog('singlishify', 'Singlish-ify');
   $('.qz-body', sgd).innerHTML = `<p class="qz-step">Type anything in English</p><h3 class="qz-q">Make it sound like home.</h3>
     <textarea class="sg-in" placeholder="e.g. Are you coming to the event? I am so tired." aria-label="Your sentence"></textarea>
-    <div class="sg-ex">${['Are you coming to Monsta?', 'Sorry, I don\'t know.', 'Wow, this food is so delicious!', 'You didn\'t invite me!', 'Can you reserve a seat?'].map(e => `<button type="button">${esc(e)}</button>`).join('')}</div>
+    <div class="sg-ex">${['Are you coming to Monsta?', 'I am so tired of exams.', 'Wow, this food is so delicious!', 'You didn\'t invite me!', 'Can you save me a seat?', 'Really?', 'Is it true?'].map(e => `<button type="button">${esc(e)}</button>`).join('')}</div>
     <div class="sg-out" aria-live="polite"></div>
     <div class="sg-acts"><button class="btn red" type="button" data-sg="copy">Copy</button><button class="btn line" type="button" data-sg="share">Share to your story</button></div>
     <p class="cg-msg">Just for fun. Real Singlish is best learnt at our events 😉</p>`;
