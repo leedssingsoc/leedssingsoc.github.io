@@ -172,6 +172,20 @@ the prices. Bank details, sort codes, account numbers and phone numbers stay in 
 - NO WhatsApp group links anywhere on the site (Jarryl, 8 Nov 2026: the public link brought in spam faster than the
   committee could remove it). Point people to Instagram (@leedssingsoc) instead.
 
+## UX layer (Jarryl, 26 Nov 2026)
+A script just before the GoatCounter tag builds these from the normal markup, so keep writing albums, events, past rows,
+committee cards and sponsors the usual way:
+- Gallery: each `.album` becomes a cover tile (first photo, or the video poster; title, date, count, "Viral" if it has
+  `.viral`). Tapping opens the album in a full-screen `<dialog class="sheet">` with Newer/Older buttons. Albums are matched
+  to "See the photos" links in Already happened by date (`.when` text = album date).
+- In-page links (#events etc.) use `jumpTo`, which re-corrects for ~2.5 s while photos load (sticky menu offset 72px).
+- Phones: bottom bar "Next event · countdown" + Join (hidden while the hero buttons or #join are on screen).
+- Hero: "Next up" card under the buttons (soonest visible card without data-keep-open).
+- Every event card (not data-keep-open) gets "📅 Add to calendar" (Google link + .ics), times from data-time / the When row.
+- Already happened: newest 3, rest behind "See all".
+- Committee: quote and fun facts behind "More about <name>".
+- Sponsors: filter chips Food / Drinks / Nightlife, assigned from each sponsor's name and type line.
+
 ## Daily site check (since 26 Oct 2026)
 A claude.ai scheduled task, `leedssingsoc-site-check`, runs every day at 08:36 UK time. It checks the live site
 (new commits, broken images/links, page errors on desktop and phone, out-of-date events or sponsor deals, and
